@@ -145,6 +145,18 @@
         color: var(--color-text-primary);
       }
 
+      .seo-shell {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
       .seo-noscript h1 {
         font-size: 28px;
         margin-bottom: 12px;
@@ -275,6 +287,17 @@
     </script>
   </head>
   <body>
+    <section class="seo-shell" aria-label="SEO 页面摘要">
+      <h1>Wallpaper Gallery - 4K 高清壁纸下载</h1>
+      <p>Wallpaper Gallery 提供电脑桌面壁纸、手机壁纸、动漫头像和每日 Bing 壁纸，支持多设备高清预览与下载。</p>
+      <nav aria-label="站点主分类">
+        <a href="/desktop">电脑桌面壁纸</a>
+        <a href="/mobile">手机壁纸</a>
+        <a href="/avatar">高清头像</a>
+        <a href="/bing">每日 Bing 壁纸</a>
+        <a href="/about">关于 Wallpaper Gallery</a>
+      </nav>
+    </section>
     <div id="app"></div>
     <noscript>
       <div class="seo-noscript">
