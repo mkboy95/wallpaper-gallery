@@ -261,93 +261,105 @@ Fork 本项目后，无需任何配置即可使用：
 
 ```text
 wallpaper-gallery/
-├── .github/workflows/    # GitHub Actions 配置
-│   ├── deploy.yml        # 自动构建部署
-│   └── export-stats.yml  # 统计数据导出
+├── .github/workflows/        # GitHub Actions 配置
+│   ├── deploy.yml            # 自动构建部署
+│   └── export-stats.yml      # 统计数据导出
 ├── public/
-│   └── data/             # 壁纸数据 JSON（从 CDN 同步）
-│       ├── desktop/      # 电脑壁纸分类数据
-│       ├── mobile/       # 手机壁纸分类数据
-│       ├── avatar/       # 头像分类数据
-│       ├── bing/         # 每日 Bing 壁纸数据
-│       └── stats/        # 热门统计数据
+│   └── data/                 # 壁纸数据 JSON（从 CDN 同步）
+│       ├── desktop/          # 电脑壁纸分类数据
+│       ├── mobile/           # 手机壁纸分类数据
+│       ├── avatar/           # 头像分类数据
+│       ├── bing/             # 每日 Bing 壁纸数据
+│       └── stats/            # 热门统计数据
 ├── scripts/
-│   ├── sync-data.js      # 数据同步脚本（从 CDN 拉取）
-│   ├── export-stats.js   # 统计数据导出脚本
-│   ├── supabase-init.sql  # 新项目一键初始化 SQL
-│   ├── supabase-migration.sql  # 新统计结构初始化/迁移脚本
-│   └── supabase-retire-legacy.sql  # 旧统计结构标记/下线脚本
+│   ├── config/               # 脚本配置
+│   ├── sync-data.js          # 数据同步脚本（从 CDN 拉取）
+│   ├── export-stats.js       # 统计数据导出脚本
+│   ├── export-hot-tags.js    # 热门标签导出脚本
+│   ├── supabase-init.sql     # 新项目一键初始化 SQL
+│   ├── supabase-migration.sql      # 统计结构迁移脚本
+│   └── supabase-retire-legacy.sql  # 旧结构下线脚本
 ├── docs/
-│   ├── Fork部署指南.md   # Fork 用户部署指南
-│   ├── Supabase统计系统.md # 当前 Supabase 统计架构说明
-│   └── ...               # 其他文档
-├── WORKFLOW.md           # 开发工作流程说明
+│   ├── Fork部署指南.md       # Fork 用户部署指南
+│   ├── Supabase统计系统.md   # Supabase 统计架构说明
+│   └── ...
+├── WORKFLOW.md               # 开发工作流程说明
 ├── src/
-│   ├── assets/styles/    # 全局样式（Sass）
-│   ├── components/       # Vue 组件
-│   │   ├── common/       # 通用组件
-│   │   │   ├── feedback/     # 反馈提示组件（Loading、通知、横幅等）
-│   │   │   ├── form/         # 表单控件（日期选择器、下拉框、筛选面板等）
-│   │   │   ├── navigation/   # 导航组件（返回顶部、分页、抽屉等）
-│   │   │   └── ui/           # 基础 UI 组件（动画数字、环境徽章等）
-│   │   ├── home/         # 首页组件
-│   │   ├── layout/       # 布局组件
-│   │   └── wallpaper/    # 壁纸相关组件
-│   │       ├── PortraitWallpaperModal/  # 竖屏壁纸弹窗（手机/头像系列）
-│   │       ├── WallpaperGrid/           # 壁纸网格（含骨架屏）
-│   │       └── WallpaperModal/          # 横屏壁纸弹窗（电脑/Bing系列）
-│   ├── composables/      # 组合式函数（useScrollLock 等）
-│   ├── services/         # 服务层（统计服务等）
-│   ├── stores/           # Pinia 状态管理
-│   ├── router/           # Vue Router 路由配置
-│   ├── views/            # 页面视图组件
-│   │   └── demo/         # Demo 演示页面（IPhoneDemo、MacBookDemo）
-│   └── utils/            # 工具函数和常量
-└── index.html
-│       ├── desktop/      # 电脑壁纸分类数据
-│       ├── mobile/       # 手机壁纸分类数据
-│       ├── avatar/       # 头像分类数据
-│       ├── bing/         # 每日 Bing 壁纸数据
-│       └── stats/        # 热门统计数据
-├── scripts/
-│   ├── generate-data.js  # 数据生成脚本（含 cdnTag 生成）
-│   ├── export-stats.js   # 统计数据导出脚本
-│   └── supabase-migration.sql  # 数据库迁移脚本
-├── docs/
-│   ├── Fork部署指南.md   # Fork 用户部署指南
-│   └── ...               # 其他文档
-├── src/
-│   ├── assets/styles/    # 全局样式（Sass）
-│   ├── components/       # Vue 组件
-│   │   ├── avatar/       # 头像相关组件
-│   │   │   ├── AvatarMakerBanner.vue      # 头像制作入口横幅
-│   │   │   ├── DiyAvatarBanner.vue        # DIY 头像横幅
-│   │   │   └── AvatarMakerModal/          # 头像制作弹窗
-│   │   │       ├── index.vue              # 主弹窗组件
-│   │   │       ├── ControlPanel.vue       # 控制面板（形状、尺寸、下载）
-│   │   │       ├── CropperArea.vue        # 图片裁剪区域
-│   │   │       ├── ImageSourcePanel.vue   # 图片来源面板（上传/链接）
-│   │   │       └── PhonePreview.vue       # iPhone 预览组件
-│   │   ├── common/       # 通用组件
-│   │   ├── common/       # 通用组件
-│   │   │   ├── feedback/     # 反馈提示组件（Loading、通知、横幅等）
-│   │   │   ├── form/         # 表单控件（日期选择器、下拉框、筛选面板等）
-│   │   │   ├── navigation/   # 导航组件（返回顶部、分页、抽屉等）
-│   │   │   └── ui/           # 基础 UI 组件（动画数字、环境徽章等）
-│   │   ├── home/         # 首页组件
-│   │   ├── layout/       # 布局组件
-│   │   └── wallpaper/    # 壁纸相关组件
-│   │       ├── PortraitWallpaperModal/  # 竖屏壁纸弹窗（手机/头像系列）
-│   │       ├── WallpaperGrid/           # 壁纸网格（含骨架屏）
-│   │       └── WallpaperModal/          # 横屏壁纸弹窗（电脑/Bing系列）
-│   ├── composables/      # 组合式函数（useScrollLock 等）
-│   ├── services/         # 服务层（统计服务等）
-│   ├── stores/           # Pinia 状态管理
-│   ├── router/           # Vue Router 路由配置
-│   ├── views/            # 页面视图组件
-│   │   └── demo/         # Demo 演示页面（IPhoneDemo、MacBookDemo）
-│   └── utils/            # 工具函数和常量
-│       └── avatar-maker.js  # 头像制作工具函数
+│   ├── assets/styles/        # 全局样式（Sass）
+│   ├── components/
+│   │   ├── avatar/           # 头像相关组件
+│   │   │   ├── DiyAvatarBanner.vue       # DIY 头像横幅
+│   │   │   └── AvatarMakerModal/         # 头像制作弹窗
+│   │   │       ├── index.vue             # 主弹窗
+│   │   │       ├── composables/          # 弹窗业务逻辑（useAvatarMakerWorkflow）
+│   │   │       ├── panel/               # 控制面板
+│   │   │       ├── preview/             # iPhone 预览
+│   │   │       ├── shared/              # 裁剪区域等共享组件
+│   │   │       └── source/              # 图片来源面板
+│   │   ├── common/
+│   │   │   ├── feedback/     # 反馈组件（Loading、通知、横幅）
+│   │   │   ├── form/         # 通用表单控件
+│   │   │   ├── navigation/   # 导航组件（返回顶部、分页）
+│   │   │   └── ui/           # 基础 UI 组件（WallpaperSeriesIcon 等）
+│   │   ├── home/             # 首页组件
+│   │   │   ├── HomeModalHost.vue         # 弹窗宿主
+│   │   │   ├── MobileSeriesNotice.vue    # 移动端系列提示
+│   │   │   └── HotTagsPanel.vue          # 热门标签面板
+│   │   ├── layout/
+│   │   │   ├── AppHeader.vue             # 顶栏主组件
+│   │   │   └── header/
+│   │   │       ├── mobile/              # 移动端抽屉、搜索弹窗
+│   │   │       └── theme/               # 主题切换器
+│   │   ├── search/           # 搜索模块
+│   │   │   ├── index.vue                # 搜索栏主组件
+│   │   │   ├── composables/             # useSearchSuggestions
+│   │   │   └── shared/                  # 搜索建议面板
+│   │   └── wallpaper/        # 壁纸相关组件
+│   │       ├── card/                    # 壁纸卡片（CardInfo、CardMedia）
+│   │       ├── crop/                    # 智能裁剪（7 个子组件）
+│   │       ├── filter/                  # 筛选系统
+│   │       │   ├── index.vue            # 筛选主组件
+│   │       │   ├── desktop/             # 桌面端筛选控件
+│   │       │   ├── mobile/              # 移动端筛选栏与弹窗
+│   │       │   ├── fields/              # 日期选择器、分类下拉框
+│   │       │   └── shared/              # FilterSummary、ViewModeToggle
+│   │       ├── PortraitWallpaperModal/  # 竖屏壁纸弹窗
+│   │       │   ├── desktop/             # 桌面端弹窗
+│   │       │   ├── mobile/              # 移动端弹窗
+│   │       │   └── shared/              # 共享组件（PhoneFrame、ModalInfo 等）
+│   │       ├── WallpaperGrid/           # 壁纸网格
+│   │       │   ├── index.vue            # 网格主组件
+│   │       │   ├── composables/         # 动画、分页、触摸模式
+│   │       │   └── shared/              # 空状态、加载状态
+│   │       └── WallpaperModal/          # 横屏壁纸弹窗
+│   │           ├── desktop/             # 桌面端弹窗
+│   │           └── shared/              # BingWallpaperInfo
+│   ├── composables/          # 组合式函数
+│   │   ├── header/           # useHeaderNavSlider
+│   │   ├── home/             # useHomeDataLoader、useHomeSeriesSync、useWallpaperNavigator
+│   │   ├── useDevice.js      # 设备检测
+│   │   ├── useTheme.js       # 主题管理
+│   │   ├── useViewMode.js    # 视图模式
+│   │   ├── useScrollLock.js  # 滚动锁定
+│   │   └── ...
+│   ├── services/             # 服务层
+│   │   └── wallpaper/        # 壁纸数据获取与解码
+│   ├── stores/               # Pinia 状态管理
+│   ├── router/               # Vue Router 路由配置
+│   ├── views/                # 页面视图
+│   │   ├── Home.vue          # 首页
+│   │   ├── About.vue         # 关于页
+│   │   └── NotFound.vue      # 404 页
+│   ├── workers/              # Web Worker
+│   └── utils/                # 工具函数（按领域分类）
+│       ├── avatar/           # 头像制作工具
+│       ├── cache/            # LRU 缓存
+│       ├── common/           # 通用工具（analytics、codec、format、sorting）
+│       ├── config/           # 常量配置
+│       ├── filter/           # 筛选默认值
+│       ├── integrations/     # 第三方集成（Supabase）
+│       ├── platform/         # 平台适配（flexible）
+│       └── wallpaper/        # 壁纸相关（errors、transformers）
 └── index.html
 ```
 
