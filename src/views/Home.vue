@@ -96,13 +96,6 @@ const hotKeywordTags = computed(() =>
       interactionType: 'keyword',
     })),
 )
-const isHotTagsDataStable = computed(() =>
-  hotTagsStore.currentSeries === currentSeries.value
-  && wallpaperStore.currentRenderedSeries === currentSeries.value
-  && !hotTagsStore.loading
-  && !wallpaperStore.loading
-  && !wallpaperStore.isBackgroundLoading,
-)
 const activeHotTag = ref('')
 const isHotTagsVisible = ref(false)
 const resultCount = computed(() => filteredWallpapers.value.length)
@@ -124,6 +117,15 @@ const { error, handleReload, loading } = useHomeDataLoader({
   syncSeriesFromRoute,
   wallpaperStore,
 })
+
+const isHotTagsDataStable = computed(() =>
+  hotTagsStore.currentSeries === currentSeries.value
+  && wallpaperStore.currentRenderedSeries === currentSeries.value
+  && !hotTagsStore.loading
+  && !wallpaperStore.loading
+  && !wallpaperStore.isBackgroundLoading
+  && !loading.value,
+)
 
 routeSyncReady.value = true
 

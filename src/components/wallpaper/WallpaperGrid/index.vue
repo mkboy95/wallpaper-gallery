@@ -191,6 +191,12 @@ watch(() => props.loading, (isLoading, wasLoading) => {
 
   if (!isLoading && wasLoading) {
     releaseWrapperHeight()
+
+    if (props.wallpapers.length > 0) {
+      nextTick(() => {
+        animateCardsIn()
+      })
+    }
   }
 })
 
@@ -207,6 +213,25 @@ watch(isAnimating, (animating) => {
 // 使用标记防止重复动画
 let animationPending = false
 
+function hasSameLeadingItems(listA, listB, count = PAGE_SIZE) {
+  if (!Array.isArray(listA) || !Array.isArray(listB)) {
+    return false
+  }
+
+  const limit = Math.min(count, listA.length, listB.length)
+  if (limit === 0) {
+    return false
+  }
+
+  for (let i = 0; i < limit; i++) {
+    if (listA[i]?.id !== listB[i]?.id) {
+      return false
+    }
+  }
+
+  return true
+}
+
 watch(() => props.wallpapers, async (newVal, oldVal) => {
   // 防止重复触发
   if (animationPending) {
@@ -219,7 +244,7 @@ watch(() => props.wallpapers, async (newVal, oldVal) => {
     && newVal
     && newVal.length > oldVal.length
     && oldVal.length >= PAGE_SIZE
-    && newVal[0]?.id === oldVal[0]?.id
+    && hasSameLeadingItems(newVal, oldVal)
 
   // 后台追加数据时，不需要重置显示数量
   if (isBackgroundAppend) {
@@ -246,7 +271,7 @@ watch(() => props.wallpapers, async (newVal, oldVal) => {
   }
 
   // 数据相同，不触发动画
-  if (newVal === oldVal || (newVal?.length === oldVal?.length && newVal?.[0]?.id === oldVal?.[0]?.id)) {
+  if (newVal === oldVal || (newVal?.length === oldVal?.length && hasSameLeadingItems(newVal, oldVal))) {
     animationPending = false
     return
   }

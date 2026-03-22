@@ -36,6 +36,7 @@ export const SERIES_CONFIG = {
     thumbnailBaseUrl: `${CDN_BASE}/thumbnail/desktop`,
     // 新架构：指向分类索引文件（带版本参数防缓存）
     indexUrl: `${import.meta.env.BASE_URL}data/desktop/index.json${DATA_CACHE_BUSTER}`,
+    latestUrl: `${import.meta.env.BASE_URL}data/desktop/latest.json${DATA_CACHE_BUSTER}`,
     // 向后兼容：保留旧的 dataUrl（如需回退）
     dataUrl: `${import.meta.env.BASE_URL}data/desktop.json${DATA_CACHE_BUSTER}`,
     // 分类数据目录（动态拼接时需手动添加版本参数）
@@ -50,6 +51,7 @@ export const SERIES_CONFIG = {
     thumbnailBaseUrl: `${CDN_BASE}/thumbnail/mobile`,
     // 新架构：指向分类索引文件（带版本参数防缓存）
     indexUrl: `${import.meta.env.BASE_URL}data/mobile/index.json${DATA_CACHE_BUSTER}`,
+    latestUrl: `${import.meta.env.BASE_URL}data/mobile/latest.json${DATA_CACHE_BUSTER}`,
     // 向后兼容：保留旧的 dataUrl（如需回退）
     dataUrl: `${import.meta.env.BASE_URL}data/mobile.json${DATA_CACHE_BUSTER}`,
     // 分类数据目录（动态拼接时需手动添加版本参数）
@@ -64,6 +66,7 @@ export const SERIES_CONFIG = {
     thumbnailBaseUrl: `${CDN_BASE}/thumbnail/avatar`,
     // 新架构：指向分类索引文件（带版本参数防缓存）
     indexUrl: `${import.meta.env.BASE_URL}data/avatar/index.json${DATA_CACHE_BUSTER}`,
+    latestUrl: `${import.meta.env.BASE_URL}data/avatar/latest.json${DATA_CACHE_BUSTER}`,
     // 向后兼容：保留旧的 dataUrl（如需回退）
     dataUrl: `${import.meta.env.BASE_URL}data/avatar.json${DATA_CACHE_BUSTER}`,
     // 分类数据目录（动态拼接时需手动添加版本参数）

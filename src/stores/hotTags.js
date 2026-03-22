@@ -7,6 +7,7 @@ export const useHotTagsStore = defineStore('hotTags', () => {
   const tags = ref([])
   const loading = ref(false)
   const cache = ref({})
+  let requestVersion = 0
 
   async function fetchHotTags(series, forceRefresh = false) {
     if (!series)
@@ -18,16 +19,24 @@ export const useHotTagsStore = defineStore('hotTags', () => {
       return
     }
 
+    const currentRequestVersion = ++requestVersion
     loading.value = true
 
     try {
       const data = await loadHotTags(series)
+
+      if (currentRequestVersion !== requestVersion) {
+        return
+      }
+
       cache.value[series] = data
       currentSeries.value = series
       tags.value = data
     }
     finally {
-      loading.value = false
+      if (currentRequestVersion === requestVersion) {
+        loading.value = false
+      }
     }
   }
 

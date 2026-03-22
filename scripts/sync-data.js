@@ -163,6 +163,17 @@ async function syncSeries(seriesId, seriesConfig) {
       }
     }
     else {
+      // 3.1 下载全局最新切片（首屏稳定加载用）
+      try {
+        const latestPath = path.join(seriesDir, 'latest.json')
+        await downloadFile(`${baseUrl}/latest.json`, latestPath)
+        downloadedCount++
+        console.log('  ✅ latest.json')
+      }
+      catch (e) {
+        console.warn('  ⚠️  latest.json 下载失败', e)
+      }
+
       // 3. 普通系列：获取分类文件列表
       const categoryFiles = await listJsonFiles(baseUrl)
 

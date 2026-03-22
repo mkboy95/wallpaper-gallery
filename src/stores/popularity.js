@@ -17,6 +17,7 @@ export const usePopularityStore = defineStore('popularity', () => {
 
   // 当前加载的系列
   const currentSeries = ref('')
+  let requestVersion = 0
 
   // ========================================
   // Getters
@@ -99,6 +100,7 @@ export const usePopularityStore = defineStore('popularity', () => {
       return
     }
 
+    const currentRequestVersion = ++requestVersion
     loading.value = true
     currentSeries.value = series
 
@@ -114,6 +116,10 @@ export const usePopularityStore = defineStore('popularity', () => {
         data = await loadStatsFromSupabase(series, 500)
       }
 
+      if (currentRequestVersion !== requestVersion) {
+        return
+      }
+
       statsMap.value = data
 
       if (import.meta.env.DEV) {
@@ -121,11 +127,17 @@ export const usePopularityStore = defineStore('popularity', () => {
       }
     }
     catch (err) {
+      if (currentRequestVersion !== requestVersion) {
+        return
+      }
+
       console.error('[PopularityStore] 加载热门数据失败:', err)
       statsMap.value = new Map()
     }
     finally {
-      loading.value = false
+      if (currentRequestVersion === requestVersion) {
+        loading.value = false
+      }
     }
   }
 
@@ -133,6 +145,7 @@ export const usePopularityStore = defineStore('popularity', () => {
    * 清除热门数据
    */
   function clearData() {
+    requestVersion++
     statsMap.value = new Map()
     currentSeries.value = ''
   }

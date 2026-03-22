@@ -1,5 +1,5 @@
 <script setup>
-import LoadingSpinner from '@/components/common/feedback/LoadingSpinner.vue'
+import LottieScene from '@/components/common/ui/LottieScene.vue'
 
 defineProps({
   aspectType: {
@@ -23,27 +23,26 @@ defineProps({
     default: 6,
   },
 })
+
+const loadingAnimationSrc = `${import.meta.env.BASE_URL}lottie/Loading%20animation%20blue.lottie`
 </script>
 
 <template>
   <div class="loading-state">
-    <div v-if="isMobileOrTablet" class="mobile-loading-hint">
-      <LoadingSpinner size="md" />
-      <p class="loading-text">
-        正在加载{{ currentSeriesName }}...
-      </p>
-    </div>
-
-    <div class="wallpaper-grid skeleton-grid" :class="[`view-${displayViewMode}`, `aspect-${aspectType}`]">
-      <div v-for="n in skeletonCount" :key="n" class="skeleton-card">
-        <div class="skeleton-image">
-          <div class="skeleton-shimmer" />
-        </div>
-        <div v-if="!isMobileOrTablet" class="skeleton-info">
-          <div class="skeleton-title" />
-          <div class="skeleton-meta" />
-        </div>
+    <div class="loading-shell">
+      <div class="loading-visual">
+        <LottieScene
+          :src="loadingAnimationSrc"
+          :speed="0.95"
+          fit="contain"
+        />
       </div>
+      <p class="loading-title">
+        即将呈现{{ currentSeriesName }}
+      </p>
+      <p class="loading-text">
+        首屏内容准备完成后再展示，避免列表先出现又重排。
+      </p>
     </div>
   </div>
 </template>
@@ -51,155 +50,40 @@ defineProps({
 <style lang="scss" scoped>
 .loading-state {
   position: relative;
+  min-height: clamp(320px, 48vh, 520px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 8vw, 72px) 0;
 }
 
-.skeleton-grid {
-  animation: fadeIn 0.3s ease;
-}
-
-.skeleton-card {
-  background: var(--color-bg-card);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-
-  @include mobile-only {
-    border-radius: var(--radius-sm);
-  }
-}
-
-.skeleton-image {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 9 / 16;
-  background: var(--color-bg-hover);
-  overflow: hidden;
-
-  .aspect-landscape & {
-    aspect-ratio: 16 / 10;
-  }
-
-  .aspect-square & {
-    aspect-ratio: 1 / 1;
-  }
-}
-
-.skeleton-shimmer {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 0%, var(--color-bg-card) 50%, transparent 100%);
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.skeleton-info {
-  padding: $spacing-md;
-}
-
-.skeleton-title {
-  height: 16px;
-  width: 70%;
-  background: var(--color-bg-hover);
-  border-radius: $radius-sm;
-  margin-bottom: $spacing-sm;
-}
-
-.skeleton-meta {
-  height: 12px;
-  width: 40%;
-  background: var(--color-bg-hover);
-  border-radius: $radius-sm;
-}
-
-.mobile-loading-hint {
+.loading-shell {
+  width: min(100%, 420px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: $spacing-md;
-  padding: $spacing-xl 0;
-  margin-bottom: $spacing-md;
-
-  .loading-text {
-    font-size: $font-size-sm;
-    color: var(--color-text-muted);
-    animation: pulse 1.5s ease-in-out infinite;
-  }
+  text-align: center;
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+.loading-visual {
+  width: clamp(140px, 24vw, 220px);
+  aspect-ratio: 1;
+  filter: drop-shadow(0 16px 36px rgba(37, 99, 235, 0.14));
 }
 
-.wallpaper-grid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: var(--grid-gap);
-
-  @include mobile-only {
-    gap: $spacing-sm;
-  }
-
-  &.view-grid {
-    grid-template-columns: repeat(2, 1fr);
-
-    @include respond-to('md') {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    @include respond-to('lg') {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    @include respond-to('xl') {
-      grid-template-columns: repeat(5, 1fr);
-    }
-  }
-
-  &.view-list {
-    grid-template-columns: 1fr;
-    gap: $spacing-md;
-  }
-
-  &.view-grid.aspect-square {
-    grid-template-columns: repeat(2, 1fr);
-
-    @include respond-to('md') {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    @include respond-to('lg') {
-      grid-template-columns: repeat(5, 1fr);
-    }
-
-    @include respond-to('xl') {
-      grid-template-columns: repeat(6, 1fr);
-    }
-  }
+.loading-title {
+  margin: 0;
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: $font-weight-semibold;
+  color: var(--color-text-primary);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.loading-text {
+  margin: 0;
+  max-width: 28ch;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+  color: var(--color-text-muted);
 }
 </style>

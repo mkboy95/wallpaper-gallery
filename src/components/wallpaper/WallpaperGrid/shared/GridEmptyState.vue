@@ -1,4 +1,6 @@
 <script setup>
+import LottieScene from '@/components/common/ui/LottieScene.vue'
+
 defineProps({
   alternativeSeries: {
     type: Array,
@@ -24,24 +26,13 @@ const emit = defineEmits(['navigate', 'resetFilters'])
 <template>
   <div v-if="type === 'no-series-data'" class="grid-empty series-empty">
     <div class="empty-icon">
-      <svg v-if="currentSeries === 'desktop'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-      <svg v-else-if="currentSeries === 'mobile'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
-        <line x1="12" y1="18" x2="12.01" y2="18" />
-      </svg>
-      <svg v-else-if="currentSeries === 'avatar'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
-      </svg>
-      <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="3" y="3" width="18" height="18" rx="2" />
-        <circle cx="8.5" cy="8.5" r="1.5" />
-        <path d="M21 15l-5-5L5 21" />
-      </svg>
+      <LottieScene
+        class="empty-icon__lottie"
+        src="/lottie/Empty box.lottie"
+        :autoplay="true"
+        :loop="true"
+        :speed="1"
+      />
     </div>
     <h3>暂无{{ currentSeriesName }}</h3>
     <p>该分类暂时没有内容，敬请期待~</p>
@@ -59,11 +50,13 @@ const emit = defineEmits(['navigate', 'resetFilters'])
 
   <div v-else class="grid-empty filter-empty">
     <div class="empty-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="11" cy="11" r="8" />
-        <path d="M21 21l-4.35-4.35" />
-        <path d="M8 8l6 6M14 8l-6 6" />
-      </svg>
+      <LottieScene
+        class="empty-icon__lottie"
+        src="/lottie/Empty box.lottie"
+        :autoplay="true"
+        :loop="true"
+        :speed="1"
+      />
     </div>
     <h3>没有找到匹配的壁纸</h3>
     <p>尝试调整搜索条件或筛选器</p>
@@ -86,20 +79,21 @@ const emit = defineEmits(['navigate', 'resetFilters'])
   animation: fadeIn 0.5s ease;
 
   .empty-icon {
-    width: 100px;
-    height: 100px;
+    position: relative;
+    width: 168px;
+    height: 168px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-bg-hover);
-    border-radius: 50%;
-    margin-bottom: $spacing-lg;
+    background: transparent;
+    border-radius: 0;
+    margin-bottom: $spacing-md;
 
-    svg {
-      width: 48px;
-      height: 48px;
-      color: var(--color-text-muted);
-      opacity: 0.7;
+    .empty-icon__lottie {
+      position: absolute;
+      inset: 0;
+      opacity: 1;
+      pointer-events: none;
     }
   }
 
@@ -117,23 +111,27 @@ const emit = defineEmits(['navigate', 'resetFilters'])
   }
 
   &.series-empty {
-    .empty-icon {
-      background: linear-gradient(135deg, var(--color-accent-light) 0%, rgba(99, 102, 241, 0.1) 100%);
-
-      svg {
-        color: var(--color-accent);
-        opacity: 0.8;
-      }
+    h3 {
+      margin-top: 2px;
     }
   }
 
   &.filter-empty {
     .empty-icon {
-      background: var(--color-bg-secondary);
-
-      svg {
-        color: var(--color-text-muted);
+      .empty-icon__lottie {
+        opacity: 0.96;
       }
+    }
+  }
+}
+
+@include mobile-only {
+  .grid-empty {
+    padding: $spacing-xl $spacing-md;
+
+    .empty-icon {
+      width: 144px;
+      height: 144px;
     }
   }
 }
