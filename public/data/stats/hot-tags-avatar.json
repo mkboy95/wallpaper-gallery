@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-03-26T18:34:48.459Z",
+  "generatedAt": "2026-03-27T18:12:03.943Z",
   "series": "avatar",
-  "total": 393,
+  "total": 394,
   "tags": [
     {
       "tag": "人像",
-      "score": 331,
+      "score": 330,
       "views": 263,
       "downloads": 113,
       "wallpaperCount": 85,
@@ -37,7 +37,7 @@
     },
     {
       "tag": "氛围感",
-      "score": 214,
+      "score": 213,
       "views": 159,
       "downloads": 79,
       "wallpaperCount": 47,
@@ -69,7 +69,7 @@
     },
     {
       "tag": "动漫",
-      "score": 213,
+      "score": 207,
       "views": 196,
       "downloads": 58,
       "wallpaperCount": 69,
@@ -86,22 +86,22 @@
           "cdnTag": "v1.1.13"
         },
         {
-          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260120161541_489_4.webp",
-          "cdnTag": "v1.1.42"
-        },
-        {
           "thumbnail": "/thumbnail/avatar/动漫/海贼王/%E8%B7%AF%E9%A3%9E%E6%89%93%E6%8B%B3.webp",
           "cdnTag": "v1.1.24"
         },
         {
           "thumbnail": "/thumbnail/avatar/动漫/日漫/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260116220358_22518_100.webp",
           "cdnTag": "v1.1.36"
+        },
+        {
+          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260120161541_489_4.webp",
+          "cdnTag": "v1.1.42"
         }
       ]
     },
     {
       "tag": "萌宠",
-      "score": 171,
+      "score": 170,
       "views": 123,
       "downloads": 62,
       "wallpaperCount": 26,
@@ -165,10 +165,10 @@
     },
     {
       "tag": "IP形象",
-      "score": 127,
-      "views": 116,
+      "score": 128,
+      "views": 117,
       "downloads": 41,
-      "wallpaperCount": 39,
+      "wallpaperCount": 40,
       "series": [
         "avatar"
       ],
@@ -197,7 +197,7 @@
     },
     {
       "tag": "插画",
-      "score": 102,
+      "score": 98,
       "views": 79,
       "downloads": 36,
       "wallpaperCount": 31,
@@ -277,7 +277,7 @@
     },
     {
       "tag": "搞怪",
-      "score": 69,
+      "score": 65,
       "views": 60,
       "downloads": 18,
       "wallpaperCount": 24,
@@ -373,7 +373,7 @@
     },
     {
       "tag": "二次元",
-      "score": 60,
+      "score": 56,
       "views": 48,
       "downloads": 21,
       "wallpaperCount": 16,
@@ -405,7 +405,7 @@
     },
     {
       "tag": "表情包",
-      "score": 60,
+      "score": 56,
       "views": 54,
       "downloads": 15,
       "wallpaperCount": 22,
@@ -532,22 +532,6 @@
       ]
     },
     {
-      "tag": "柔光金发女生",
-      "score": 32,
-      "views": 27,
-      "downloads": 11,
-      "wallpaperCount": 1,
-      "series": [
-        "avatar"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/avatar/人像/氛围感/%E6%9F%94%E5%85%89%E9%87%91%E5%8F%91%E5%A5%B3%E7%94%9F.webp",
-          "cdnTag": "v1.1.11"
-        }
-      ]
-    },
-    {
       "tag": "银发蓝瞳男孩比耶蓝天背景",
       "score": 31,
       "views": 23,
@@ -564,11 +548,27 @@
       ]
     },
     {
-      "tag": "卡通",
-      "score": 29,
+      "tag": "柔光金发女生",
+      "score": 31,
       "views": 27,
+      "downloads": 11,
+      "wallpaperCount": 1,
+      "series": [
+        "avatar"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/avatar/人像/氛围感/%E6%9F%94%E5%85%89%E9%87%91%E5%8F%91%E5%A5%B3%E7%94%9F.webp",
+          "cdnTag": "v1.1.11"
+        }
+      ]
+    },
+    {
+      "tag": "卡通",
+      "score": 30,
+      "views": 28,
       "downloads": 4,
-      "wallpaperCount": 10,
+      "wallpaperCount": 11,
       "series": [
         "avatar"
       ],
@@ -592,38 +592,6 @@
         {
           "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260120161540_487_4.webp",
           "cdnTag": "v1.1.42"
-        }
-      ]
-    },
-    {
-      "tag": "猫和老鼠",
-      "score": 28,
-      "views": 26,
-      "downloads": 7,
-      "wallpaperCount": 9,
-      "series": [
-        "avatar"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260120161541_489_4.webp",
-          "cdnTag": "v1.1.42"
-        },
-        {
-          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260120161635_520_4.webp",
-          "cdnTag": "v1.1.42"
-        },
-        {
-          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E6%9D%B0%E7%91%9E%E5%A4%A7%E7%AC%91.webp",
-          "cdnTag": "v1.1.26"
-        },
-        {
-          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E6%9D%B0%E7%91%9E_%E6%84%A4%E6%80%92%E5%8A%9E%E5%85%AC_%E7%8C%AB%E5%92%8C%E8%80%81%E9%BC%A0.webp",
-          "cdnTag": "v1.1.11"
-        },
-        {
-          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E6%B1%A4%E5%A7%86%E6%8D%82%E8%84%B8.webp",
-          "cdnTag": "v1.1.26"
         }
       ]
     },
@@ -676,6 +644,38 @@
       ]
     },
     {
+      "tag": "猫和老鼠",
+      "score": 25,
+      "views": 26,
+      "downloads": 7,
+      "wallpaperCount": 9,
+      "series": [
+        "avatar"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260120161541_489_4.webp",
+          "cdnTag": "v1.1.42"
+        },
+        {
+          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260120161635_520_4.webp",
+          "cdnTag": "v1.1.42"
+        },
+        {
+          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E6%9D%B0%E7%91%9E%E5%A4%A7%E7%AC%91.webp",
+          "cdnTag": "v1.1.26"
+        },
+        {
+          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E6%B1%A4%E5%A7%86%E6%8D%82%E8%84%B8.webp",
+          "cdnTag": "v1.1.26"
+        },
+        {
+          "thumbnail": "/thumbnail/avatar/动漫/猫和老鼠/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260120161540_487_4.webp",
+          "cdnTag": "v1.1.42"
+        }
+      ]
+    },
+    {
       "tag": "办公电脑前皱眉",
       "score": 24,
       "views": 16,
@@ -724,38 +724,6 @@
       ]
     },
     {
-      "tag": "狗狗",
-      "score": 21,
-      "views": 16,
-      "downloads": 5,
-      "wallpaperCount": 10,
-      "series": [
-        "avatar"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/avatar/萌宠/狗狗/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-23_165009_180.webp",
-          "cdnTag": "v1.1.53"
-        },
-        {
-          "thumbnail": "/thumbnail/avatar/萌宠/狗狗/%E6%9F%AF%E5%9F%BA_%E5%A2%A8%E9%95%9C%E9%85%B7%E7%8B%97.webp",
-          "cdnTag": "v1.1.11"
-        },
-        {
-          "thumbnail": "/thumbnail/avatar/萌宠/狗狗/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-02-05_112228_078.webp",
-          "cdnTag": "v1.1.74"
-        },
-        {
-          "thumbnail": "/thumbnail/avatar/萌宠/狗狗/654.webp",
-          "cdnTag": "v1.1.96"
-        },
-        {
-          "thumbnail": "/thumbnail/avatar/萌宠/狗狗/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260126155445_539_4.webp",
-          "cdnTag": "v1.1.53"
-        }
-      ]
-    },
-    {
       "tag": "可爱",
       "score": 21,
       "views": 14,
@@ -800,6 +768,38 @@
         {
           "thumbnail": "/thumbnail/avatar/人像/氛围感/%E4%BB%B0%E5%85%89%E6%8D%A7%E8%8A%B1%E5%A5%B3%E7%94%9F.webp",
           "cdnTag": "v1.1.11"
+        }
+      ]
+    },
+    {
+      "tag": "狗狗",
+      "score": 20,
+      "views": 16,
+      "downloads": 5,
+      "wallpaperCount": 10,
+      "series": [
+        "avatar"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/avatar/萌宠/狗狗/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-23_165009_180.webp",
+          "cdnTag": "v1.1.53"
+        },
+        {
+          "thumbnail": "/thumbnail/avatar/萌宠/狗狗/%E6%9F%AF%E5%9F%BA_%E5%A2%A8%E9%95%9C%E9%85%B7%E7%8B%97.webp",
+          "cdnTag": "v1.1.11"
+        },
+        {
+          "thumbnail": "/thumbnail/avatar/萌宠/狗狗/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-02-05_112228_078.webp",
+          "cdnTag": "v1.1.74"
+        },
+        {
+          "thumbnail": "/thumbnail/avatar/萌宠/狗狗/654.webp",
+          "cdnTag": "v1.1.96"
+        },
+        {
+          "thumbnail": "/thumbnail/avatar/萌宠/狗狗/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260126155445_539_4.webp",
+          "cdnTag": "v1.1.53"
         }
       ]
     },
