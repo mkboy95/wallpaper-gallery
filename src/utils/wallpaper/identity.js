@@ -1,4 +1,5 @@
-import { ALL_SERIES } from '@/utils/config/constants'
+// 这个模块会被前端和纯 Node 脚本同时引用，不能依赖 Vite 别名或 import.meta.env 配置。
+const ALL_SERIES = ['desktop', 'bing', 'mobile', 'avatar']
 
 const BING_FILENAME_PATTERN = /^bing-\d{4}-\d{2}-\d{2}\.jpg$/i
 const BING_DATE_FILENAME_PATTERN = /^\d{4}-\d{2}-\d{2}\.jpg$/i
