@@ -34,7 +34,7 @@ defineEmits(['apply', 'close', 'reset', 'update:show', 'update:tempFormatFilter'
       :lock-scroll="true"
       :duration="0.3"
       safe-area-inset-bottom
-      :teleport="false"
+      :teleport="null"
       @update:show="$emit('update:show', $event)"
     >
       <div class="popup-content">
@@ -127,7 +127,7 @@ defineEmits(['apply', 'close', 'reset', 'update:show', 'update:tempFormatFilter'
 .popup-reset {
   padding: 6px 12px;
   font-size: 14px;
-  color: #667eea;
+  color: var(--color-accent);
   background: transparent;
   font-weight: 500;
   transition: opacity 200ms;
@@ -160,8 +160,8 @@ defineEmits(['apply', 'close', 'reset', 'update:show', 'update:tempFormatFilter'
   }
 
   &:active {
-    background: rgba(102, 126, 234, 0.15);
-    color: #667eea;
+    background: var(--accent-surface);
+    color: var(--color-accent);
   }
 }
 
@@ -215,10 +215,10 @@ defineEmits(['apply', 'close', 'reset', 'update:show', 'update:tempFormatFilter'
 
   &.is-active {
     color: white;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     border-color: transparent;
     font-weight: 600;
-    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 2px 10px var(--accent-shadow);
   }
 }
 
@@ -239,19 +239,19 @@ defineEmits(['apply', 'close', 'reset', 'update:show', 'update:tempFormatFilter'
   font-size: 16px;
   font-weight: 600;
   color: white;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px var(--accent-shadow);
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 6px 20px var(--accent-shadow-strong);
     transform: translateY(-1px);
   }
 
   &:active {
     transform: scale(0.98);
-    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 2px 10px var(--accent-shadow);
   }
 }
 </style>
@@ -282,7 +282,7 @@ defineEmits(['apply', 'close', 'reset', 'update:show', 'update:tempFormatFilter'
     border-color: rgba(255, 255, 255, 0.08);
 
     &.is-active {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: var(--accent-gradient);
       border-color: transparent;
     }
   }

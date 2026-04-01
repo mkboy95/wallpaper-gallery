@@ -242,8 +242,8 @@ function switchTab(tab) {
 
   &.active {
     color: #fff;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    background: var(--accent-gradient);
+    box-shadow: 0 4px 12px var(--accent-shadow);
   }
 }
 
@@ -267,22 +267,22 @@ function switchTab(tab) {
   padding: 40px 24px;
   min-height: 200px;
   background: rgba(255, 255, 255, 0.02);
-  border: 2px dashed rgba(102, 126, 234, 0.3);
+  border: 2px dashed var(--accent-border-strong);
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
-    background: rgba(102, 126, 234, 0.05);
-    border-color: rgba(102, 126, 234, 0.5);
+    // background: var(--accent-surface);
+    border-color: var(--accent-border-strong);
   }
 
   &.is-dragging {
-    background: rgba(102, 126, 234, 0.1);
-    border-color: #667eea;
+    background: var(--accent-surface);
+    border-color: var(--color-accent);
     border-style: solid;
     transform: scale(1.02);
-    box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 0 30px var(--accent-shadow);
   }
 
   &.is-loading {
@@ -305,9 +305,9 @@ function switchTab(tab) {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  background: var(--accent-gradient-soft);
   border-radius: 16px;
-  color: #667eea;
+  color: var(--color-accent);
 
   svg {
     width: 32px;
@@ -355,8 +355,8 @@ function switchTab(tab) {
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:focus-within {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--accent-ring);
   }
 }
 
@@ -399,7 +399,7 @@ function switchTab(tab) {
   justify-content: center;
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: var(--accent-gradient);
   color: #fff;
   border: none;
   cursor: pointer;

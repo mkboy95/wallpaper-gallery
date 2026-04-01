@@ -247,7 +247,7 @@ function closeDrawer() {
   transition: all 250ms;
 
   &.reset-btn {
-    color: #667eea;
+    color: var(--color-accent);
 
     &:active {
       opacity: 0.7;
@@ -276,8 +276,8 @@ function closeDrawer() {
     }
 
     &:active {
-      background: rgba(102, 126, 234, 0.15);
-      color: #667eea;
+      background: var(--accent-surface);
+      color: var(--color-accent);
     }
   }
 }
@@ -316,17 +316,17 @@ function closeDrawer() {
 
   &.is-active {
     background: rgba(255, 255, 255, 0.8);
-    color: #667eea;
+    color: var(--color-accent);
     font-weight: 600;
-    border-left-color: #667eea;
+    border-left-color: var(--color-accent);
 
     [data-theme='dark'] & {
-      background: rgba(102, 126, 234, 0.15);
+      background: var(--accent-surface);
     }
   }
 
   &:active {
-    background: rgba(102, 126, 234, 0.08);
+    background: var(--accent-surface);
   }
 }
 
@@ -361,7 +361,7 @@ function closeDrawer() {
   letter-spacing: 0.5px;
 
   span {
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -387,10 +387,10 @@ function closeDrawer() {
 
   &.is-active {
     color: white;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     border-color: transparent;
     font-weight: 600;
-    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 2px 10px var(--accent-shadow);
   }
 
   &:active {
@@ -442,19 +442,19 @@ function closeDrawer() {
   font-size: 16px;
   font-weight: 600;
   color: white;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px var(--accent-shadow);
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 6px 20px var(--accent-shadow-strong);
     transform: translateY(-1px);
   }
 
   &:active {
     transform: scale(0.98);
-    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 2px 10px var(--accent-shadow);
   }
 }
 

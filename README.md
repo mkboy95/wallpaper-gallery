@@ -31,6 +31,15 @@
 - **高清壁纸展示** - 支持 16K/8K/5K/4K 及更高分辨率壁纸
 - **四大系列** - 电脑壁纸、手机壁纸、头像、每日 Bing 壁纸
 - **部署友好** - 默认可直接 fork、同步线上数据并部署，无需先搭建图床
+- **账号体系与个人中心** - 支持登录、注册、认证回调、账号资料查看与安全设置
+  - 支持 `GitHub`、`Google`、`Linux.do` OAuth 登录
+  - 支持邮箱密码登录、启用密码、更新密码
+  - 支持第三方账号绑定 / 解绑与头像同步
+  - 第三方授权跳转与邮箱注册完成后都会切换到专属的 Auth Flow Panel，提供「正在跳转」「验证邮件已发送」「授权失败」等清晰提示，避免误触。
+- **个人壁纸库（Library）** - 提供 `收藏夹` 与 `我的喜欢` 两个独立入口
+  - 支持跨系列聚合查看与筛选
+  - 移动端仅展示手机壁纸与头像分区
+  - 卡片操作会根据当前 tab 自动收口，减少误操作
 - **头像自制工具** - PC 端专属在线头像制作功能
   - 本地上传或在线链接导入图片
   - 智能裁剪与实时预览（基于 Cropper.js）
@@ -61,6 +70,10 @@
 - **格式筛选** - 按 JPG/PNG 格式筛选
 - **分辨率筛选** - 仅电脑壁纸系列支持，按 16K/8K/5K+/4K+/4K/2K/超清/高清/标清精确筛选
 - **一键下载** - 直接下载原图
+- **喜欢 / 收藏交互** - 登录后支持即时标记与跨页面状态同步
+  - 首页卡片提供始终可见的状态角标
+  - 首页筛选栏内显示 `已喜欢` / `已收藏` 汇总
+  - 操作成功和取消操作均有明确提示反馈
 
 ### 🖼️ 视图与浏览
 
@@ -91,23 +104,27 @@
   - 手势滑动切换视图
   - 移除 backdrop-filter 提升滚动性能
   - 滚动锁定防止弹窗穿透
+  - 收藏夹仅保留手机壁纸 / 头像标签，更符合移动端使用场景
 - **用户偏好记忆** - 记住用户的系列选择、排序方式、视图模式
 - **本地缩略图** - 预生成 WebP 缩略图，首页加载更快
+- **深色模式细节补齐** - 手机壁纸弹窗、头像弹窗、标签与操作状态统一适配深色主题
+- **认证反馈面板** - OAuth 跳转前后使用 Lottie Loading / Success 面板、注册后显示邮箱验证提示，PC 与移动端都能第一时间获知登录是否成功。
 
 ### 📊 数据统计
 
 - **浏览量统计** - 记录每张壁纸的浏览次数
 - **下载量统计** - 记录每张壁纸的下载次数
+- **用户交互统计** - 记录喜欢数、收藏数，并在首页与 Library 中回显
 - **热门排序** - 基于浏览量的热门壁纸排序
 - **热门轮播** - 首页展示最受欢迎的壁纸
 - **热门标签导出** - 基于浏览量、下载量与系列数据生成热门分类 / 热门关键词
-- **Supabase 后端** - 使用 Supabase 存储统计数据，支持原子递增
+- **Supabase 后端** - 使用 Supabase 存储统计、认证与用户交互数据，支持原子递增
 
 ### 🌱 使用体验
 
 - **默认可运行** - Fork 后同步一次线上数据即可本地启动
 - **文档齐全** - 提供 Fork 部署指南、统计系统说明与架构页
-- **渐进增强** - 不配置 Supabase、Umami、Cloudflare 统计也能正常运行
+- **渐进增强** - 不配置 Supabase 时仍可浏览壁纸；配置后可启用登录、收藏、喜欢与个人壁纸库
 - **适合二开** - 组件、stores、services 与 utils 已按职责拆分
 
 ## 🎯 项目定位
@@ -122,6 +139,7 @@
 - **偏好优先** - 用户明确选择的系列优先于设备推荐
 - **循环检测** - 防止路由守卫产生无限循环
 - **历史优化** - 使用 replace 避免污染浏览历史
+- **账户路由** - 新增 `/login`、`/signup`、`/auth/callback`、`/account`、`/library`
 
 ## 🛠️ 技术栈
 
@@ -244,24 +262,33 @@ Fork 本项目后，无需任何配置即可使用：
 
 ### 可选配置
 
-#### 启用统计功能（可选）
+#### 启用登录、喜欢 / 收藏与统计功能（可选）
 
-如果需要启用浏览量/下载量统计功能，需要配置 Supabase：
+如果需要启用账号登录、个人中心、收藏夹、我的喜欢，以及浏览量 / 下载量统计，需要配置 Supabase：
 
 1. **创建 Supabase 项目**
    - 访问 [Supabase](https://supabase.com/) 创建免费项目
-   - 获取 Project URL 和 anon public key
+   - 获取 Project URL、anon public key 和 service role key
 
 2. **配置 GitHub Secrets**
    - 进入仓库 **Settings** → **Secrets and variables** → **Actions**
    - 添加以下 Secrets：
      - `VITE_SUPABASE_URL`：你的 Supabase Project URL
      - `VITE_SUPABASE_ANON_KEY`：你的 Supabase anon public key
+     - `SUPABASE_SERVICE_ROLE_KEY`：用于同步壁纸资源与后台任务，请勿暴露到前端
 
 3. **创建数据库表**
    - 参考 [Fork 部署指南](docs/Fork部署指南.md) 中的 SQL 脚本
 
-**注意**：统计功能完全可选，不配置也不影响网站正常使用。
+4. **本地开发环境变量**
+   - 可参考 `.env.example`
+   - 本地启用账号能力时需要配置：
+     - `VITE_SUPABASE_URL`
+     - `VITE_SUPABASE_ANON_KEY`
+   - 本地执行 `pnpm sync:assets` 时额外需要：
+     - `SUPABASE_SERVICE_ROLE_KEY`
+
+**注意**：这些能力都是渐进增强，不配置也不影响网站基础浏览与下载。
 
 #### 其他可选配置
 
@@ -316,6 +343,9 @@ wallpaper-gallery/
 │   │   │   ├── form/         # 通用表单控件
 │   │   │   ├── navigation/   # 导航组件（返回顶部、分页）
 │   │   │   └── ui/           # 基础 UI 组件（WallpaperSeriesIcon 等）
+│   │   ├── login/            # 登录体验与认证场景
+│   │   │   ├── AuthExperience.vue       # 登录 / 注册统一体验页
+│   │   │   └── LoginCharacterScene.vue  # 登录动效场景
 │   │   ├── home/             # 首页组件
 │   │   │   ├── HomeModalHost.vue         # 弹窗宿主
 │   │   │   ├── MobileSeriesNotice.vue    # 移动端系列提示
@@ -352,21 +382,33 @@ wallpaper-gallery/
 │   ├── composables/          # 组合式函数
 │   │   ├── header/           # useHeaderNavSlider
 │   │   ├── home/             # useHomeDataLoader、useHomeSeriesSync、useWallpaperNavigator
+│   │   ├── useInteraction.js # 壁纸喜欢 / 收藏交互封装
 │   │   ├── useDevice.js      # 设备检测
 │   │   ├── useTheme.js       # 主题管理
 │   │   ├── useViewMode.js    # 视图模式
 │   │   ├── useScrollLock.js  # 滚动锁定
 │   │   └── ...
 │   ├── services/             # 服务层
-│   │   └── wallpaper/        # 壁纸数据获取与解码
+│   │   ├── interactionService.js        # 喜欢 / 收藏 / Library 数据服务
+│   │   ├── userActivityService.js       # 用户行为相关服务
+│   │   └── wallpaper/                  # 壁纸数据获取与解码
 │   ├── stores/               # Pinia 状态管理
+│   │   ├── auth.js           # 用户认证与资料状态
+│   │   ├── interaction.js    # 喜欢 / 收藏 / 统计状态
+│   │   └── ...
 │   ├── router/               # Vue Router 路由配置
 │   ├── views/                # 页面视图
 │   │   ├── Home.vue          # 首页
 │   │   ├── About.vue         # 关于页
+│   │   ├── Login.vue         # 登录页
+│   │   ├── Signup.vue        # 注册页
+│   │   ├── AuthCallback.vue  # 认证回调页
+│   │   ├── Account.vue       # 账号中心
+│   │   ├── Library.vue       # 收藏夹 / 我的喜欢
 │   │   └── NotFound.vue      # 404 页
 │   ├── workers/              # Web Worker
 │   └── utils/                # 工具函数（按领域分类）
+│       ├── auth/             # 认证与身份工具
 │       ├── avatar/           # 头像制作工具
 │       ├── cache/            # LRU 缓存
 │       ├── common/           # 通用工具（analytics、codec、format、sorting）

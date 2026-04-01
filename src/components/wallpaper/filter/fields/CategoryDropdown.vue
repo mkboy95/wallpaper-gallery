@@ -240,21 +240,21 @@ onUnmounted(() => {
   }
 
   &:hover {
-    border-color: rgba(102, 126, 234, 0.4);
+    border-color: var(--accent-border-strong);
   }
 
   &.is-open {
-    border-color: rgba(102, 126, 234, 0.6);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: var(--accent-border-strong);
+    box-shadow: 0 0 0 3px var(--accent-ring);
 
     .trigger-arrow {
       transform: rotate(180deg);
-      color: #667eea;
+      color: var(--color-accent);
     }
   }
 
   &.has-selection {
-    color: #667eea;
+    color: var(--color-accent);
     font-weight: 500;
   }
 }
@@ -368,11 +368,11 @@ onUnmounted(() => {
   }
 
   &::-webkit-scrollbar-thumb {
-    background: rgba(102, 126, 234, 0.2);
+    background: var(--accent-border);
     border-radius: 3px;
 
     &:hover {
-      background: rgba(102, 126, 234, 0.3);
+      background: var(--accent-border-strong);
     }
   }
 }
@@ -400,19 +400,19 @@ onUnmounted(() => {
   }
 
   &:hover {
-    background: rgba(102, 126, 234, 0.08);
+    background: var(--accent-surface);
     color: var(--color-text-primary);
 
     .item-arrow {
       transform: translateX(2px);
-      color: #667eea;
+      color: var(--color-accent);
     }
   }
 
   &.is-active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     color: white;
-    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.35);
+    box-shadow: 0 2px 10px var(--accent-shadow);
 
     .item-count {
       background: rgba(255, 255, 255, 0.2);
@@ -441,13 +441,13 @@ onUnmounted(() => {
   font-size: 12px;
   font-weight: 500;
   color: var(--color-text-muted);
-  background: rgba(102, 126, 234, 0.1);
+  background: var(--accent-surface);
   padding: 3px 10px;
   border-radius: 12px;
   transition: all 200ms;
 
   [data-theme='dark'] & {
-    background: rgba(102, 126, 234, 0.2);
+    background: var(--accent-surface-strong);
   }
 }
 

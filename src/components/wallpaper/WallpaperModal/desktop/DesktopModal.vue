@@ -747,9 +747,10 @@ onUnmounted(() => {
   }
 
   &--ai {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(16, 185, 129, 0.25) 100%);
-    color: #a78bfa;
-    border: 1px solid rgba(99, 102, 241, 0.4);
+    background: linear-gradient(180deg, rgba(34, 47, 76, 0.94), rgba(23, 33, 56, 0.9));
+    color: #dbeafe;
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    box-shadow: inset 0 1px 0 rgba(191, 219, 254, 0.06);
     font-weight: 700;
     position: relative;
 
@@ -838,9 +839,12 @@ onUnmounted(() => {
   flex-direction: column;
   gap: 12px;
   padding: 18px;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
-  border: 1px solid rgba(102, 126, 234, 0.25);
+  background: linear-gradient(180deg, rgba(39, 56, 88, 0.96), rgba(23, 34, 58, 0.92));
+  border: 1px solid rgba(96, 165, 250, 0.18);
   border-radius: 16px;
+  box-shadow:
+    0 16px 30px rgba(2, 8, 23, 0.26),
+    inset 0 1px 0 rgba(191, 219, 254, 0.08);
 }
 
 .original-header {
@@ -880,7 +884,7 @@ onUnmounted(() => {
   svg {
     width: 16px;
     height: 16px;
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -904,14 +908,15 @@ onUnmounted(() => {
   justify-content: center;
   gap: 10px;
   padding: 16px 24px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(180deg, rgba(34, 47, 76, 0.96), rgba(23, 33, 56, 0.92));
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  color: #dbeafe;
   border-radius: 14px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 1px 0 rgba(191, 219, 254, 0.08);
 
   svg {
     width: 18px;
@@ -919,9 +924,12 @@ onUnmounted(() => {
   }
 
   &:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.25);
+    background: linear-gradient(180deg, rgba(43, 61, 96, 0.98), rgba(29, 41, 68, 0.94));
+    border-color: rgba(96, 165, 250, 0.28);
     transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgba(191, 219, 254, 0.1),
+      0 14px 28px rgba(2, 8, 23, 0.26);
   }
 
   &:disabled {
@@ -936,7 +944,7 @@ onUnmounted(() => {
   justify-content: center;
   gap: 12px;
   padding: 18px 28px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   color: white;
   border: none;
   border-radius: 14px;
@@ -944,7 +952,7 @@ onUnmounted(() => {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 24px var(--accent-shadow);
 
   svg {
     width: 20px;
@@ -953,7 +961,7 @@ onUnmounted(() => {
 
   &:hover:not(:disabled) {
     transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 12px 32px var(--accent-shadow-strong);
   }
 
   &:active:not(:disabled) {

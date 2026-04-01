@@ -424,7 +424,7 @@ const aiKeywords = computed(() => props.wallpaper?.keywords || [])
   padding: 8px 12px;
   background: var(--color-bg-hover);
   border-radius: $radius-md;
-  border-left: 3px solid #667eea;
+  border-left: 3px solid var(--color-accent);
 }
 
 .modal-ai-keywords {
@@ -444,20 +444,20 @@ const aiKeywords = computed(() => props.wallpaper?.keywords || [])
     padding: 4px 10px;
     font-size: 12px;
     font-weight: $font-weight-medium;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(118, 75, 162, 0.12));
-    color: #667eea;
+    background: var(--accent-gradient-soft);
+    color: var(--color-accent);
     border-radius: $radius-md;
-    border: 1px solid rgba(102, 126, 234, 0.25);
+    border: 1px solid var(--accent-border);
     transition: all 0.2s ease;
 
     &:hover {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+      background: var(--accent-gradient-soft-strong);
       transform: translateY(-1px);
     }
 
     [data-theme='dark'] & {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-      border-color: rgba(102, 126, 234, 0.35);
+      background: var(--accent-gradient-soft-strong);
+      border-color: var(--accent-border-strong);
     }
   }
 }
@@ -482,12 +482,12 @@ const aiKeywords = computed(() => props.wallpaper?.keywords || [])
   }
 
   &--primary {
-    background: var(--color-accent);
+    background: var(--accent-gradient);
     color: white;
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+    box-shadow: 0 2px 8px var(--accent-shadow);
 
     &:hover:not(:disabled) {
-      background: var(--color-accent-hover);
+      background: var(--accent-gradient-hover);
       transform: translateY(-2px);
     }
 
@@ -508,9 +508,10 @@ const aiKeywords = computed(() => props.wallpaper?.keywords || [])
     }
 
     &.is-active {
-      background: var(--color-accent);
+      background: var(--accent-gradient);
       color: white;
-      border-color: var(--color-accent);
+      border-color: transparent;
+      box-shadow: 0 10px 22px var(--accent-shadow);
     }
   }
 

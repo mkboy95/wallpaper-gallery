@@ -9,7 +9,7 @@ const envConfig = computed(() => {
     case 'staging':
       return { label: '测试环境', color: '#f59e0b' }
     case 'preview':
-      return { label: 'PR 预览', color: '#8b5cf6' }
+      return { label: 'PR 预览', color: '#2563eb' }
     case 'development':
       return { label: '开发环境', color: '#10b981' }
     default:

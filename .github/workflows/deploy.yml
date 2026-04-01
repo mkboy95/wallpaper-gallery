@@ -87,6 +87,12 @@ jobs:
             pnpm sync
           fi
 
+      - name: Sync wallpaper assets to Supabase
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: pnpm sync:assets
+
       # 5. 执行 Vite 打包构建并生成关键路由静态 HTML
       - name: Build
         env:

@@ -757,10 +757,13 @@ onUnmounted(() => {
   width: 100%;
   max-width: 95vw;
   max-height: 95vh;
-  background: var(--color-bg-card);
+  background: linear-gradient(180deg, rgba(22, 32, 54, 0.98), rgba(14, 22, 38, 0.96));
+  border: 1px solid rgba(96, 165, 250, 0.14);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-xl);
+  box-shadow:
+    0 30px 80px rgba(2, 8, 23, 0.46),
+    inset 0 1px 0 rgba(191, 219, 254, 0.08);
 
   // 平板竖屏：垂直布局，更宽
   @include tablet-only {
@@ -864,7 +867,7 @@ onUnmounted(() => {
   flex: 1;
   min-height: 300px; // 垂直布局初始高度
   max-height: 60vh; // 垂直布局限制图片区域高度
-  background: var(--color-bg-primary);
+  background: linear-gradient(180deg, rgba(8, 13, 24, 0.98), rgba(11, 18, 32, 0.94));
   overflow: hidden;
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 
@@ -979,7 +982,7 @@ onUnmounted(() => {
   flex-direction: column;
   gap: $spacing-lg;
   padding: $spacing-lg;
-  background: var(--color-bg-card);
+  background: linear-gradient(180deg, rgba(18, 28, 47, 0.96), rgba(14, 22, 38, 0.94));
   overflow-y: auto; // 允许滚动查看所有内容
 
   // 移动端底部圆角 + 增加间距（不再过于紧凑）
@@ -1001,7 +1004,7 @@ onUnmounted(() => {
 .modal-content--horizontal .modal-info {
   width: 320px;
   min-width: 320px;
-  border-left: 1px solid var(--color-border);
+  border-left: 1px solid rgba(96, 165, 250, 0.14);
   padding: $spacing-xl;
   border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
 }
@@ -1051,9 +1054,10 @@ onUnmounted(() => {
   letter-spacing: 0.3px;
 
   &--ai {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
-    color: var(--color-accent);
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    background: linear-gradient(180deg, rgba(34, 47, 76, 0.94), rgba(23, 33, 56, 0.9));
+    color: #dbeafe;
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    box-shadow: inset 0 1px 0 rgba(191, 219, 254, 0.06);
     font-weight: $font-weight-semibold;
     position: relative;
 
@@ -1065,8 +1069,9 @@ onUnmounted(() => {
   }
 
   &--primary {
-    background: rgba(99, 102, 241, 0.15);
-    color: var(--color-accent);
+    background: rgba(37, 99, 235, 0.22);
+    color: #93c5fd;
+    border: 1px solid rgba(96, 165, 250, 0.22);
   }
 
   &--success {
@@ -1090,8 +1095,9 @@ onUnmounted(() => {
   }
 
   &--secondary {
-    background: var(--color-bg-hover);
-    color: var(--color-text-secondary);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(226, 232, 240, 0.76);
+    border: 1px solid rgba(148, 163, 184, 0.12);
   }
 
   &--view {
@@ -1137,8 +1143,10 @@ onUnmounted(() => {
   flex-direction: column;
   gap: $spacing-md;
   padding: $spacing-md;
-  background: var(--color-bg-hover);
+  background: linear-gradient(180deg, rgba(34, 47, 76, 0.8), rgba(22, 31, 52, 0.76));
+  border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: var(--radius-md);
+  box-shadow: inset 0 1px 0 rgba(191, 219, 254, 0.05);
 
   // 移动端布局（增加间距，不再过于紧凑）
   &--compact {
@@ -1153,10 +1161,13 @@ onUnmounted(() => {
   flex-direction: column;
   gap: $spacing-sm;
   padding: $spacing-md;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(16, 185, 129, 0.12) 100%);
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  background: linear-gradient(180deg, rgba(39, 56, 88, 0.96), rgba(23, 34, 58, 0.92));
+  border: 1px solid rgba(96, 165, 250, 0.18);
   border-radius: var(--radius-md);
   margin-bottom: $spacing-sm;
+  box-shadow:
+    0 14px 28px rgba(2, 8, 23, 0.24),
+    inset 0 1px 0 rgba(191, 219, 254, 0.08);
 
   // 移动端更紧凑的视觉效果
   @include mobile-only {
@@ -1173,7 +1184,7 @@ onUnmounted(() => {
 .mobile-card-label {
   font-size: $font-size-xs;
   font-weight: $font-weight-semibold;
-  color: var(--color-text-muted);
+  color: rgba(191, 219, 254, 0.56);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -1206,8 +1217,9 @@ onUnmounted(() => {
   }
 
   &.tag--primary {
-    background: rgba(99, 102, 241, 0.2);
-    color: var(--color-accent);
+    background: rgba(37, 99, 235, 0.24);
+    color: #bfdbfe;
+    border: 1px solid rgba(96, 165, 250, 0.2);
   }
 }
 
@@ -1233,7 +1245,7 @@ onUnmounted(() => {
 .mobile-card-value {
   font-size: $font-size-sm;
   font-weight: $font-weight-medium;
-  color: var(--color-text-primary);
+  color: #f8fafc;
 }
 
 .detail-item {
@@ -1241,17 +1253,17 @@ onUnmounted(() => {
   align-items: center;
   gap: $spacing-sm;
   font-size: $font-size-sm;
-  color: var(--color-text-secondary);
+  color: rgba(226, 232, 240, 0.76);
 
   svg {
     width: 18px;
     height: 18px;
-    color: var(--color-text-muted);
+    color: rgba(191, 219, 254, 0.46);
     flex-shrink: 0;
   }
 
   &--highlight {
-    color: var(--color-text-primary);
+    color: #f8fafc;
     font-weight: $font-weight-medium;
 
     svg {
@@ -1262,17 +1274,18 @@ onUnmounted(() => {
 
 .detail-sub {
   font-size: $font-size-xs;
-  color: var(--color-text-muted);
+  color: rgba(191, 219, 254, 0.44);
   margin-left: 2px;
 }
 
 // 预览图标签
 .detail-label {
   font-size: $font-size-xs;
-  color: var(--color-text-muted);
+  color: rgba(191, 219, 254, 0.5);
   margin-left: $spacing-xs;
   padding: 2px 6px;
-  background: var(--color-bg-hover);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 4px;
 }
 
@@ -1282,11 +1295,14 @@ onUnmounted(() => {
   flex-direction: column;
   gap: $spacing-sm;
   padding: $spacing-md;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: linear-gradient(180deg, rgba(39, 56, 88, 0.96), rgba(23, 34, 58, 0.92));
+  border: 1px solid rgba(96, 165, 250, 0.18);
   border-radius: var(--radius-md);
   position: relative;
   overflow: hidden;
+  box-shadow:
+    0 16px 30px rgba(2, 8, 23, 0.26),
+    inset 0 1px 0 rgba(191, 219, 254, 0.08);
 
   // 装饰性光晕
   &::before {
@@ -1296,7 +1312,7 @@ onUnmounted(() => {
     right: -50%;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(var(--color-accent-rgb), 0.15) 0%, transparent 70%);
     pointer-events: none;
   }
 }
@@ -1312,7 +1328,7 @@ onUnmounted(() => {
 .original-label {
   font-size: $font-size-xs;
   font-weight: $font-weight-semibold;
-  color: var(--color-text-muted);
+  color: rgba(191, 219, 254, 0.56);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -1345,8 +1361,9 @@ onUnmounted(() => {
   }
 
   &.tag--primary {
-    background: rgba(99, 102, 241, 0.2);
-    color: var(--color-accent);
+    background: rgba(37, 99, 235, 0.24);
+    color: #bfdbfe;
+    border: 1px solid rgba(96, 165, 250, 0.2);
   }
 }
 
@@ -1365,7 +1382,7 @@ onUnmounted(() => {
   gap: 6px;
   font-size: $font-size-sm;
   font-weight: $font-weight-medium;
-  color: var(--color-text-primary);
+  color: #f8fafc;
 
   svg {
     width: 16px;
@@ -1376,7 +1393,7 @@ onUnmounted(() => {
 
 .original-hint {
   font-size: $font-size-xs;
-  color: var(--color-text-muted);
+  color: rgba(191, 219, 254, 0.46);
   margin: 0;
   position: relative;
   z-index: 1;
@@ -1400,17 +1417,21 @@ onUnmounted(() => {
   gap: $spacing-sm;
   width: 100%;
   padding: $spacing-md;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
-  color: var(--color-accent);
+  background: linear-gradient(180deg, rgba(34, 47, 76, 0.96), rgba(23, 33, 56, 0.92));
+  color: #dbeafe;
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  box-shadow: inset 0 1px 0 rgba(191, 219, 254, 0.08);
   transition: all var(--transition-fast);
 
   &:hover:not(:disabled) {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(16, 185, 129, 0.25) 100%);
-    border-color: var(--color-accent);
+    background: linear-gradient(180deg, rgba(43, 61, 96, 0.98), rgba(29, 41, 68, 0.94));
+    border-color: rgba(96, 165, 250, 0.28);
+    box-shadow:
+      inset 0 1px 0 rgba(191, 219, 254, 0.1),
+      0 14px 28px rgba(2, 8, 23, 0.26);
     transform: translateY(-2px);
   }
 
@@ -1432,15 +1453,18 @@ onUnmounted(() => {
   gap: $spacing-sm;
   width: 100%;
   padding: $spacing-md;
-  background: var(--color-accent);
+  background: var(--accent-gradient);
   color: white;
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
+  border: none;
   border-radius: var(--radius-md);
+  box-shadow: 0 16px 30px var(--accent-shadow);
   transition: all var(--transition-fast);
 
   &:hover:not(:disabled) {
-    background: var(--color-accent-hover);
+    background: var(--accent-gradient-hover);
+    box-shadow: 0 20px 38px var(--accent-shadow-strong);
     transform: translateY(-2px);
   }
 
@@ -1465,7 +1489,7 @@ onUnmounted(() => {
 .skeleton-title {
   height: 24px;
   width: 80%;
-  background: var(--color-bg-hover);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-sm);
   animation: skeletonPulse 1.5s ease-in-out infinite;
 }
@@ -1478,7 +1502,7 @@ onUnmounted(() => {
 .skeleton-tag {
   height: 24px;
   width: 50px;
-  background: var(--color-bg-hover);
+  background: rgba(255, 255, 255, 0.07);
   border-radius: $radius-sm;
   animation: skeletonPulse 1.5s ease-in-out infinite;
 
@@ -1498,13 +1522,14 @@ onUnmounted(() => {
   flex-direction: column;
   gap: $spacing-md;
   padding: $spacing-md;
-  background: var(--color-bg-hover);
+  background: linear-gradient(180deg, rgba(34, 47, 76, 0.8), rgba(22, 31, 52, 0.76));
+  border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: var(--radius-md);
 }
 
 .skeleton-line {
   height: 18px;
-  background: var(--color-bg-card);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-sm);
   animation: skeletonPulse 1.5s ease-in-out infinite;
 
@@ -1526,7 +1551,8 @@ onUnmounted(() => {
 .skeleton-btn {
   height: 48px;
   width: 100%;
-  background: var(--color-bg-hover);
+  background: linear-gradient(180deg, rgba(34, 47, 76, 0.96), rgba(23, 33, 56, 0.92));
+  border: 1px solid rgba(96, 165, 250, 0.18);
   border-radius: var(--radius-md);
   animation: skeletonPulse 1.5s ease-in-out infinite;
   margin-top: auto;

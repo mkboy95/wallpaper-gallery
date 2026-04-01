@@ -487,7 +487,7 @@ watch(localValue, (newVal, oldVal) => {
     }
 
     .search-bar__border {
-      background: linear-gradient(135deg, var(--color-accent) 0%, #a855f7 50%, var(--color-accent) 100%);
+      background: var(--accent-gradient);
       background-size: 200% 200%;
       animation: gradient-shift 3s ease infinite;
     }

@@ -51,8 +51,10 @@ defineProps({
   padding: $spacing-2xl;
   margin-top: $spacing-lg;
   border-radius: $radius-xl;
-  background: linear-gradient(180deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.02)), var(--color-bg-secondary);
-  border: 1px solid rgba(99, 102, 241, 0.14);
+  background:
+    linear-gradient(180deg, rgba(var(--color-accent-rgb), 0.08), rgba(var(--color-accent-rgb), 0.02)),
+    var(--color-bg-secondary);
+  border: 1px solid var(--accent-border);
   box-shadow: var(--shadow-md);
 
   @include mobile-only {
@@ -71,7 +73,7 @@ defineProps({
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent);
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--accent-surface);
     border-radius: $radius-full;
   }
 
@@ -83,7 +85,7 @@ defineProps({
     height: 72px;
     margin-bottom: $spacing-lg;
     color: var(--color-accent);
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--accent-surface);
     border-radius: $radius-full;
 
     svg {
@@ -156,7 +158,13 @@ defineProps({
 
     &--primary {
       color: #fff;
-      background: var(--color-accent);
+      background: var(--accent-gradient);
+      box-shadow: 0 14px 28px var(--accent-shadow);
+
+      &:hover {
+        background: var(--accent-gradient-hover);
+        box-shadow: 0 18px 34px var(--accent-shadow-strong);
+      }
     }
 
     &--secondary {

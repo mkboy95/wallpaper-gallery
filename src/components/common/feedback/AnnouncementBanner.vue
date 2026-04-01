@@ -173,7 +173,8 @@ function closeBanner() {
 
   .tag {
     display: inline-block;
-    background: linear-gradient(135deg, var(--color-accent) 0%, #8b5cf6 100%);
+    background: var(--accent-gradient);
+    box-shadow: 0 10px 22px var(--accent-shadow);
     color: white;
     padding: 2px 8px;
     border-radius: 10px;
@@ -237,7 +238,8 @@ function closeBanner() {
   }
 
   &:hover {
-    background: var(--color-accent);
+    background: var(--accent-gradient);
+    box-shadow: 0 10px 22px var(--accent-shadow);
     color: white;
     transform: scale(1.05);
   }

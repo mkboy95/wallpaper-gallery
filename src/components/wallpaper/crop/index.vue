@@ -1185,8 +1185,8 @@ onUnmounted(() => {
   svg {
     width: 18px;
     height: 18px;
-    color: #667eea;
-    filter: drop-shadow(0 0 6px rgba(102, 126, 234, 0.4));
+    color: var(--color-accent);
+    filter: drop-shadow(0 0 6px var(--accent-shadow));
   }
 }
 
@@ -1232,11 +1232,11 @@ onUnmounted(() => {
   }
 
   &::-webkit-scrollbar-thumb {
-    background: rgba(102, 126, 234, 0.3);
+    background: var(--accent-border);
     border-radius: 3px;
 
     &:hover {
-      background: rgba(102, 126, 234, 0.5);
+      background: var(--accent-border-strong);
     }
   }
 }
@@ -1272,13 +1272,13 @@ onUnmounted(() => {
   &--primary {
     flex: 1;
     color: white;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     border: none;
-    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35);
+    box-shadow: 0 4px 16px var(--accent-shadow);
 
     &:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.45);
+      box-shadow: 0 8px 24px var(--accent-shadow-strong);
     }
 
     &:active:not(:disabled) {
@@ -1346,23 +1346,23 @@ onUnmounted(() => {
 }
 
 :deep(.cropper-view-box) {
-  outline: 2px solid #667eea;
+  outline: 2px solid var(--color-accent);
   outline-offset: -1px;
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
 }
 
 :deep(.cropper-line) {
-  background-color: #667eea;
+  background-color: var(--color-accent);
   opacity: 0.8;
 }
 
 :deep(.cropper-point) {
   width: 12px;
   height: 12px;
-  background-color: #667eea;
+  background-color: var(--color-accent);
   border-radius: 50%;
   opacity: 1;
-  box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 0 8px var(--accent-shadow-strong);
 }
 
 :deep(.cropper-point.point-se) {

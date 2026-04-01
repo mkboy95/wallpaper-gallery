@@ -157,7 +157,7 @@ function handleHeightInput(event) {
   svg {
     width: 13px;
     height: 13px;
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -186,16 +186,16 @@ function handleHeightInput(event) {
   }
 
   &--active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.18) 0%, rgba(118, 75, 162, 0.12) 100%);
-    border-color: rgba(102, 126, 234, 0.36);
-    box-shadow: 0 0 0 1px rgba(102, 126, 234, 0.12) inset;
+    background: var(--accent-gradient-soft);
+    border-color: var(--accent-border-strong);
+    box-shadow: 0 0 0 1px var(--accent-ring) inset;
 
     .format-chip__label {
-      color: #dfe6ff;
+      color: var(--accent-contrast-soft);
     }
 
     .format-chip__hint {
-      color: rgba(222, 230, 255, 0.72);
+      color: rgba(var(--color-accent-rgb), 0.92);
     }
   }
 }
@@ -235,7 +235,7 @@ function handleHeightInput(event) {
 .quality-value {
   font-size: 11px;
   font-weight: 700;
-  color: #8ea2ff;
+  color: var(--accent-contrast-soft);
   font-family: 'SF Mono', Monaco, monospace;
 }
 
@@ -253,8 +253,8 @@ function handleHeightInput(event) {
     height: 16px;
     border-radius: 50%;
     background: #fff;
-    border: 3px solid #667eea;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.32);
+    border: 3px solid var(--color-accent);
+    box-shadow: 0 2px 8px var(--accent-shadow);
     cursor: pointer;
   }
 }
@@ -292,7 +292,7 @@ function handleHeightInput(event) {
     display: none;
 
     &:checked + .toggle-track {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: var(--accent-gradient);
 
       .toggle-thumb {
         transform: translateX(14px);
@@ -349,8 +349,8 @@ function handleHeightInput(event) {
       box-shadow 0.2s ease;
 
     &:focus {
-      border-color: rgba(102, 126, 234, 0.42);
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+      border-color: var(--accent-border-strong);
+      box-shadow: 0 0 0 3px var(--accent-ring);
     }
   }
 }

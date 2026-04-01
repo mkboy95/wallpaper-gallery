@@ -151,7 +151,7 @@ function updateRadius(e) {
   svg {
     width: 24px;
     height: 24px;
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -226,9 +226,9 @@ function updateRadius(e) {
   left: 4px;
   width: calc(50% - 4px);
   height: calc(100% - 8px);
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: var(--accent-gradient);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 12px var(--accent-shadow);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 
@@ -265,8 +265,8 @@ function updateRadius(e) {
   transition: all 0.2s;
 
   &:focus-within {
-    border-color: #667eea;
-    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px var(--accent-ring);
   }
 
   input {
@@ -321,10 +321,10 @@ function updateRadius(e) {
     appearance: none;
     width: 16px;
     height: 16px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: var(--accent-gradient);
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 2px 6px var(--accent-shadow);
     transition: transform 0.2s;
 
     &:hover {
@@ -335,11 +335,11 @@ function updateRadius(e) {
   &::-moz-range-thumb {
     width: 16px;
     height: 16px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: var(--accent-gradient);
     border-radius: 50%;
     cursor: pointer;
     border: none;
-    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 2px 6px var(--accent-shadow);
   }
 }
 
@@ -369,8 +369,8 @@ function updateRadius(e) {
     }
 
     &:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 2px var(--accent-ring);
     }
   }
 
@@ -393,7 +393,7 @@ function updateRadius(e) {
   width: 100%;
   padding: 14px 20px;
   min-height: 48px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: var(--accent-gradient);
   color: white;
   border: none;
   border-radius: 12px;
@@ -401,7 +401,7 @@ function updateRadius(e) {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 24px var(--accent-shadow);
 
   svg {
     width: 18px;
@@ -411,7 +411,7 @@ function updateRadius(e) {
 
   &:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 12px 32px var(--accent-shadow-strong);
     svg {
       transform: translateY(2px);
     }

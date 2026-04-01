@@ -86,6 +86,67 @@ const routes = [
       hideHeader: true,
     },
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/Login.vue'),
+    meta: {
+      title: '登录 Wallpaper Gallery - 壁纸画廊',
+      description: '登录 Wallpaper Gallery，同步收藏夹、下载历史、跨设备偏好与社区身份入口。',
+      canonicalPath: '/login',
+      hideHeader: true,
+    },
+  },
+  {
+    path: '/signup',
+    name: 'Signup',
+    component: () => import('@/views/Signup.vue'),
+    meta: {
+      title: '注册 Wallpaper Gallery - 壁纸画廊',
+      description: '注册 Wallpaper Gallery 账号，后续可同步收藏夹、下载记录、社区身份与壁纸偏好。',
+      canonicalPath: '/signup',
+      hideHeader: true,
+    },
+  },
+  {
+    path: '/auth/callback',
+    name: 'AuthCallback',
+    component: () => import('@/views/AuthCallback.vue'),
+    meta: {
+      title: '账号同步中 - Wallpaper Gallery',
+      description: DEFAULT_DESCRIPTION,
+      canonicalPath: '/auth/callback',
+      hideHeader: true,
+    },
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    component: () => import('@/views/Account.vue'),
+    meta: {
+      compactMain: true,
+      title: '账号与安全 - Wallpaper Gallery',
+      description: '管理 Wallpaper Gallery 的第三方登录绑定、邮箱密码登录和账号资料同步状态。',
+      canonicalPath: '/account',
+      loadingScene: true,
+      loadingText: '正在同步账号资料...',
+      loadingTitle: '个人中心加载中',
+    },
+  },
+  {
+    path: '/library',
+    name: 'Library',
+    component: () => import('@/views/Library.vue'),
+    meta: {
+      compactMain: true,
+      title: '我的壁纸库 - Wallpaper Gallery',
+      description: '查看 Wallpaper Gallery 账号下的收藏夹与我的喜欢入口。',
+      canonicalPath: '/library',
+      loadingScene: true,
+      loadingText: '正在准备你的壁纸库...',
+      loadingTitle: '壁纸库加载中',
+    },
+  },
   // 404 重定向到首页
   {
     path: '/:pathMatch(.*)*',
@@ -211,6 +272,11 @@ function applyRouteSeo(to) {
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
+  if (to.path === '/auth/callback') {
+    next()
+    return
+  }
+
   // 首页重定向到默认系列
   if (to.path === '/') {
     next({ path: `/${getDefaultSeries()}`, replace: true })

@@ -144,9 +144,9 @@ defineEmits(['clearSearch', 'reset'])
   padding: 6px 12px;
   border-radius: $radius-full;
   font-size: $font-size-xs;
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
-  border: 1px solid rgba(102, 126, 234, 0.16);
+  color: var(--color-accent);
+  background: var(--accent-surface);
+  border: 1px solid var(--accent-border);
   white-space: nowrap;
 }
 
@@ -170,14 +170,14 @@ defineEmits(['clearSearch', 'reset'])
   font-size: $font-size-xs;
   font-weight: $font-weight-semibold;
   color: var(--color-text-secondary);
-  background: rgba(102, 126, 234, 0.1);
-  border: 1px solid rgba(102, 126, 234, 0.18);
+  background: var(--accent-surface);
+  border: 1px solid var(--accent-border);
   white-space: nowrap;
   transition: all 220ms ease;
 
   [data-theme='dark'] & {
-    background: rgba(102, 126, 234, 0.16);
-    border-color: rgba(102, 126, 234, 0.26);
+    background: var(--accent-surface-strong);
+    border-color: var(--accent-border-strong);
   }
 
   svg {
@@ -187,9 +187,9 @@ defineEmits(['clearSearch', 'reset'])
 
   &:hover {
     color: #fff;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     border-color: transparent;
-    box-shadow: 0 8px 18px rgba(102, 126, 234, 0.24);
+    box-shadow: 0 8px 18px var(--accent-shadow);
   }
 }
 
@@ -200,9 +200,9 @@ defineEmits(['clearSearch', 'reset'])
   padding: 8px 14px;
   font-size: $font-size-xs;
   font-weight: $font-weight-semibold;
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  color: var(--color-accent);
+  background: var(--accent-surface);
+  border: 1px solid var(--accent-border);
   border-radius: $radius-lg;
   cursor: pointer;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -213,11 +213,11 @@ defineEmits(['clearSearch', 'reset'])
   }
 
   &:hover {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     border-color: transparent;
     color: white;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35);
+    box-shadow: 0 4px 12px var(--accent-shadow);
   }
 
   &:active {
@@ -255,10 +255,10 @@ defineEmits(['clearSearch', 'reset'])
     .clear-search-btn {
       min-height: 34px;
       padding: 0 12px;
-      color: #667eea;
-      background: rgba(102, 126, 234, 0.12);
-      border-color: rgba(102, 126, 234, 0.22);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.12);
+      color: var(--color-accent);
+      background: var(--accent-surface);
+      border-color: var(--accent-border-strong);
+      box-shadow: 0 4px 12px var(--accent-ring);
     }
   }
 
@@ -270,10 +270,10 @@ defineEmits(['clearSearch', 'reset'])
     max-width: 128px;
     height: 30px;
     padding: 0 10px;
-    border: 1px solid rgba(102, 126, 234, 0.18);
+    border: 1px solid var(--accent-border);
     border-radius: $radius-full;
-    background: rgba(102, 126, 234, 0.1);
-    color: #667eea;
+    background: var(--accent-surface);
+    color: var(--color-accent);
     flex-shrink: 1;
 
     svg {

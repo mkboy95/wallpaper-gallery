@@ -167,12 +167,14 @@ const emit = defineEmits(['navigate', 'resetFilters'])
 
   &.primary {
     color: white;
-    background: var(--color-accent);
-    border-color: var(--color-accent);
+    background: var(--accent-gradient);
+    border-color: transparent;
+    box-shadow: 0 12px 24px var(--accent-shadow);
 
     &:hover {
-      background: var(--color-accent-hover);
-      border-color: var(--color-accent-hover);
+      background: var(--accent-gradient-hover);
+      border-color: transparent;
+      box-shadow: 0 16px 30px var(--accent-shadow-strong);
       color: white;
     }
   }

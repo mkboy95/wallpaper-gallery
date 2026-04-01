@@ -11,7 +11,7 @@ const theme = ref(THEMES.LIGHT)
 const themeMode = ref(THEME_MODES.SYSTEM)
 
 const THEME_COLOR_MAP = {
-  [THEMES.LIGHT]: '#6366f1',
+  [THEMES.LIGHT]: '#2563eb',
   [THEMES.DARK]: '#0f0f1a',
 }
 

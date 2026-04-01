@@ -115,7 +115,13 @@ defineExpose({
 .crop-area__overlay {
   background:
     linear-gradient(180deg, rgba(5, 10, 25, 0.12) 0%, rgba(5, 10, 25, 0.32) 100%),
-    linear-gradient(90deg, rgba(102, 126, 234, 0.08), transparent 22%, transparent 78%, rgba(102, 126, 234, 0.08));
+    linear-gradient(
+      90deg,
+      rgba(var(--color-accent-rgb), 0.08),
+      transparent 22%,
+      transparent 78%,
+      rgba(var(--color-accent-rgb), 0.08)
+    );
 }
 
 .crop-size-badge {
@@ -150,7 +156,7 @@ defineExpose({
   .size-ratio {
     font-size: 14px;
     font-weight: 600;
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 

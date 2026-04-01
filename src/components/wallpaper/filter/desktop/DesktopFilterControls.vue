@@ -160,7 +160,7 @@ defineEmits([
   min-width: 0;
 
   :deep(.el-select) {
-    --el-select-border-color-hover: rgba(102, 126, 234, 0.4);
+    --el-select-border-color-hover: var(--accent-border-strong);
 
     .el-select__wrapper {
       background: rgba(255, 255, 255, 0.6) !important;
@@ -179,12 +179,12 @@ defineEmits([
       }
 
       &:hover {
-        border-color: rgba(102, 126, 234, 0.4) !important;
+        border-color: var(--accent-border-strong) !important;
       }
 
       &.is-focused {
-        border-color: rgba(102, 126, 234, 0.6) !important;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        border-color: var(--accent-border-strong) !important;
+        box-shadow: 0 0 0 3px var(--accent-ring) !important;
       }
     }
 
@@ -204,7 +204,7 @@ defineEmits([
 
     &.is-focus .el-select__suffix .el-icon {
       transform: rotate(180deg);
-      color: #667eea !important;
+      color: var(--color-accent) !important;
     }
   }
 }

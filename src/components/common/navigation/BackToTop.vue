@@ -75,12 +75,12 @@ function handleClick() {
   justify-content: center;
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   border-radius: $radius-full;
   color: white;
   cursor: pointer;
   box-shadow:
-    0 4px 20px rgba(102, 126, 234, 0.4),
+    0 4px 20px var(--accent-shadow),
     0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform, opacity;
@@ -93,7 +93,7 @@ function handleClick() {
     position: absolute;
     inset: -3px;
     border-radius: $radius-full;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+    background: var(--accent-gradient-soft);
     z-index: -1;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -108,7 +108,7 @@ function handleClick() {
   &:hover {
     transform: translateY(-4px) scale(1.05);
     box-shadow:
-      0 8px 30px rgba(102, 126, 234, 0.5),
+      0 8px 30px var(--accent-shadow-strong),
       0 0 0 1px rgba(255, 255, 255, 0.15) inset;
 
     &::before {
@@ -126,7 +126,7 @@ function handleClick() {
     width: 48px;
     height: 48px;
     box-shadow:
-      0 4px 16px rgba(102, 126, 234, 0.45),
+      0 4px 16px var(--accent-shadow-strong),
       0 0 0 1px rgba(255, 255, 255, 0.1) inset;
 
     svg {
@@ -136,7 +136,7 @@ function handleClick() {
 
     &:active {
       transform: scale(0.92);
-      box-shadow: 0 2px 10px rgba(102, 126, 234, 0.35);
+      box-shadow: 0 2px 10px var(--accent-shadow);
     }
   }
 }

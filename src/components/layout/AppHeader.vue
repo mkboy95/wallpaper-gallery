@@ -1,9 +1,11 @@
 <script setup>
+import { ElMessage } from 'element-plus'
 import { gsap } from 'gsap'
 import { storeToRefs } from 'pinia'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import EnvBadge from '@/components/common/ui/EnvBadge.vue'
+import RemoteAvatar from '@/components/common/ui/RemoteAvatar.vue'
 import WallpaperSeriesIcon from '@/components/common/ui/WallpaperSeriesIcon.vue'
 import HeaderMobileDrawer from '@/components/layout/header/mobile/HeaderMobileDrawer.vue'
 import HeaderMobileSearchPopup from '@/components/layout/header/mobile/HeaderMobileSearchPopup.vue'
@@ -14,18 +16,31 @@ import { useDevice } from '@/composables/useDevice'
 import { useFullscreen } from '@/composables/useFullscreen'
 import { useTheme } from '@/composables/useTheme'
 import { useWallpaperType } from '@/composables/useWallpaperType'
+import { useAuthStore } from '@/stores/auth'
 import { useFilterStore } from '@/stores/filter'
 import { useWallpaperStore } from '@/stores/wallpaper'
+import { getAvatarInitial, getAvatarStyle } from '@/utils/auth/avatarAppearance'
+import { normalizeRedirectTarget } from '@/utils/auth/redirect'
 
 const route = useRoute()
 const router = useRouter()
 const { theme, themeMode, themeOptions, toggleTheme, setThemeMode } = useTheme()
 const { isFullscreen, toggleFullscreen } = useFullscreen()
 const { isMobile, isTablet, windowWidth } = useDevice()
+const authStore = useAuthStore()
 const filterStore = useFilterStore()
 const wallpaperStore = useWallpaperStore()
 const { searchQuery } = storeToRefs(filterStore)
 const { wallpapers } = storeToRefs(wallpaperStore)
+const {
+  accountSecondaryLabel,
+  avatarCandidates,
+  avatarUrl: authAvatarUrl,
+  displayName: authDisplayName,
+  isAuthenticated,
+  isConfigured: isAuthConfigured,
+  primaryEmail,
+} = storeToRefs(authStore)
 const { availableSeriesOptions, currentSeries } = useWallpaperType()
 
 const { isSeriesActive, navRef, navSliderStyle } = useHeaderNavSlider({
@@ -80,6 +95,29 @@ const themeButtonLabel = computed(() =>
   `${activeThemeOption.value.label}，当前${theme.value === 'dark' ? '深色' : '浅色'}`,
 )
 const hasSearchQuery = computed(() => Boolean(searchQuery.value?.trim()))
+const authEntryRoute = computed(() => ({
+  path: '/login',
+  query: {
+    redirect: normalizeRedirectTarget(
+      ['/login', '/signup', '/auth/callback'].includes(route.path) ? '/desktop' : route.fullPath,
+    ),
+  },
+}))
+const accountRoute = computed(() => '/account')
+const libraryCollectionsRoute = computed(() => ({
+  path: '/library',
+  query: {
+    tab: 'collections',
+  },
+}))
+const libraryLikesRoute = computed(() => ({
+  path: '/library',
+  query: {
+    tab: 'likes',
+  },
+}))
+const authInitial = computed(() => getAvatarInitial(authDisplayName.value || primaryEmail.value))
+const authAvatarStyle = computed(() => getAvatarStyle(authDisplayName.value || primaryEmail.value))
 
 const searchExpandWidth = computed(() => {
   if (isTablet.value) {
@@ -231,6 +269,44 @@ function handleThemeQuickToggle() {
   closeThemeMenu()
 }
 
+async function handleSignOut() {
+  closeDrawer()
+
+  const shouldRedirectBeforeSignOut = ['/account', '/library'].includes(route.path)
+
+  try {
+    if (shouldRedirectBeforeSignOut) {
+      await router.replace('/desktop')
+    }
+
+    await authStore.signOut()
+    ElMessage.success('已退出登录')
+  }
+  catch (error) {
+    console.warn('[AppHeader] 退出登录失败:', error)
+    ElMessage.error('退出登录失败，请稍后重试')
+  }
+}
+
+function handleAccountCommand(command) {
+  switch (command) {
+    case 'account':
+      router.push(accountRoute.value)
+      break
+    case 'collections':
+      router.push(libraryCollectionsRoute.value)
+      break
+    case 'likes':
+      router.push(libraryLikesRoute.value)
+      break
+    case 'signout':
+      handleSignOut()
+      break
+    default:
+      break
+  }
+}
+
 function handleGlobalPointerDown(event) {
   if (isMobile.value || !showThemeMenu.value)
     return
@@ -377,7 +453,6 @@ watch(isMobile, () => {
             <circle cx="12" cy="12" r="10" />
             <path d="M12 16v-4M12 8h.01" />
           </svg>
-          <span>关于</span>
         </router-link>
 
         <a
@@ -392,8 +467,62 @@ watch(isMobile, () => {
           </svg>
         </a>
 
-        <!-- 环境标识 -->
-        <EnvBadge class="header-env-badge" />
+        <template v-if="isAuthConfigured">
+          <router-link
+            v-if="!isAuthenticated"
+            :to="authEntryRoute"
+            class="header-auth-link"
+            aria-label="登录账号"
+          >
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <path d="M10 17l5-5-5-5" />
+              <path d="M15 12H3" />
+            </svg>
+            <span>登录</span>
+          </router-link>
+
+          <el-dropdown
+            v-else
+            trigger="hover"
+            placement="bottom-end"
+            popper-class="header-account-dropdown-menu"
+            @command="handleAccountCommand"
+          >
+            <button
+              class="header-account-trigger"
+              type="button"
+              :aria-label="`${authDisplayName || '当前账号'} 菜单`"
+            >
+              <RemoteAvatar
+                :sources="avatarCandidates"
+                :src="authAvatarUrl"
+                :alt="`${authDisplayName} 头像`"
+                :initial="authInitial"
+                :fallback-style="authAvatarStyle"
+                image-class="header-account-trigger__avatar-image"
+                fallback-class="header-account-trigger__avatar"
+              />
+            </button>
+
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="account">
+                  个人信息
+                </el-dropdown-item>
+                <el-dropdown-item command="collections">
+                  收藏夹
+                </el-dropdown-item>
+                <el-dropdown-item command="likes">
+                  我的喜欢
+                </el-dropdown-item>
+                <el-dropdown-item command="signout" divided>
+                  退出登录
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </template>
       </div>
 
       <!-- 移动端操作栏 -->
@@ -459,14 +588,95 @@ watch(isMobile, () => {
 
     <HeaderMobileDrawer
       v-model:show="showDrawer"
+      :auth-avatar-initial="authInitial"
+      :auth-avatar-sources="avatarCandidates"
+      :auth-avatar-style="authAvatarStyle"
+      :auth-avatar-url="authAvatarUrl"
+      :account-route="accountRoute"
       :available-series-options="availableSeriesOptions"
+      :auth-display-name="authDisplayName"
+      :auth-secondary-label="accountSecondaryLabel"
+      :auth-entry-route="authEntryRoute"
       :get-series-path="getSeriesPath"
+      :is-auth-configured="isAuthConfigured"
+      :is-authenticated="isAuthenticated"
       :is-series-active="isSeriesActive"
+      :library-collections-route="libraryCollectionsRoute"
+      :library-likes-route="libraryLikesRoute"
       @close="closeDrawer"
       @navigate="navigateTo"
+      @signout="handleSignOut"
     />
   </header>
 </template>
+
+<style lang="scss">
+.header-account-dropdown-menu.el-popper {
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.header-account-dropdown-menu .el-dropdown-menu {
+  min-width: 180px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 24px 54px rgba(15, 23, 42, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.header-account-dropdown-menu .el-dropdown-menu__item {
+  min-height: 42px;
+  border-radius: 12px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.header-account-dropdown-menu .el-dropdown-menu__item:not(.is-disabled):hover,
+.header-account-dropdown-menu .el-dropdown-menu__item:not(.is-disabled):focus {
+  color: #0f172a;
+  background: rgba(14, 165, 233, 0.12);
+}
+
+.header-account-dropdown-menu .el-dropdown-menu__item--divided {
+  margin-top: 8px;
+  color: #dc2626;
+}
+
+.header-account-dropdown-menu .el-dropdown-menu__item--divided::before {
+  margin: 0 0 8px;
+  background: rgba(148, 163, 184, 0.16);
+}
+
+html[data-theme='dark'] .header-account-dropdown-menu .el-dropdown-menu {
+  border-color: rgba(148, 163, 184, 0.18);
+  background: rgba(8, 15, 28, 0.94);
+  box-shadow:
+    0 26px 62px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+html[data-theme='dark'] .header-account-dropdown-menu .el-dropdown-menu__item {
+  color: #cbd5e1;
+}
+
+html[data-theme='dark'] .header-account-dropdown-menu .el-dropdown-menu__item:not(.is-disabled):hover,
+html[data-theme='dark'] .header-account-dropdown-menu .el-dropdown-menu__item:not(.is-disabled):focus {
+  color: #f8fafc;
+  background: rgba(56, 189, 248, 0.14);
+}
+
+html[data-theme='dark'] .header-account-dropdown-menu .el-dropdown-menu__item--divided::before {
+  background: rgba(148, 163, 184, 0.14);
+}
+</style>
 
 <style lang="scss" scoped>
 .app-header {
@@ -532,10 +742,10 @@ watch(isMobile, () => {
   justify-content: center;
   width: 46px;
   height: 46px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   border-radius: $radius-lg;
   color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.35);
+  box-shadow: 0 4px 15px var(--accent-shadow);
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
   svg {
@@ -545,7 +755,7 @@ watch(isMobile, () => {
 
   &:hover {
     transform: scale(1.05) rotate(-3deg);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.45);
+    box-shadow: 0 6px 20px var(--accent-shadow-strong);
   }
 }
 
@@ -558,7 +768,7 @@ watch(isMobile, () => {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   line-height: 1.2;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -612,9 +822,9 @@ watch(isMobile, () => {
   top: 5px;
   left: 5px;
   height: calc(100% - 10px);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   border-radius: $radius-lg;
-  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 2px 10px var(--accent-shadow);
   transition:
     opacity 180ms ease,
     transform 350ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -748,15 +958,15 @@ watch(isMobile, () => {
   border-radius: $radius-full;
   font-size: 12px;
   font-weight: $font-weight-semibold;
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.12);
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  color: var(--color-accent);
+  background: var(--accent-surface);
+  border: 1px solid var(--accent-border);
   white-space: nowrap;
   transition: all 220ms ease;
 
   [data-theme='dark'] & {
-    background: rgba(102, 126, 234, 0.16);
-    border-color: rgba(102, 126, 234, 0.28);
+    background: var(--accent-surface-strong);
+    border-color: var(--accent-border-strong);
   }
 
   svg {
@@ -766,9 +976,9 @@ watch(isMobile, () => {
 
   &:hover {
     color: white;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     border-color: transparent;
-    box-shadow: 0 8px 18px rgba(102, 126, 234, 0.24);
+    box-shadow: 0 8px 18px var(--accent-shadow);
   }
 
   &--mobile {
@@ -797,6 +1007,8 @@ watch(isMobile, () => {
 .search-toggle,
 .theme-toggle,
 .header-about-link,
+.header-auth-link,
+.header-account-trigger,
 .github-link,
 .fullscreen-toggle,
 .hamburger-btn {
@@ -832,11 +1044,11 @@ watch(isMobile, () => {
   }
 
   &:hover {
-    background: rgba(102, 126, 234, 0.15);
-    border-color: rgba(102, 126, 234, 0.3);
-    color: #667eea;
+    background: var(--accent-surface);
+    border-color: var(--accent-border-strong);
+    color: var(--color-accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 4px 15px var(--accent-shadow);
   }
 
   &:active {
@@ -855,52 +1067,116 @@ watch(isMobile, () => {
 }
 
 .header-about-link {
-  width: auto;
-  padding: 0 16px 0 14px;
-  gap: 8px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
   text-decoration: none;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
 
-  span {
-    line-height: 1;
-  }
-
-  @media (max-width: 1320px) {
-    width: 42px;
-    padding: 0;
-
-    span {
-      display: none;
-    }
+  .icon {
+    width: 18px;
+    height: 18px;
   }
 
   &.router-link-active {
-    background: rgba(102, 126, 234, 0.14);
-    border-color: rgba(102, 126, 234, 0.25);
-    color: #667eea;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.16);
+    background: transparent;
+    border-color: transparent;
+    color: var(--color-accent);
+    box-shadow: none;
+  }
+
+  &:hover {
+    background: transparent;
+    border-color: transparent;
+    color: var(--color-accent);
+    box-shadow: none;
+  }
+}
+
+.header-auth-link {
+  width: auto;
+  gap: 8px;
+  padding: 0 14px;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+}
+
+.header-account-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+
+  &:hover {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+  }
+}
+
+:deep(.header-account-trigger__avatar),
+:deep(.header-account-trigger__avatar-image) {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+:deep(.header-account-trigger__avatar) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  background: var(--avatar-accent-end, #2563eb);
+  box-shadow: 0 4px 10px var(--avatar-accent-shadow, rgba(37, 99, 235, 0.28));
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+
+  [data-theme='dark'] & {
+    border-color: rgba(148, 163, 184, 0.18);
+  }
+}
+
+:deep(.header-account-trigger__avatar-image) {
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+
+  [data-theme='dark'] & {
+    border-color: rgba(148, 163, 184, 0.18);
   }
 }
 
 .search-toggle.is-active,
 .theme-toggle.is-active,
 .fullscreen-toggle.is-active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   border-color: transparent;
   color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px var(--accent-shadow);
 
   &:hover {
     color: white;
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 6px 20px var(--accent-shadow-strong);
   }
 }
 
 .search-toggle.has-query:not(.is-active) {
-  color: #667eea;
-  border-color: rgba(102, 126, 234, 0.24);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.08);
+  color: var(--color-accent);
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px var(--accent-ring);
 }
 
 .search-toggle-indicator {

@@ -274,7 +274,7 @@ onUnmounted(() => destroyCropper())
   .size-ratio {
     font-size: 13px;
     font-weight: 600;
-    color: #667eea;
+    color: var(--color-accent);
   }
   .size-zoom {
     font-size: 12px;
@@ -305,7 +305,7 @@ onUnmounted(() => destroyCropper())
   width: 32px;
   height: 32px;
   border: 3px solid rgba(255, 255, 255, 0.2);
-  border-top-color: #667eea;
+  border-top-color: var(--color-accent);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -342,15 +342,15 @@ onUnmounted(() => destroyCropper())
   height: 100% !important;
 }
 :deep(.cropper-view-box) {
-  outline: 2px solid rgba(102, 126, 234, 0.9);
+  outline: 2px solid rgba(var(--color-accent-rgb), 0.9);
 }
 :deep(.cropper-line) {
-  background-color: #667eea;
+  background-color: var(--color-accent);
 }
 :deep(.cropper-point) {
   width: 10px;
   height: 10px;
-  background-color: #667eea;
+  background-color: var(--color-accent);
   border-radius: 50%;
   opacity: 1;
 }

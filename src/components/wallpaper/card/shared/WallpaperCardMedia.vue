@@ -1,4 +1,6 @@
 <script setup>
+import WallpaperCardActions from './WallpaperCardActions.vue'
+
 defineProps({
   bingDate: {
     type: String,
@@ -7,6 +9,10 @@ defineProps({
   categoryDisplay: {
     type: String,
     default: '',
+  },
+  collected: {
+    type: Boolean,
+    default: false,
   },
   imageAlt: {
     type: String,
@@ -28,6 +34,10 @@ defineProps({
     type: Number,
     default: 0,
   },
+  isAuthenticated: {
+    type: Boolean,
+    default: false,
+  },
   isBingWallpaper: {
     type: Boolean,
     default: false,
@@ -35,6 +45,14 @@ defineProps({
   isMobile: {
     type: Boolean,
     default: false,
+  },
+  liked: {
+    type: Boolean,
+    default: false,
+  },
+  actionMode: {
+    type: String,
+    default: 'all',
   },
   popularRank: {
     type: Number,
@@ -54,7 +72,7 @@ defineProps({
   },
 })
 
-const emit = defineEmits(['error', 'load'])
+const emit = defineEmits(['error', 'load', 'toggleLike', 'toggleCollect'])
 </script>
 
 <template>
@@ -109,7 +127,45 @@ const emit = defineEmits(['error', 'load'])
       <span>{{ bingDate }}</span>
     </div>
 
+    <!-- 移动端：始终显示操作按钮（右上角） -->
+    <div v-if="isAuthenticated && isMobile && viewMode === 'grid'" class="card-actions-mobile">
+      <WallpaperCardActions
+        :liked="liked"
+        :collected="collected"
+        :action-mode="actionMode"
+        :is-authenticated="isAuthenticated"
+        compact
+        @toggle-like="emit('toggleLike')"
+        @toggle-collect="emit('toggleCollect')"
+      />
+    </div>
+
+    <!-- 状态角标：始终可见的喜欢/收藏指示器 -->
+    <div v-if="(liked || collected) && viewMode === 'grid'" class="card-status-badges">
+      <span v-if="collected" class="status-badge status-badge--collect" title="已收藏">
+        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      </span>
+      <span v-if="liked" class="status-badge status-badge--like" title="已喜欢">
+        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path d="m12 21-1.45-1.32C5.4 15.03 2 11.95 2 8.5 2 5.42 4.42 3 7.5 3A5.3 5.3 0 0 1 12 5.09 5.3 5.3 0 0 1 16.5 3C19.58 3 22 5.42 22 8.5c0 3.45-3.4 6.53-8.55 11.18z" />
+        </svg>
+      </span>
+    </div>
+
+    <!-- 桌面端：hover overlay -->
     <div v-if="!isMobile" class="card-overlay">
+      <div v-if="isAuthenticated" class="overlay-actions">
+        <WallpaperCardActions
+          :liked="liked"
+          :collected="collected"
+          :action-mode="actionMode"
+          :is-authenticated="isAuthenticated"
+          @toggle-like="emit('toggleLike')"
+          @toggle-collect="emit('toggleCollect')"
+        />
+      </div>
       <div class="overlay-content">
         <span class="overlay-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -129,6 +185,12 @@ const emit = defineEmits(['error', 'load'])
   position: relative;
   overflow: hidden;
   background: var(--color-bg-hover);
+
+  [data-theme='dark'] & {
+    background:
+      linear-gradient(180deg, rgba(5, 11, 21, 0.96), rgba(8, 14, 26, 0.9)),
+      radial-gradient(circle at top left, rgba(96, 165, 250, 0.08), transparent 44%);
+  }
 
   img {
     width: 100%;
@@ -237,11 +299,94 @@ const emit = defineEmits(['error', 'load'])
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   will-change: opacity;
+}
+
+.overlay-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}
+
+.card-actions-mobile {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 6;
+}
+
+.card-status-badges {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(8, 15, 28, 0.9), rgba(5, 10, 20, 0.82)),
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.14), transparent 52%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(191, 219, 254, 0.12);
+  box-shadow:
+    0 14px 24px rgba(2, 8, 23, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  @include mobile-only {
+    right: 8px;
+    bottom: 40px;
+    gap: 5px;
+    padding: 5px 7px;
+  }
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  @include mobile-only {
+    width: 18px;
+    height: 18px;
+  }
+
+  svg {
+    width: 12px;
+    height: 12px;
+
+    @include mobile-only {
+      width: 11px;
+      height: 11px;
+    }
+  }
+
+  &--collect {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.96), rgba(245, 158, 11, 0.9));
+    box-shadow:
+      0 6px 12px rgba(245, 158, 11, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+
+  &--like {
+    background: linear-gradient(135deg, rgba(251, 113, 133, 0.96), rgba(239, 68, 68, 0.9));
+    box-shadow:
+      0 6px 12px rgba(239, 68, 68, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
 }
 
 .overlay-content {
@@ -284,7 +429,13 @@ const emit = defineEmits(['error', 'load'])
   align-items: center;
   gap: 4px;
   padding: 4px 8px;
-  background: rgba(0, 0, 0, 0.75);
+  background: linear-gradient(180deg, rgba(16, 24, 40, 0.92), rgba(10, 18, 31, 0.88));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(96, 165, 250, 0.14);
+  box-shadow:
+    0 10px 18px rgba(2, 8, 23, 0.24),
+    inset 0 1px 0 rgba(191, 219, 254, 0.06);
   color: white;
   font-size: 10px;
   font-weight: $font-weight-medium;

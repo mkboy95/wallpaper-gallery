@@ -111,13 +111,13 @@ const isDark = computed(() => theme.value === 'dark')
   padding: 10px 14px;
   font-size: 14px;
   font-weight: 500;
-  color: #667eea;
+  color: var(--color-accent);
   background: transparent;
   white-space: nowrap;
   transition: opacity 200ms;
 
   .is-dark & {
-    color: #8ea2ff;
+    color: var(--accent-contrast-soft);
   }
 
   &:active {

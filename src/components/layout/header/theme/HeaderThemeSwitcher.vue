@@ -180,11 +180,11 @@ defineExpose({
   }
 
   &:hover {
-    background: rgba(102, 126, 234, 0.15);
-    border-color: rgba(102, 126, 234, 0.3);
-    color: #667eea;
+    background: var(--accent-surface);
+    border-color: var(--accent-border-strong);
+    color: var(--color-accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 4px 15px var(--accent-shadow);
   }
 
   &:active {
@@ -198,14 +198,14 @@ defineExpose({
   }
 
   &.is-active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     border-color: transparent;
     color: white;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 15px var(--accent-shadow);
 
     &:hover {
       color: white;
-      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+      box-shadow: 0 6px 20px var(--accent-shadow-strong);
     }
   }
 }
@@ -278,11 +278,11 @@ defineExpose({
   margin-bottom: 8px;
   font-size: 13px;
   font-weight: 600;
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
+  color: var(--color-accent);
+  background: var(--accent-surface);
 
   &:hover {
-    background: rgba(102, 126, 234, 0.16);
+    background: var(--accent-surface-strong);
   }
 }
 
@@ -293,11 +293,11 @@ defineExpose({
   padding: 12px 14px;
 
   &:hover {
-    background: rgba(102, 126, 234, 0.08);
+    background: var(--accent-surface);
   }
 
   &.is-active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.16), rgba(118, 75, 162, 0.14));
+    background: var(--accent-gradient-soft);
   }
 }
 
@@ -354,7 +354,7 @@ defineExpose({
   border: 0;
   border-radius: 50%;
   color: var(--color-text-secondary);
-  background: rgba(102, 126, 234, 0.08);
+  background: var(--accent-surface);
 
   svg {
     width: 18px;
@@ -378,8 +378,8 @@ defineExpose({
   margin-bottom: 12px;
   font-size: 14px;
   font-weight: 600;
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
+  color: var(--color-accent);
+  background: var(--accent-surface);
 }
 
 .theme-sheet-option {
@@ -387,7 +387,7 @@ defineExpose({
   flex-direction: column;
   gap: 4px;
   padding: 14px 16px;
-  background: rgba(102, 126, 234, 0.04);
+  background: rgba(var(--color-accent-rgb), 0.06);
   transition: all 220ms ease;
 
   & + & {
@@ -395,7 +395,7 @@ defineExpose({
   }
 
   &.is-active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.16), rgba(118, 75, 162, 0.14));
+    background: var(--accent-gradient-soft);
   }
 }
 

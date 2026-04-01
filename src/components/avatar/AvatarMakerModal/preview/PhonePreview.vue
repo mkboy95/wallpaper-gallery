@@ -85,7 +85,7 @@ const previewRadius = computed(() => {
       0 0 0 2px #1a1a1a,
       0 0 0 4px #2a2a2a,
       0 30px 60px rgba(0, 0, 0, 0.6),
-      0 0 50px rgba(102, 126, 234, 0.15);
+      0 0 50px var(--accent-ring);
   }
 }
 
@@ -142,10 +142,10 @@ const previewRadius = computed(() => {
   height: 140px;
   border-radius: 50%;
   overflow: hidden;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: var(--accent-gradient);
   padding: 3px;
   box-shadow:
-    0 10px 30px rgba(102, 126, 234, 0.5),
+    0 10px 30px var(--accent-shadow-strong),
     0 0 0 1px rgba(255, 255, 255, 0.15);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -189,7 +189,7 @@ const previewRadius = computed(() => {
   width: 28px;
   height: 28px;
   border: 3px solid rgba(255, 255, 255, 0.2);
-  border-top-color: #667eea;
+  border-top-color: var(--color-accent);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }

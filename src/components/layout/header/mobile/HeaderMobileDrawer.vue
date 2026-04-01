@@ -1,4 +1,5 @@
 <script setup>
+import RemoteAvatar from '@/components/common/ui/RemoteAvatar.vue'
 import WallpaperSeriesIcon from '@/components/common/ui/WallpaperSeriesIcon.vue'
 
 defineProps({
@@ -6,13 +7,71 @@ defineProps({
     type: Array,
     default: () => [],
   },
+  authAvatarInitial: {
+    type: String,
+    default: 'U',
+  },
+  authAvatarSources: {
+    type: Array,
+    default: () => [],
+  },
+  authAvatarStyle: {
+    type: Object,
+    default: () => ({}),
+  },
+  authAvatarUrl: {
+    type: String,
+    default: '',
+  },
+  accountRoute: {
+    type: [String, Object],
+    default: '/account',
+  },
+  authDisplayName: {
+    type: String,
+    default: '',
+  },
+  authSecondaryLabel: {
+    type: String,
+    default: '',
+  },
+  authEntryRoute: {
+    type: [String, Object],
+    default: '/login',
+  },
   getSeriesPath: {
     type: Function,
     required: true,
   },
+  isAuthConfigured: {
+    type: Boolean,
+    default: false,
+  },
+  isAuthenticated: {
+    type: Boolean,
+    default: false,
+  },
   isSeriesActive: {
     type: Function,
     required: true,
+  },
+  libraryCollectionsRoute: {
+    type: [String, Object],
+    default: () => ({
+      path: '/library',
+      query: {
+        tab: 'collections',
+      },
+    }),
+  },
+  libraryLikesRoute: {
+    type: [String, Object],
+    default: () => ({
+      path: '/library',
+      query: {
+        tab: 'likes',
+      },
+    }),
   },
   show: {
     type: Boolean,
@@ -20,7 +79,7 @@ defineProps({
   },
 })
 
-defineEmits(['close', 'navigate', 'update:show'])
+defineEmits(['close', 'navigate', 'signout', 'update:show'])
 </script>
 
 <template>
@@ -53,6 +112,90 @@ defineEmits(['close', 'navigate', 'update:show'])
           </button>
         </div>
 
+        <div v-if="isAuthConfigured && isAuthenticated" class="drawer-section account-section">
+          <div class="drawer-account-card">
+            <RemoteAvatar
+              :sources="authAvatarSources"
+              :src="authAvatarUrl"
+              :alt="`${authDisplayName} 头像`"
+              :initial="authAvatarInitial"
+              :fallback-style="authAvatarStyle"
+              image-class="drawer-account-card__avatar-image"
+              fallback-class="drawer-account-card__avatar drawer-account-card__avatar-initial"
+            />
+
+            <div class="drawer-account-card__copy">
+              <strong>{{ authDisplayName || '账号中心' }}</strong>
+              <span>{{ authSecondaryLabel || '当前账号暂未返回邮箱地址' }}</span>
+            </div>
+          </div>
+
+          <div class="drawer-account-actions">
+            <button class="drawer-account-action" @click="$emit('navigate', accountRoute)">
+              <div class="drawer-account-action__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21a8 8 0 1 0-16 0" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <div class="drawer-account-action__copy">
+                <strong>个人信息</strong>
+                <span>查看昵称、邮箱和绑定状态</span>
+              </div>
+              <svg class="drawer-account-action__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </button>
+
+            <button class="drawer-account-action" @click="$emit('navigate', libraryCollectionsRoute)">
+              <div class="drawer-account-action__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                </svg>
+              </div>
+              <div class="drawer-account-action__copy">
+                <strong>收藏夹</strong>
+                <span>进入统一壁纸库的收藏分区</span>
+              </div>
+              <svg class="drawer-account-action__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </button>
+
+            <button class="drawer-account-action" @click="$emit('navigate', libraryLikesRoute)">
+              <div class="drawer-account-action__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m12 21-1.45-1.32C5.4 15.03 2 11.95 2 8.5 2 5.42 4.42 3 7.5 3A5.3 5.3 0 0 1 12 5.09 5.3 5.3 0 0 1 16.5 3C19.58 3 22 5.42 22 8.5c0 3.45-3.4 6.53-8.55 11.18z" />
+                </svg>
+              </div>
+              <div class="drawer-account-action__copy">
+                <strong>我的喜欢</strong>
+                <span>查看你点过爱心的内容入口</span>
+              </div>
+              <svg class="drawer-account-action__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </button>
+
+            <button class="drawer-account-action drawer-account-action--danger" @click="$emit('signout')">
+              <div class="drawer-account-action__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <path d="M16 17l5-5-5-5" />
+                  <path d="M21 12H9" />
+                </svg>
+              </div>
+              <div class="drawer-account-action__copy">
+                <strong>退出登录</strong>
+                <span>结束当前会话并返回访客状态</span>
+              </div>
+              <svg class="drawer-account-action__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
         <div class="drawer-section nav-section">
           <h3 class="section-title">
             快捷导航
@@ -76,6 +219,21 @@ defineEmits(['close', 'navigate', 'update:show'])
               </div>
               <span>关于</span>
             </button>
+            <RouterLink
+              v-if="isAuthConfigured && !isAuthenticated"
+              class="nav-card"
+              :to="authEntryRoute"
+              @click="$emit('close')"
+            >
+              <div class="nav-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                  <path d="M10 17l5-5-5-5" />
+                  <path d="M15 12H3" />
+                </svg>
+              </div>
+              <span>登录</span>
+            </RouterLink>
           </div>
         </div>
 
@@ -171,12 +329,24 @@ html[data-theme='dark'] .mobile-drawer.van-popup {
   color: var(--color-text-primary);
   font-weight: 700;
   font-size: 16px;
+  line-height: 1;
+
+  span {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+  }
 
   .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 40px;
     width: 40px;
     height: 40px;
 
     svg {
+      display: block;
       width: 22px;
       height: 22px;
     }
@@ -201,8 +371,8 @@ html[data-theme='dark'] .mobile-drawer.van-popup {
   }
 
   &:active {
-    background: rgba(102, 126, 234, 0.15);
-    color: #667eea;
+    background: var(--accent-surface);
+    color: var(--color-accent);
   }
 
   svg {
@@ -227,6 +397,172 @@ html[data-theme='dark'] .mobile-drawer.van-popup {
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 14px;
+}
+
+.drawer-account-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.42)),
+    linear-gradient(140deg, rgba(56, 189, 248, 0.14), rgba(59, 130, 246, 0.06) 70%, rgba(245, 158, 11, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 12px 28px rgba(15, 23, 42, 0.08);
+
+  [data-theme='dark'] & {
+    background:
+      linear-gradient(135deg, rgba(15, 23, 42, 0.74), rgba(15, 23, 42, 0.52)),
+      linear-gradient(140deg, rgba(56, 189, 248, 0.12), rgba(59, 130, 246, 0.06) 70%, rgba(16, 185, 129, 0.08));
+    border-color: rgba(148, 163, 184, 0.14);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 14px 30px rgba(0, 0, 0, 0.24);
+  }
+}
+
+:deep(.drawer-account-card__avatar),
+:deep(.drawer-account-card__avatar-image) {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+:deep(.drawer-account-card__avatar) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--avatar-accent-end, #2563eb);
+  box-shadow: 0 10px 20px var(--avatar-accent-shadow, rgba(37, 99, 235, 0.28));
+}
+
+:deep(.drawer-account-card__avatar-image) {
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+:deep(.drawer-account-card__avatar-initial) {
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.drawer-account-card__copy {
+  min-width: 0;
+
+  strong {
+    display: block;
+    color: var(--color-text-primary);
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  span {
+    display: block;
+    margin-top: 6px;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+}
+
+.drawer-account-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.drawer-account-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  text-align: left;
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  transition: all 220ms ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  [data-theme='dark'] & {
+    background: rgba(15, 23, 42, 0.62);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.drawer-account-action__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  color: #0284c7;
+  background: rgba(14, 165, 233, 0.12);
+  flex-shrink: 0;
+
+  [data-theme='dark'] & {
+    color: #7dd3fc;
+    background: rgba(14, 165, 233, 0.16);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.drawer-account-action__copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 4px;
+  flex: 1;
+
+  strong {
+    color: inherit;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  span {
+    color: var(--color-text-muted);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
+
+.drawer-account-action__arrow {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.drawer-account-action--danger {
+  .drawer-account-action__icon {
+    color: #dc2626;
+    background: rgba(239, 68, 68, 0.12);
+
+    [data-theme='dark'] & {
+      color: #fda4af;
+      background: rgba(239, 68, 68, 0.16);
+    }
+  }
 }
 
 .nav-grid,
@@ -272,14 +608,14 @@ html[data-theme='dark'] .mobile-drawer.van-popup {
   justify-content: center;
   width: 48px;
   height: 48px;
-  background: rgba(102, 126, 234, 0.1);
+  background: var(--accent-surface);
   border-radius: 14px;
   transition: all 250ms;
 
   svg {
     width: 24px;
     height: 24px;
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -291,10 +627,10 @@ html[data-theme='dark'] .mobile-drawer.van-popup {
   }
 
   &.is-active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     border-color: transparent;
     color: white;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 15px var(--accent-shadow);
 
     svg {
       color: white;
@@ -323,7 +659,7 @@ html[data-theme='dark'] .mobile-drawer.van-popup {
 
   &:active {
     transform: scale(0.98);
-    background: rgba(102, 126, 234, 0.1);
+    background: var(--accent-surface);
   }
 }
 

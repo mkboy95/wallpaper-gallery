@@ -1,6 +1,7 @@
 <script setup>
 import { computed, defineAsyncComponent, ref } from 'vue'
 import MobileCategoryDrawer from '@/components/common/navigation/MobileCategoryDrawer.vue'
+import AnimatedNumber from '@/components/common/ui/AnimatedNumber.vue'
 import MobileFilterBar from '@/components/wallpaper/filter/mobile/MobileFilterBar.vue'
 import MobileFilterPopup from '@/components/wallpaper/filter/mobile/MobileFilterPopup.vue'
 import FilterSummary from '@/components/wallpaper/filter/shared/FilterSummary.vue'
@@ -64,6 +65,18 @@ const props = defineProps({
   currentSeries: {
     type: String,
     default: '',
+  },
+  showInteractionSummary: {
+    type: Boolean,
+    default: false,
+  },
+  interactionStats: {
+    type: Object,
+    default: () => ({ likes: 0, collections: 0 }),
+  },
+  interactionStatsLoaded: {
+    type: Boolean,
+    default: false,
   },
 })
 
@@ -225,6 +238,42 @@ function resetFilters() {
       @reset="handleReset"
     />
 
+    <div v-if="!isMobile && showInteractionSummary" class="desktop-interaction-summary">
+      <article class="summary-chip summary-chip--like">
+        <span class="summary-chip__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="m12 21-1.45-1.32C5.4 15.03 2 11.95 2 8.5 2 5.42 4.42 3 7.5 3A5.3 5.3 0 0 1 12 5.09 5.3 5.3 0 0 1 16.5 3C19.58 3 22 5.42 22 8.5c0 3.45-3.4 6.53-8.55 11.18z" />
+          </svg>
+        </span>
+        <span class="summary-chip__label">已喜欢</span>
+        <strong class="summary-chip__value">
+          <AnimatedNumber
+            v-if="interactionStatsLoaded"
+            :value="interactionStats.likes || 0"
+            :animate-on-mount="false"
+          />
+          <span v-else>--</span>
+        </strong>
+      </article>
+
+      <article class="summary-chip summary-chip--collect">
+        <span class="summary-chip__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+        </span>
+        <span class="summary-chip__label">已收藏</span>
+        <strong class="summary-chip__value">
+          <AnimatedNumber
+            v-if="interactionStatsLoaded"
+            :value="interactionStats.collections || 0"
+            :animate-on-mount="false"
+          />
+          <span v-else>--</span>
+        </strong>
+      </article>
+    </div>
+
     <div v-if="!isMobile" class="desktop-filter-slot">
       <DesktopFilterControls
         :category-filter="categoryFilter"
@@ -311,13 +360,13 @@ function resetFilters() {
   }
 
   &.has-filters {
-    border-color: rgba(102, 126, 234, 0.3);
+    border-color: var(--accent-border-strong);
     background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 4px 30px rgba(102, 126, 234, 0.15);
+    box-shadow: 0 4px 30px var(--accent-ring);
 
     [data-theme='dark'] & {
       background: rgba(15, 23, 42, 0.85);
-      border-color: rgba(102, 126, 234, 0.25);
+      border-color: var(--accent-border);
     }
   }
 }
@@ -329,6 +378,100 @@ function resetFilters() {
   min-height: 38px;
   flex: 1;
   min-width: 0;
+}
+
+.desktop-interaction-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  flex-shrink: 0;
+}
+
+.summary-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 132px;
+  padding: 7px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 6px 18px rgba(15, 23, 42, 0.05);
+
+  [data-theme='dark'] & {
+    background: rgba(15, 23, 42, 0.72);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow:
+      inset 0 1px 0 rgba(191, 219, 254, 0.05),
+      0 8px 20px rgba(2, 8, 23, 0.18);
+  }
+}
+
+.summary-chip__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  flex-shrink: 0;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.summary-chip__label {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: $font-weight-semibold;
+  white-space: nowrap;
+}
+
+.summary-chip__value {
+  margin-left: auto;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: $font-weight-bold;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-chip--like {
+  .summary-chip__icon {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.12);
+  }
+}
+
+.summary-chip--collect {
+  .summary-chip__icon {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.14);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1280px) {
+  .desktop-interaction-summary {
+    gap: 8px;
+  }
+
+  .summary-chip {
+    min-width: 120px;
+    padding: 7px 10px;
+  }
+
+  .summary-chip__label {
+    font-size: 11px;
+  }
+
+  .summary-chip__value {
+    font-size: 16px;
+  }
 }
 
 // 响应式

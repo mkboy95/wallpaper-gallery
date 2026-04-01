@@ -2,6 +2,7 @@
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import PageLoadingScene from '@/components/common/feedback/PageLoadingScene.vue'
 import UpdateNotification from '@/components/common/feedback/UpdateNotification.vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import GridSkeleton from '@/components/wallpaper/WallpaperGrid/GridSkeleton.vue'
@@ -18,23 +19,32 @@ const skeletonAspectType = computed(() => route.meta?.aspectType || 'landscape')
 
 // 是否隐藏导航栏（用于下载页等独立页面）
 const hideHeader = computed(() => route.meta?.hideHeader === true)
+const useSceneLoadingFallback = computed(() => route.meta?.loadingScene === true)
+const loadingSceneTitle = computed(() => route.meta?.loadingTitle || '页面加载中')
+const loadingSceneText = computed(() => route.meta?.loadingText || '请稍候...')
+const compactMain = computed(() => route.meta?.compactMain === true)
 </script>
 
 <template>
   <ElConfigProvider :locale="zhCn">
-    <div class="app" :class="{ 'no-header': hideHeader }">
+    <div class="app" :class="{ 'compact-main': compactMain, 'no-header': hideHeader }">
       <AppHeader v-if="!hideHeader" />
 
-      <main class="main-content" :class="{ 'no-padding': hideHeader }">
+      <main class="main-content" :class="{ 'compact-page': compactMain, 'no-padding': hideHeader }">
         <RouterView v-slot="{ Component }">
           <Suspense v-if="Component">
             <template #default>
               <component :is="Component" />
             </template>
             <template #fallback>
-              <div class="home-page">
+              <div class="route-loading-fallback">
                 <div class="container">
-                  <GridSkeleton :count="12" :aspect-type="skeletonAspectType" />
+                  <PageLoadingScene
+                    v-if="useSceneLoadingFallback"
+                    :text="loadingSceneText"
+                    :title="loadingSceneTitle"
+                  />
+                  <GridSkeleton v-else :count="12" :aspect-type="skeletonAspectType" />
                 </div>
               </div>
             </template>
@@ -60,6 +70,10 @@ const hideHeader = computed(() => route.meta?.hideHeader === true)
   flex-direction: column;
   min-height: 100vh;
 
+  &.compact-main {
+    min-height: auto;
+  }
+
   &.no-header {
     min-height: 100vh;
     min-height: 100dvh;
@@ -69,6 +83,10 @@ const hideHeader = computed(() => route.meta?.hideHeader === true)
 .main-content {
   flex: 1;
   padding-top: $header-height;
+
+  &.compact-page {
+    flex: 0 0 auto;
+  }
 
   &.no-padding {
     padding-top: 0;

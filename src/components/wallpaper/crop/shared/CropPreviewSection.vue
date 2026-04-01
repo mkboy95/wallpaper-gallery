@@ -71,7 +71,7 @@ defineExpose({
   flex-shrink: 0;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   background:
-    radial-gradient(circle at top, rgba(102, 126, 234, 0.12), transparent 55%),
+    radial-gradient(circle at top, rgba(var(--color-accent-rgb), 0.12), transparent 55%),
     linear-gradient(180deg, rgba(8, 14, 32, 0.72) 0%, rgba(8, 14, 32, 0.9) 100%);
   height: 340px;
 }
@@ -98,7 +98,7 @@ defineExpose({
   svg {
     width: 14px;
     height: 14px;
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -111,10 +111,10 @@ defineExpose({
 .preview-size {
   font-size: 12px;
   font-weight: 700;
-  color: #667eea;
+  color: var(--color-accent);
   font-family: 'SF Mono', Monaco, monospace;
   padding: 3px 8px;
-  background: rgba(102, 126, 234, 0.1);
+  background: var(--accent-surface);
   border-radius: 5px;
 }
 

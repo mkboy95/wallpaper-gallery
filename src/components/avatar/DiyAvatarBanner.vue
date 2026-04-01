@@ -154,11 +154,11 @@ function handleClick() {
 
   &.is-hovered {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 20px 40px var(--accent-shadow);
 
     .banner-btn {
       background: white;
-      color: #6366f1;
+      color: var(--color-accent);
       transform: scale(1.05);
     }
   }
@@ -179,7 +179,7 @@ function handleClick() {
 .bg-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 55%, #38bdf8 100%);
 }
 
 .bg-pattern {

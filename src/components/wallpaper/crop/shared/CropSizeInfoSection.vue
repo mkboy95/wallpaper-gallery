@@ -101,7 +101,7 @@ defineProps({
   font-family: 'SF Mono', Monaco, monospace;
 
   &.highlight {
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -122,9 +122,9 @@ defineProps({
   border-radius: 8px;
 
   &--accent {
-    color: #cbd7ff;
-    border-color: rgba(102, 126, 234, 0.18);
-    background: rgba(102, 126, 234, 0.08);
+    color: var(--accent-contrast-soft);
+    border-color: var(--accent-border);
+    background: var(--accent-surface);
   }
 }
 </style>

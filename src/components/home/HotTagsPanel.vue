@@ -59,6 +59,30 @@ const showCategoryToggle = computed(() => props.categoryTags.length > MOBILE_VIS
 const showKeywordToggle = computed(() => props.keywordTags.length > MOBILE_VISIBLE_COUNT)
 
 const showPreview = computed(() => props.currentSeries !== 'bing')
+const loadingSkeletonGroups = computed(() => {
+  if (props.currentSeries === 'bing') {
+    return [
+      {
+        key: 'keyword',
+        title: '热门关键词',
+        count: 6,
+      },
+    ]
+  }
+
+  return [
+    {
+      key: 'category',
+      title: '热门分类',
+      count: 4,
+    },
+    {
+      key: 'keyword',
+      title: '热门关键词',
+      count: 6,
+    },
+  ]
+})
 
 const previewClass = computed(() => {
   if (props.currentSeries === 'mobile')
@@ -339,21 +363,20 @@ onBeforeUnmount(() => {
     >
       <div v-if="!isPanelCollapsible || isPanelExpanded">
         <div v-if="loading" class="hot-tags-groups">
-          <div class="hot-tags-group">
+          <div
+            v-for="group in loadingSkeletonGroups"
+            :key="group.key"
+            class="hot-tags-group"
+          >
             <div class="hot-tags-group__title">
-              热门分类
+              {{ group.title }}
             </div>
             <div class="hot-tags-skeleton">
-              <span v-for="index in 4" :key="`category-${index}`" class="skeleton-chip" />
-            </div>
-          </div>
-
-          <div class="hot-tags-group">
-            <div class="hot-tags-group__title">
-              热门关键词
-            </div>
-            <div class="hot-tags-skeleton">
-              <span v-for="index in 6" :key="`keyword-${index}`" class="skeleton-chip" />
+              <span
+                v-for="index in group.count"
+                :key="`${group.key}-${index}`"
+                class="skeleton-chip"
+              />
             </div>
           </div>
         </div>
@@ -493,17 +516,26 @@ onBeforeUnmount(() => {
   margin-bottom: $spacing-lg;
   padding: $spacing-lg;
   border-radius: $radius-lg;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--accent-border);
   background:
-    radial-gradient(circle at top left, rgba(102, 126, 234, 0.16), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(118, 75, 162, 0.1), transparent 60%), rgba(255, 255, 255, 0.56);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(239, 246, 255, 0.8)),
+    radial-gradient(circle at top left, rgba(var(--color-accent-rgb), 0.18), transparent 58%),
+    radial-gradient(circle at bottom right, rgba(var(--color-accent-secondary-rgb), 0.12), transparent 62%);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
+  box-shadow:
+    0 18px 36px rgba(15, 23, 42, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 
   [data-theme='dark'] & {
-    background: radial-gradient(circle at top left, rgba(102, 126, 234, 0.2), transparent 40%), rgba(15, 23, 42, 0.72);
-    border-color: rgba(255, 255, 255, 0.08);
+    background:
+      linear-gradient(180deg, rgba(8, 15, 29, 0.9), rgba(7, 12, 24, 0.84)),
+      radial-gradient(circle at top left, rgba(96, 165, 250, 0.22), transparent 44%),
+      radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.16), transparent 52%);
+    border-color: rgba(96, 165, 250, 0.16);
+    box-shadow:
+      0 22px 42px rgba(2, 8, 23, 0.34),
+      inset 0 1px 0 rgba(191, 219, 254, 0.06);
   }
 }
 
@@ -525,7 +557,7 @@ onBeforeUnmount(() => {
   font-weight: $font-weight-semibold;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #667eea;
+  color: var(--color-accent);
 }
 
 .hot-tags-title {
@@ -553,16 +585,16 @@ onBeforeUnmount(() => {
   flex-shrink: 0;
   min-height: 36px;
   padding: 0 14px;
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  border: 1px solid var(--accent-border);
   border-radius: $radius-full;
   background: rgba(255, 255, 255, 0.72);
-  color: #667eea;
+  color: var(--color-accent);
   font-size: 12px;
   font-weight: $font-weight-semibold;
 
   [data-theme='dark'] & {
     background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(102, 126, 234, 0.24);
+    border-color: var(--accent-border);
   }
 }
 
@@ -644,8 +676,10 @@ onBeforeUnmount(() => {
   padding: 0 14px;
   color: var(--color-text-primary);
   background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(102, 126, 234, 0.22);
-  box-shadow: 0 1px 4px rgba(102, 126, 234, 0.08);
+  border: 1px solid var(--accent-border);
+  box-shadow:
+    0 1px 4px rgba(37, 99, 235, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.52);
   transition:
     color 220ms ease,
     background 220ms ease,
@@ -653,24 +687,24 @@ onBeforeUnmount(() => {
     box-shadow 220ms ease;
 
   [data-theme='dark'] & {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(102, 126, 234, 0.16);
-    box-shadow: none;
+    background: rgba(7, 17, 31, 0.78);
+    border-color: var(--accent-border);
+    box-shadow: inset 0 1px 0 rgba(191, 219, 254, 0.04);
   }
 
   &:hover {
     transform: translateY(-1px);
     color: #fff;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     border-color: transparent;
-    box-shadow: 0 10px 24px rgba(102, 126, 234, 0.28);
+    box-shadow: 0 10px 24px var(--accent-shadow);
   }
 
   &--active {
     color: #fff;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent-gradient);
     border-color: transparent;
-    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.24);
+    box-shadow: 0 6px 16px var(--accent-shadow);
   }
 }
 
@@ -707,14 +741,23 @@ onBeforeUnmount(() => {
   gap: 8px;
   padding: 8px;
   border-radius: $radius-md;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(102, 126, 234, 0.16);
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(239, 246, 255, 0.92)),
+    radial-gradient(circle at top left, rgba(var(--color-accent-rgb), 0.12), transparent 56%);
+  border: 1px solid var(--accent-border);
+  box-shadow:
+    0 16px 36px rgba(15, 23, 42, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58);
   pointer-events: none;
 
   [data-theme='dark'] & {
-    background: rgba(30, 41, 59, 0.96);
-    border-color: rgba(255, 255, 255, 0.1);
+    background:
+      linear-gradient(180deg, rgba(9, 18, 32, 0.96), rgba(7, 15, 27, 0.92)),
+      radial-gradient(circle at top left, rgba(96, 165, 250, 0.16), transparent 52%);
+    border-color: rgba(96, 165, 250, 0.14);
+    box-shadow:
+      0 18px 40px rgba(2, 8, 23, 0.34),
+      inset 0 1px 0 rgba(191, 219, 254, 0.06);
   }
 }
 
@@ -744,7 +787,7 @@ onBeforeUnmount(() => {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 6px;
-  background: rgba(102, 126, 234, 0.08);
+  background: rgba(var(--color-accent-rgb), 0.08);
 }
 
 // 手机壁纸 9:16 竖屏
@@ -800,7 +843,12 @@ onBeforeUnmount(() => {
 .skeleton-chip {
   width: 96px;
   height: 40px;
-  background: linear-gradient(90deg, rgba(102, 126, 234, 0.08), rgba(102, 126, 234, 0.18), rgba(102, 126, 234, 0.08));
+  background: linear-gradient(
+    90deg,
+    rgba(var(--color-accent-rgb), 0.08),
+    rgba(var(--color-accent-secondary-rgb), 0.18),
+    rgba(var(--color-accent-rgb), 0.08)
+  );
   background-size: 200% 100%;
   animation: hot-tags-shimmer 1.4s linear infinite;
 }
@@ -892,7 +940,7 @@ onBeforeUnmount(() => {
     padding: 0;
     border: none;
     background: transparent;
-    color: #667eea;
+    color: var(--color-accent);
     font-size: 12px;
     font-weight: $font-weight-semibold;
   }

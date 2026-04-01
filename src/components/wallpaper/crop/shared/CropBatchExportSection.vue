@@ -117,7 +117,7 @@ const emit = defineEmits([
   svg {
     width: 13px;
     height: 13px;
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -137,7 +137,7 @@ const emit = defineEmits([
   transition: color 0.2s ease;
 
   &:hover {
-    color: #8ea2ff;
+    color: var(--accent-contrast-soft);
   }
 }
 
@@ -171,13 +171,13 @@ const emit = defineEmits([
   }
 
   &--active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.18) 0%, rgba(118, 75, 162, 0.14) 100%);
-    border-color: rgba(102, 126, 234, 0.38);
-    box-shadow: 0 0 0 1px rgba(102, 126, 234, 0.12) inset;
+    background: var(--accent-gradient-soft);
+    border-color: var(--accent-border-strong);
+    box-shadow: 0 0 0 1px var(--accent-ring) inset;
   }
 
   &--recommended:not(.batch-card--active) {
-    border-color: rgba(102, 126, 234, 0.18);
+    border-color: var(--accent-border);
   }
 }
 
@@ -198,15 +198,15 @@ const emit = defineEmits([
   padding: 2px 6px;
   font-size: 9px;
   font-weight: 700;
-  color: #dbe6ff;
-  background: rgba(102, 126, 234, 0.22);
+  color: var(--accent-contrast-soft);
+  background: var(--accent-surface-strong);
   border-radius: 999px;
 }
 
 .batch-card__size {
   font-size: 11px;
   font-weight: 700;
-  color: #8ea2ff;
+  color: var(--accent-contrast-soft);
   font-family: 'SF Mono', Monaco, monospace;
 }
 
@@ -226,9 +226,9 @@ const emit = defineEmits([
   padding: 11px 14px;
   font-size: 12px;
   font-weight: 700;
-  color: #dfe6ff;
-  background: rgba(102, 126, 234, 0.12);
-  border: 1px solid rgba(102, 126, 234, 0.26);
+  color: var(--accent-contrast-soft);
+  background: var(--accent-surface);
+  border: 1px solid var(--accent-border);
   border-radius: 10px;
   transition: all 0.22s ease;
 
@@ -240,8 +240,8 @@ const emit = defineEmits([
   &:hover:not(:disabled) {
     transform: translateY(-1px);
     color: #fff;
-    background: rgba(102, 126, 234, 0.18);
-    border-color: rgba(102, 126, 234, 0.36);
+    background: var(--accent-surface-strong);
+    border-color: var(--accent-border-strong);
   }
 
   &:disabled {

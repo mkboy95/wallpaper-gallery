@@ -5,6 +5,8 @@ import LoadingSpinner from '@/components/common/feedback/LoadingSpinner.vue'
 import { useDevice } from '@/composables/useDevice'
 import { useViewMode } from '@/composables/useViewMode'
 import { useWallpaperType } from '@/composables/useWallpaperType'
+import { useAuthStore } from '@/stores/auth'
+import { useInteractionStore } from '@/stores/interaction'
 import WallpaperCard from '../card/index.vue'
 import { useGridAnimations } from './composables/useGridAnimations'
 import { PAGE_SIZE, useGridPagination } from './composables/useGridPagination'
@@ -48,6 +50,8 @@ const router = useRouter()
 const { currentSeries, currentSeriesConfig, availableSeriesOptions } = useWallpaperType()
 const { viewMode, setViewMode } = useViewMode()
 const { isMobile, isMobileOrTablet } = useDevice()
+const authStore = useAuthStore()
+const interactionStore = useInteractionStore()
 
 // 获取热门排名、下载次数和访问量
 function getPopularRank(filename) {
@@ -72,6 +76,27 @@ function getViewCount(filename) {
   }
   const item = props.popularityData.find(item => item.filename === filename)
   return item?.view_count || 0
+}
+
+// 交互状态查询
+function isLiked(filename) {
+  return authStore.isAuthenticated && interactionStore.isLiked(filename, currentSeries.value)
+}
+
+function isCollected(filename) {
+  return authStore.isAuthenticated && interactionStore.isCollected(filename, currentSeries.value)
+}
+
+function handleToggleLike(wallpaper) {
+  if (!authStore.isAuthenticated)
+    return
+  interactionStore.handleToggleLike(wallpaper.filename || wallpaper.id, currentSeries.value)
+}
+
+function handleToggleCollect(wallpaper) {
+  if (!authStore.isAuthenticated)
+    return
+  interactionStore.handleToggleCollect(wallpaper.filename || wallpaper.id, currentSeries.value)
 }
 
 const gridRef = ref(null)
@@ -333,7 +358,12 @@ const skeletonCount = computed(() => isMobile.value ? 6 : 12)
           :popular-rank="getPopularRank(wallpaper.filename)"
           :download-count="getDownloadCount(wallpaper.filename)"
           :view-count="getViewCount(wallpaper.filename)"
+          :liked="isLiked(wallpaper.filename || wallpaper.id)"
+          :collected="isCollected(wallpaper.filename || wallpaper.id)"
+          :is-authenticated="authStore.isAuthenticated"
           @click="handleSelect"
+          @toggle-like="handleToggleLike(wallpaper)"
+          @toggle-collect="handleToggleCollect(wallpaper)"
         />
       </div>
 

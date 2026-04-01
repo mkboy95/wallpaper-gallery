@@ -97,8 +97,8 @@ defineEmits(['openCategory', 'openFilter', 'viewModeChange'])
   &.is-active {
     color: white;
     border-color: transparent;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+    background: var(--accent-gradient);
+    box-shadow: 0 2px 10px var(--accent-shadow);
 
     svg {
       color: white;
@@ -150,12 +150,12 @@ defineEmits(['openCategory', 'openFilter', 'viewModeChange'])
   svg {
     width: 16px;
     height: 16px;
-    color: #667eea;
+    color: var(--color-accent);
   }
 
   &:hover {
-    background: rgba(102, 126, 234, 0.1);
-    border-color: rgba(102, 126, 234, 0.3);
+    background: var(--accent-surface);
+    border-color: var(--accent-border-strong);
   }
 
   &:active {

@@ -9,6 +9,7 @@ import { delay, fetchWithRetry } from '@/services/wallpaper/fetch'
 import { LRUCache } from '@/utils/cache/LRUCache'
 import { DATA_CACHE_BUSTER, SERIES_CONFIG } from '@/utils/config/constants'
 import { classifyWallpaperError, getWallpaperErrorMessage } from '@/utils/wallpaper/errors'
+import { normalizeWallpaperFilename } from '@/utils/wallpaper/identity'
 import { formatWallpaperStatistics, transformBingWallpaper, transformWallpaperUrls } from '@/utils/wallpaper/transformers'
 
 export const useWallpaperStore = defineStore('wallpaper', () => {
@@ -27,6 +28,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
 
   // Bing 壁纸缓存（完整加载后缓存）
   const bingWallpapersCache = ref(null)
+  const bingYearLookupCache = ref({})
 
   // 当前加载的壁纸列表（合并后的）
   const wallpapers = ref([])
@@ -526,6 +528,42 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
     }
   }
 
+  async function loadBingYearData(year) {
+    if (!Number.isInteger(year)) {
+      return []
+    }
+
+    if (bingYearLookupCache.value[year]) {
+      return bingYearLookupCache.value[year]
+    }
+
+    const seriesId = 'bing'
+    const seriesConfig = SERIES_CONFIG[seriesId]
+    let indexData = seriesIndexCache.value[seriesId]
+
+    if (!indexData) {
+      const indexUrl = seriesConfig.indexUrl
+      const indexResponse = await fetchWithRetry(indexUrl, {}, retryConfig)
+      indexData = await indexResponse.json()
+      seriesIndexCache.value[seriesId] = indexData
+    }
+
+    const yearInfo = indexData.years?.find(item => item.year === year)
+    if (!yearInfo) {
+      return []
+    }
+
+    const yearUrl = `${seriesConfig.yearBaseUrl}/${yearInfo.file}${DATA_CACHE_BUSTER}`
+    const yearResponse = await fetchWithRetry(yearUrl, {}, retryConfig)
+    const yearData = await yearResponse.json()
+    const transformedItems = Array.isArray(yearData.items)
+      ? yearData.items.map(item => transformBingWallpaper(item))
+      : []
+
+    bingYearLookupCache.value[year] = transformedItems
+    return transformedItems
+  }
+
   /**
    * 初始化系列（一次性加载完整数据，避免首屏名单二次改写）
    */
@@ -711,6 +749,99 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
     return seriesIndexCache.value[seriesId]?.categories || []
   }
 
+  async function resolveWallpapersByAssetKeys(assetKeys = []) {
+    if (!Array.isArray(assetKeys) || assetKeys.length === 0) {
+      return []
+    }
+
+    const grouped = assetKeys.reduce((acc, assetKey) => {
+      const [series, ...filenameParts] = String(assetKey).split(':')
+      const filename = normalizeWallpaperFilename(filenameParts.join(':'), series)
+
+      if (!series || !filename || !SERIES_CONFIG[series]) {
+        return acc
+      }
+
+      if (!acc[series]) {
+        acc[series] = []
+      }
+
+      acc[series].push({ assetKey, filename })
+      return acc
+    }, {})
+
+    const resolvedByKey = new Map()
+
+    await Promise.all(Object.entries(grouped).map(async ([series, items]) => {
+      const neededFilenames = new Set(items.map(item => item.filename))
+      const matchedByFilename = new Map()
+
+      const collectMatches = (wallpaperList = []) => {
+        wallpaperList.forEach((wallpaper) => {
+          const filename = normalizeWallpaperFilename(wallpaper?.filename || wallpaper?.id, series)
+          if (!filename || !neededFilenames.has(filename) || matchedByFilename.has(filename)) {
+            return
+          }
+
+          matchedByFilename.set(filename, wallpaper)
+        })
+      }
+
+      if (currentRenderedSeries.value === series) {
+        collectMatches(wallpapers.value)
+      }
+
+      if (series === 'bing') {
+        collectMatches(bingWallpapersCache.value || [])
+
+        const neededYears = [...new Set(
+          items
+            .map(({ filename }) => {
+              const matched = filename.match(/(\d{4})-\d{2}-\d{2}/)
+              return matched ? Number.parseInt(matched[1], 10) : null
+            })
+            .filter(Number.isInteger),
+        )]
+
+        for (const year of neededYears) {
+          if (matchedByFilename.size >= neededFilenames.size) {
+            break
+          }
+
+          collectMatches(await loadBingYearData(year))
+        }
+      }
+      else {
+        if (matchedByFilename.size < neededFilenames.size) {
+          const latestWallpapers = seriesLatestCache.value[series] || await loadSeriesLatest(series)
+          collectMatches(latestWallpapers)
+        }
+
+        if (matchedByFilename.size < neededFilenames.size) {
+          const indexData = await loadSeriesIndex(series)
+
+          for (const category of indexData.categories || []) {
+            if (matchedByFilename.size >= neededFilenames.size) {
+              break
+            }
+
+            collectMatches(await loadCategory(series, category.file))
+          }
+        }
+      }
+
+      items.forEach(({ assetKey, filename }) => {
+        const wallpaper = matchedByFilename.get(filename)
+        resolvedByKey.set(
+          assetKey,
+          wallpaper ? { ...wallpaper, _assetKey: assetKey, _series: series } : null,
+        )
+      })
+    }))
+
+    return assetKeys.map(assetKey => resolvedByKey.get(assetKey) || null)
+  }
+
   /**
    * 获取壁纸索引
    */
@@ -752,6 +883,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
       // 清除 Bing 缓存
       if (seriesId === 'bing') {
         bingWallpapersCache.value = null
+        bingYearLookupCache.value = {}
       }
     }
     else {
@@ -760,6 +892,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
       seriesLatestCache.value = {}
       categoryCache.clear()
       bingWallpapersCache.value = null
+      bingYearLookupCache.value = {}
     }
   }
 
@@ -784,6 +917,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
     loadCategory,
     loadSeriesLatest,
     loadBingYear,
+    resolveWallpapersByAssetKeys,
     getWallpaperById,
     getSeriesCategories,
     getWallpaperIndex,

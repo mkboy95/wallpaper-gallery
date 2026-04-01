@@ -141,11 +141,26 @@ defineProps({
 
 <style lang="scss" scoped>
 .card-info {
+  position: relative;
   padding: $spacing-md;
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    margin 220ms ease;
 
   @include mobile-only {
     &--grid {
       display: none;
+    }
+  }
+
+  &--grid {
+    [data-theme='dark'] & {
+      margin: 0;
+      border: none;
+      background: transparent;
+      box-shadow: none;
     }
   }
 
@@ -155,6 +170,14 @@ defineProps({
     flex-direction: column;
     justify-content: center;
     padding: $spacing-md $spacing-lg;
+
+    [data-theme='dark'] & {
+      align-self: stretch;
+      margin: 0;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+    }
 
     @include mobile-only {
       padding: $spacing-sm $spacing-md;
@@ -186,6 +209,10 @@ defineProps({
     padding: 1px 4px;
     border-radius: 3px;
   }
+
+  [data-theme='dark'] & {
+    color: #f8fafc;
+  }
 }
 
 .card-info--list .card-filename {
@@ -214,15 +241,17 @@ defineProps({
   padding: 2px 6px;
   font-size: 10px;
   font-weight: $font-weight-medium;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-  color: #667eea;
+  background: var(--accent-gradient-soft);
+  color: var(--color-accent);
   border-radius: $radius-sm;
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  border: 1px solid var(--accent-border);
   white-space: nowrap;
 
   [data-theme='dark'] & {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-    border-color: rgba(102, 126, 234, 0.3);
+    background: linear-gradient(180deg, rgba(18, 31, 56, 0.88), rgba(11, 20, 36, 0.84));
+    color: #dbeafe;
+    border-color: rgba(96, 165, 250, 0.16);
+    box-shadow: inset 0 1px 0 rgba(191, 219, 254, 0.06);
   }
 }
 
@@ -235,11 +264,19 @@ defineProps({
   color: var(--color-text-secondary);
   font-weight: $font-weight-medium;
 
+  [data-theme='dark'] & {
+    color: #cbd5e1;
+  }
+
   svg {
     width: 12px;
     height: 12px;
     color: var(--color-text-muted);
     flex-shrink: 0;
+
+    [data-theme='dark'] & {
+      color: #7dd3fc;
+    }
   }
 
   span {
@@ -257,6 +294,10 @@ defineProps({
   font-size: $font-size-xs;
   color: var(--color-text-muted);
   margin-bottom: $spacing-xs;
+
+  [data-theme='dark'] & {
+    color: #94a3b8;
+  }
 }
 
 .card-info--list .card-meta {
@@ -274,6 +315,10 @@ defineProps({
   gap: $spacing-sm;
   font-size: $font-size-xs;
   color: var(--color-text-muted);
+
+  [data-theme='dark'] & {
+    color: #94a3b8;
+  }
 }
 
 .meta-item {
@@ -289,26 +334,46 @@ defineProps({
 
 .meta-format {
   padding: 3px 8px;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
-  color: #667eea;
+  background: var(--accent-gradient-soft);
+  color: var(--color-accent);
   border-radius: $radius-sm;
   font-weight: $font-weight-semibold;
   font-size: 10px;
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  border: 1px solid var(--accent-border);
 
   [data-theme='dark'] & {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.25) 0%, rgba(118, 75, 162, 0.25) 100%);
-    border-color: rgba(102, 126, 234, 0.3);
+    background: linear-gradient(180deg, rgba(20, 34, 60, 0.9), rgba(11, 20, 36, 0.86));
+    color: #bfdbfe;
+    border-color: rgba(96, 165, 250, 0.16);
+    box-shadow: inset 0 1px 0 rgba(191, 219, 254, 0.06);
   }
 }
 
 .meta-views,
 .meta-downloads {
   color: var(--color-text-muted);
+  padding: 3px 8px;
+  border-radius: 999px;
 
   svg {
     width: 12px;
     height: 12px;
+  }
+}
+
+.meta-views {
+  [data-theme='dark'] & {
+    color: #93c5fd;
+    background: rgba(37, 99, 235, 0.16);
+    border: 1px solid rgba(96, 165, 250, 0.14);
+  }
+}
+
+.meta-downloads {
+  [data-theme='dark'] & {
+    color: #86efac;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.14);
   }
 }
 
@@ -322,6 +387,10 @@ defineProps({
   margin-bottom: $spacing-sm;
   line-height: 1.5;
   letter-spacing: 0.2px;
+
+  [data-theme='dark'] & {
+    color: #f8fafc;
+  }
 }
 
 .card-bing-meta {
@@ -379,7 +448,9 @@ defineProps({
   margin-top: 2px;
 
   [data-theme='dark'] & {
-    background: rgba(255, 255, 255, 0.05);
+    background: linear-gradient(180deg, rgba(18, 31, 56, 0.82), rgba(11, 20, 36, 0.78));
+    border: 1px solid rgba(96, 165, 250, 0.12);
+    box-shadow: inset 0 1px 0 rgba(191, 219, 254, 0.05);
   }
 
   svg {

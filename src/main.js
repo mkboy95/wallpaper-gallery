@@ -1,6 +1,7 @@
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import { useTheme } from '@/composables/useTheme'
+import { useAuthStore } from '@/stores/auth'
 import App from './App.vue'
 
 import router from './router'
@@ -55,5 +56,8 @@ const app = createApp(App)
 const pinia = createPinia()
 
 app.use(pinia)
+useAuthStore(pinia).initialize().catch((error) => {
+  console.warn('[main] 初始化认证状态失败:', error)
+})
 app.use(router)
 app.mount('#app')

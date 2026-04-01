@@ -157,12 +157,12 @@ function openLink(url) {
   align-items: center;
   gap: 6px;
   padding: 6px 14px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   color: white;
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   border-radius: 20px;
-  box-shadow: 0 3px 12px rgba(102, 126, 234, 0.35);
+  box-shadow: 0 3px 12px var(--accent-shadow);
 
   svg {
     width: 14px;
@@ -222,7 +222,7 @@ function openLink(url) {
 
 .bing-photographer {
   svg {
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -259,13 +259,13 @@ function openLink(url) {
   }
 
   &--search {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
-    color: #667eea;
-    border: 1px solid rgba(102, 126, 234, 0.25);
+    background: var(--accent-gradient-soft);
+    color: var(--color-accent);
+    border: 1px solid var(--accent-border);
 
     &:hover {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.25) 0%, rgba(118, 75, 162, 0.25) 100%);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+      background: var(--accent-gradient-soft-strong);
+      box-shadow: 0 4px 12px var(--accent-shadow);
     }
   }
 

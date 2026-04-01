@@ -69,9 +69,9 @@ const sliderClass = computed(() => props.mode === 'list' ? 'is-list' : 'is-grid'
   left: 4px;
   width: 40px;
   height: 34px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   border-radius: $radius-md;
-  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 2px 10px var(--accent-shadow);
   transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 0;
 
@@ -137,9 +137,9 @@ const sliderClass = computed(() => props.mode === 'list' ? 'is-list' : 'is-grid'
   left: 3px;
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   border-radius: 9px;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 2px 8px var(--accent-shadow);
   transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 0;
 

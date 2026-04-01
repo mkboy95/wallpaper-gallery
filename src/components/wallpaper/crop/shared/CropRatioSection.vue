@@ -125,7 +125,7 @@ function handleHeightInput(event) {
   svg {
     width: 13px;
     height: 13px;
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -153,32 +153,32 @@ function handleHeightInput(event) {
   }
 
   &--active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
-    border-color: rgba(102, 126, 234, 0.4);
-    box-shadow: 0 0 12px rgba(102, 126, 234, 0.15);
+    background: var(--accent-gradient-soft);
+    border-color: var(--accent-border-strong);
+    box-shadow: 0 0 12px var(--accent-ring);
 
     .ratio-name {
-      color: #667eea;
+      color: var(--color-accent);
     }
 
     .ratio-desc {
-      color: rgba(102, 126, 234, 0.8);
+      color: rgba(var(--color-accent-rgb), 0.8);
     }
   }
 
   &--highlight {
     grid-column: span 2;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
-    border-color: rgba(102, 126, 234, 0.2);
+    background: var(--accent-gradient-soft);
+    border-color: var(--accent-border);
     padding: 10px 12px;
 
     &.ratio-btn--active {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);
-      border-color: rgba(102, 126, 234, 0.5);
+      background: var(--accent-gradient-soft-strong);
+      border-color: var(--accent-border-strong);
     }
 
     .ratio-desc {
-      color: #667eea;
+      color: var(--color-accent);
       font-weight: 600;
     }
   }
@@ -222,8 +222,8 @@ function handleHeightInput(event) {
   }
 
   &--active {
-    color: #667eea;
-    border-color: rgba(102, 126, 234, 0.3);
+    color: var(--color-accent);
+    border-color: var(--accent-border-strong);
 
     svg {
       transform: rotate(45deg);
@@ -258,8 +258,8 @@ function handleHeightInput(event) {
     transition: all 0.2s ease;
 
     &:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.15);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 2px var(--accent-ring);
     }
 
     &::placeholder {
@@ -279,14 +279,14 @@ function handleHeightInput(event) {
   font-size: 11px;
   font-weight: 600;
   color: white;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   border-radius: 6px;
   margin-left: auto;
   transition: all 0.2s ease;
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 10px var(--accent-shadow);
   }
 }
 </style>

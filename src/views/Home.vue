@@ -15,8 +15,10 @@ import { useHomeDataLoader } from '@/composables/home/useHomeDataLoader'
 import { useHomeSeriesSync } from '@/composables/home/useHomeSeriesSync'
 import { useWallpaperNavigator } from '@/composables/home/useWallpaperNavigator'
 import { useDevice } from '@/composables/useDevice'
+import { useAuthStore } from '@/stores/auth'
 import { useFilterStore } from '@/stores/filter'
 import { useHotTagsStore } from '@/stores/hotTags'
+import { useInteractionStore } from '@/stores/interaction'
 import { usePopularityStore } from '@/stores/popularity'
 import { useSeriesStore } from '@/stores/series'
 import { useWallpaperStore } from '@/stores/wallpaper'
@@ -31,6 +33,8 @@ const popularityStore = usePopularityStore()
 const hotTagsStore = useHotTagsStore()
 const filterStore = useFilterStore()
 const { isMobile } = useDevice()
+const interactionStore = useInteractionStore()
+const authStore = useAuthStore()
 
 const currentSeries = computed(() => seriesStore.currentSeries)
 const showMobileSeriesNotice = computed(() => isMobile.value && ['desktop', 'bing'].includes(currentSeries.value))
@@ -100,6 +104,7 @@ const activeHotTag = ref('')
 const isHotTagsVisible = ref(false)
 const resultCount = computed(() => filteredWallpapers.value.length)
 const hasActiveFilters = computed(() => filterStore.hasActiveFilters(currentSeries.value))
+const showInteractionSummary = computed(() => authStore.isConfigured && authStore.isAuthenticated)
 
 let hotTagsRevealTimer = null
 
@@ -128,6 +133,20 @@ const isHotTagsDataStable = computed(() =>
 )
 
 routeSyncReady.value = true
+
+// 用户登录后，预取当前系列的交互数据（喜欢/收藏）
+watch(
+  [currentSeries, () => authStore.isAuthenticated],
+  async ([series, isAuth]) => {
+    if (isAuth && series) {
+      await Promise.allSettled([
+        interactionStore.prefetchForSeries(series),
+        interactionStore.loadStats(),
+      ])
+    }
+  },
+  { immediate: true },
+)
 
 watch(
   [currentSeries, isHotTagsDataStable],
@@ -357,6 +376,9 @@ function handleAvatarMakerClose() {
           :loading="loading"
           :hide-format-filter="hideFormatFilter"
           :current-series="currentSeries"
+          :show-interaction-summary="showInteractionSummary"
+          :interaction-stats="interactionStore.stats"
+          :interaction-stats-loaded="interactionStore.statsLoaded"
           @clear-search="handleClearSearch"
           @reset="handleReset"
         />
@@ -438,7 +460,13 @@ function handleAvatarMakerClose() {
 
   &--primary {
     color: #fff;
-    background: var(--color-accent);
+    background: var(--accent-gradient);
+    box-shadow: 0 12px 24px var(--accent-shadow);
+
+    &:hover {
+      background: var(--accent-gradient-hover);
+      box-shadow: 0 16px 30px var(--accent-shadow-strong);
+    }
   }
 }
 

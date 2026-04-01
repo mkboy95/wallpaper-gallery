@@ -3,10 +3,12 @@
 // ========================================
 // 负责：静态数据加载、RPC 写入
 
+import { normalizeWallpaperFilename } from '@/utils/wallpaper/identity'
 import {
   getCachedStats,
   setCachedStats,
 } from './localStatsCache'
+import { recordAuthenticatedDownloadHistory } from './userActivityService'
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
@@ -15,20 +17,7 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 const STATS_BASE_URL = '/data/stats'
 
 function normalizeStatsImageId(imageId, series) {
-  if (!imageId)
-    return ''
-
-  if (series === 'bing') {
-    if (/^bing-\d{4}-\d{2}-\d{2}\.jpg$/i.test(imageId)) {
-      return imageId
-    }
-
-    if (/^\d{4}-\d{2}-\d{2}\.jpg$/i.test(imageId)) {
-      return `bing-${imageId}`
-    }
-  }
-
-  return imageId
+  return normalizeWallpaperFilename(imageId, series)
 }
 
 function mergeStatsEntry(statsMap, imageId, stats, series) {
@@ -167,6 +156,12 @@ export function recordDownload(wallpaper, series) {
   }).catch((err) => {
     if (import.meta.env.DEV) {
       console.warn('[StatsService] 写入下载统计失败:', err)
+    }
+  })
+
+  recordAuthenticatedDownloadHistory(wallpaper, series).catch((err) => {
+    if (import.meta.env.DEV) {
+      console.warn('[StatsService] 写入登录下载历史失败:', err)
     }
   })
 }

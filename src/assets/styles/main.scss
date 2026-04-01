@@ -11,12 +11,12 @@
 :root {
   // Element Plus 主色调
   --el-color-primary: #{$color-accent-light};
-  --el-color-primary-light-3: rgba(99, 102, 241, 0.7);
-  --el-color-primary-light-5: rgba(99, 102, 241, 0.5);
-  --el-color-primary-light-7: rgba(99, 102, 241, 0.3);
-  --el-color-primary-light-8: rgba(99, 102, 241, 0.2);
-  --el-color-primary-light-9: rgba(99, 102, 241, 0.1);
-  --el-color-primary-dark-2: #4f46e5;
+  --el-color-primary-light-3: rgba(37, 99, 235, 0.72);
+  --el-color-primary-light-5: rgba(37, 99, 235, 0.5);
+  --el-color-primary-light-7: rgba(37, 99, 235, 0.3);
+  --el-color-primary-light-8: rgba(37, 99, 235, 0.2);
+  --el-color-primary-light-9: rgba(37, 99, 235, 0.1);
+  --el-color-primary-dark-2: #1d4ed8;
 
   // Element Plus 背景和边框
   --el-bg-color: #{$color-bg-secondary-light};
@@ -42,12 +42,12 @@
 // 深色主题 Element Plus 覆盖
 [data-theme='dark'] {
   --el-color-primary: #{$color-accent-dark};
-  --el-color-primary-light-3: rgba(129, 140, 248, 0.7);
-  --el-color-primary-light-5: rgba(129, 140, 248, 0.5);
-  --el-color-primary-light-7: rgba(129, 140, 248, 0.3);
-  --el-color-primary-light-8: rgba(129, 140, 248, 0.2);
-  --el-color-primary-light-9: rgba(129, 140, 248, 0.1);
-  --el-color-primary-dark-2: #a5b4fc;
+  --el-color-primary-light-3: rgba(96, 165, 250, 0.72);
+  --el-color-primary-light-5: rgba(96, 165, 250, 0.5);
+  --el-color-primary-light-7: rgba(96, 165, 250, 0.3);
+  --el-color-primary-light-8: rgba(96, 165, 250, 0.2);
+  --el-color-primary-light-9: rgba(96, 165, 250, 0.1);
+  --el-color-primary-dark-2: #93c5fd;
 
   --el-bg-color: #{$color-bg-secondary-dark};
   --el-bg-color-overlay: #{$color-bg-card-dark};
@@ -104,7 +104,7 @@
 
     &.is-selected {
       color: #{$color-accent-dark};
-      background-color: rgba(129, 140, 248, 0.15);
+      background-color: var(--accent-surface);
     }
   }
 
@@ -151,9 +151,9 @@ body {
   font-size: $font-size-md;
   line-height: 1.6;
   color: var(--color-text-primary);
-  background-color: var(--color-bg-primary);
+  background: var(--page-gradient);
   transition:
-    background-color var(--transition-slow),
+    background var(--transition-slow),
     color var(--transition-slow);
   min-height: 100vh;
   // 移动端防止横向滚动（使用 clip 避免影响 sticky 定位）
@@ -264,11 +264,13 @@ ol {
   cursor: pointer;
 
   &--primary {
-    background: var(--color-accent);
+    background: var(--accent-gradient);
     color: white;
+    box-shadow: 0 12px 24px var(--accent-shadow);
 
     &:hover {
-      background: var(--color-accent-hover);
+      background: var(--accent-gradient-hover);
+      box-shadow: 0 16px 30px var(--accent-shadow-strong);
       transform: translateY(-1px);
     }
 
@@ -655,12 +657,12 @@ body.device-mode {
 
   &:hover,
   &.hover {
-    background: rgba(102, 126, 234, 0.1) !important;
+    background: var(--accent-surface) !important;
     color: var(--color-text-primary) !important;
   }
 
   &.is-selected {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    background: var(--accent-gradient) !important;
     color: white !important;
     font-weight: 600 !important;
 
@@ -673,7 +675,7 @@ body.device-mode {
   // 选中且悬停
   &.is-selected:hover,
   &.is-selected.hover {
-    background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%) !important;
+    background: var(--accent-gradient-hover) !important;
   }
 
   &.is-disabled {
@@ -695,12 +697,12 @@ body.device-mode {
 
     &:hover,
     &.hover {
-      background: rgba(102, 126, 234, 0.2) !important;
+      background: var(--accent-surface-strong) !important;
       color: var(--color-text-primary) !important;
     }
 
     &.is-selected {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      background: var(--accent-gradient) !important;
       color: white !important;
     }
   }
@@ -708,7 +710,7 @@ body.device-mode {
 
 // 聚焦时边框颜色
 .el-select .el-input.is-focus .el-input__wrapper {
-  box-shadow: 0 0 0 1px rgba(102, 126, 234, 0.5) inset !important;
+  box-shadow: 0 0 0 1px var(--accent-border-strong) inset !important;
 }
 
 // Popper 箭头隐藏（更简洁）
@@ -746,7 +748,7 @@ body.device-mode {
     padding: 0 8px !important;
 
     &:hover {
-      color: #667eea !important;
+      color: var(--color-accent) !important;
     }
   }
 
@@ -758,8 +760,8 @@ body.device-mode {
     transition: all 0.2s ease !important;
 
     &:hover {
-      background: rgba(102, 126, 234, 0.1) !important;
-      color: #667eea !important;
+      background: var(--accent-surface) !important;
+      color: var(--color-accent) !important;
     }
 
     .el-icon {
@@ -786,13 +788,13 @@ body.device-mode {
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 
       &:hover {
-        background: rgba(102, 126, 234, 0.1) !important;
-        color: #667eea !important;
+        background: var(--accent-surface) !important;
+        color: var(--color-accent) !important;
       }
     }
 
     &.today .cell {
-      color: #667eea !important;
+      color: var(--color-accent) !important;
       font-weight: 600 !important;
       position: relative;
 
@@ -804,16 +806,16 @@ body.device-mode {
         transform: translateX(-50%);
         width: 4px;
         height: 4px;
-        background: #667eea;
+        background: var(--color-accent);
         border-radius: 50%;
       }
     }
 
     &.current:not(.disabled) .cell {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      background: var(--accent-gradient) !important;
       color: white !important;
       font-weight: 600 !important;
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35) !important;
+      box-shadow: 0 4px 12px var(--accent-shadow) !important;
     }
 
     &.disabled .cell {
@@ -847,21 +849,21 @@ body.device-mode {
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 
       &:hover {
-        background: rgba(102, 126, 234, 0.1) !important;
-        color: #667eea !important;
+        background: var(--accent-surface) !important;
+        color: var(--color-accent) !important;
       }
     }
 
     &.today .cell {
-      color: #667eea !important;
+      color: var(--color-accent) !important;
       font-weight: 600 !important;
     }
 
     &.current:not(.disabled) .cell {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      background: var(--accent-gradient) !important;
       color: white !important;
       font-weight: 600 !important;
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35) !important;
+      box-shadow: 0 4px 12px var(--accent-shadow) !important;
     }
 
     &.disabled .cell {
@@ -881,13 +883,13 @@ body.device-mode {
     transition: all 0.2s ease !important;
 
     &:hover {
-      box-shadow: 0 0 0 1px rgba(102, 126, 234, 0.4) inset !important;
+      box-shadow: 0 0 0 1px var(--accent-border-strong) inset !important;
     }
 
     &.is-focus {
       box-shadow:
-        0 0 0 1px #667eea inset,
-        0 0 0 3px rgba(102, 126, 234, 0.15) !important;
+        0 0 0 1px var(--color-accent) inset,
+        0 0 0 3px var(--accent-ring) !important;
     }
   }
 
@@ -916,7 +918,7 @@ body.device-mode {
       color: rgba(255, 255, 255, 0.9) !important;
 
       &:hover {
-        color: #818cf8 !important;
+        color: var(--color-accent) !important;
       }
     }
 
@@ -924,8 +926,8 @@ body.device-mode {
       color: rgba(255, 255, 255, 0.6) !important;
 
       &:hover {
-        background: rgba(129, 140, 248, 0.15) !important;
-        color: #818cf8 !important;
+        background: var(--accent-surface) !important;
+        color: var(--color-accent) !important;
       }
     }
   }
@@ -937,21 +939,21 @@ body.device-mode {
         color: rgba(255, 255, 255, 0.7) !important;
 
         &:hover {
-          background: rgba(129, 140, 248, 0.15) !important;
-          color: #818cf8 !important;
+          background: var(--accent-surface) !important;
+          color: var(--color-accent) !important;
         }
       }
 
       &.today .cell {
-        color: #818cf8 !important;
+        color: var(--color-accent) !important;
 
         &::after {
-          background: #818cf8;
+          background: var(--color-accent);
         }
       }
 
       &.current:not(.disabled) .cell {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        background: var(--accent-gradient) !important;
         color: white !important;
       }
 
@@ -967,13 +969,13 @@ body.device-mode {
       box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset !important;
 
       &:hover {
-        box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.4) inset !important;
+        box-shadow: 0 0 0 1px var(--accent-border-strong) inset !important;
       }
 
       &.is-focus {
         box-shadow:
-          0 0 0 1px #818cf8 inset,
-          0 0 0 3px rgba(129, 140, 248, 0.2) !important;
+          0 0 0 1px var(--color-accent) inset,
+          0 0 0 3px var(--accent-ring) !important;
       }
     }
 
@@ -1045,7 +1047,7 @@ body.device-mode {
     padding: 0 8px !important;
 
     &:hover {
-      color: #667eea !important;
+      color: var(--color-accent) !important;
     }
   }
 
@@ -1057,8 +1059,8 @@ body.device-mode {
     transition: all 0.2s ease !important;
 
     &:hover {
-      background: rgba(102, 126, 234, 0.1) !important;
-      color: #667eea !important;
+      background: var(--accent-surface) !important;
+      color: var(--color-accent) !important;
     }
   }
 
@@ -1093,23 +1095,23 @@ body.device-mode {
         }
 
         &:hover {
-          background: rgba(102, 126, 234, 0.15) !important;
-          color: #667eea !important;
+          background: var(--accent-surface-strong) !important;
+          color: var(--color-accent) !important;
         }
       }
 
       &.today .el-date-table-cell {
-        color: #667eea !important;
+        color: var(--color-accent) !important;
         font-weight: 600 !important;
-        background: rgba(102, 126, 234, 0.1) !important;
+        background: var(--accent-surface) !important;
       }
 
       // 选中状态
       &.current .el-date-table-cell {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        background: var(--accent-gradient) !important;
         color: white !important;
         font-weight: 600 !important;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35) !important;
+        box-shadow: 0 4px 12px var(--accent-shadow) !important;
 
         .el-date-table-cell__text {
           background: transparent !important;
@@ -1162,22 +1164,22 @@ body.device-mode {
         }
 
         &:hover {
-          background: rgba(102, 126, 234, 0.15) !important;
-          color: #667eea !important;
+          background: var(--accent-surface-strong) !important;
+          color: var(--color-accent) !important;
         }
       }
 
       &.today .el-date-table-cell {
-        color: #667eea !important;
+        color: var(--color-accent) !important;
         font-weight: 600 !important;
       }
 
       // 选中状态
       &.current .el-date-table-cell {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        background: var(--accent-gradient) !important;
         color: white !important;
         font-weight: 600 !important;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35) !important;
+        box-shadow: 0 4px 12px var(--accent-shadow) !important;
 
         .el-date-table-cell__text {
           background: transparent !important;
@@ -1211,7 +1213,7 @@ body.device-mode {
     color: rgba(255, 255, 255, 0.9) !important;
 
     &:hover {
-      color: #818cf8 !important;
+      color: var(--color-accent) !important;
     }
   }
 
@@ -1219,8 +1221,8 @@ body.device-mode {
     color: rgba(255, 255, 255, 0.6) !important;
 
     &:hover {
-      background: rgba(129, 140, 248, 0.15) !important;
-      color: #818cf8 !important;
+      background: var(--accent-surface) !important;
+      color: var(--color-accent) !important;
     }
   }
 
@@ -1237,18 +1239,18 @@ body.device-mode {
         }
 
         &:hover {
-          background: rgba(129, 140, 248, 0.15) !important;
-          color: #818cf8 !important;
+          background: var(--accent-surface) !important;
+          color: var(--color-accent) !important;
         }
       }
 
       &.today .el-date-table-cell {
-        color: #818cf8 !important;
-        background: rgba(129, 140, 248, 0.1) !important;
+        color: var(--color-accent) !important;
+        background: var(--accent-surface) !important;
       }
 
       &.current .el-date-table-cell {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        background: var(--accent-gradient) !important;
         color: white !important;
 
         .el-date-table-cell__text {
@@ -1270,10 +1272,10 @@ body.device-mode {
 // ========================================
 .el-month-table td.current .el-date-table-cell,
 .el-year-table td.current .el-date-table-cell {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  background: var(--accent-gradient) !important;
   color: white !important;
   font-weight: 600 !important;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35) !important;
+  box-shadow: 0 4px 12px var(--accent-shadow) !important;
   border-radius: 20px !important;
   display: flex !important;
   align-items: center !important;

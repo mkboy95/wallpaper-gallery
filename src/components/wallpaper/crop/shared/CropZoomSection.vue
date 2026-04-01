@@ -69,7 +69,7 @@ const emit = defineEmits(['reset', 'zoom'])
   svg {
     width: 13px;
     height: 13px;
-    color: #667eea;
+    color: var(--color-accent);
   }
 }
 
@@ -124,7 +124,7 @@ const emit = defineEmits(['reset', 'zoom'])
 
 .zoom-fill {
   height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   border-radius: 2px;
   transition: width 0.15s ease;
 }
@@ -142,15 +142,15 @@ const emit = defineEmits(['reset', 'zoom'])
   padding: 5px 8px;
   font-size: 10px;
   font-weight: 600;
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  color: var(--color-accent);
+  background: var(--accent-surface);
+  border: 1px solid var(--accent-border);
   border-radius: 5px;
   transition: all 0.2s ease;
 
   &:hover {
-    background: rgba(102, 126, 234, 0.2);
-    border-color: rgba(102, 126, 234, 0.3);
+    background: var(--accent-surface-strong);
+    border-color: var(--accent-border-strong);
   }
 }
 </style>

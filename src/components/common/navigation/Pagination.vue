@@ -436,8 +436,9 @@ function closeSizeDropdown() {
   }
 
   &.active {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
+    background: var(--accent-gradient);
+    border-color: transparent;
+    box-shadow: 0 12px 24px var(--accent-shadow);
     color: white;
     font-weight: $font-weight-semibold;
   }

@@ -39,9 +39,25 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  liked: {
+    type: Boolean,
+    default: false,
+  },
+  collected: {
+    type: Boolean,
+    default: false,
+  },
+  actionMode: {
+    type: String,
+    default: 'all',
+  },
+  isAuthenticated: {
+    type: Boolean,
+    default: false,
+  },
 })
 
-const emit = defineEmits(['click', 'imageLoad'])
+const emit = defineEmits(['click', 'imageLoad', 'toggleLike', 'toggleCollect'])
 const { isMobile } = useDevice()
 
 const cardRef = ref(null)
@@ -194,7 +210,6 @@ function handleMouseEnter(e) {
 
   gsap.to(card, {
     y: -10,
-    boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
     duration: 0.3,
     ease: 'power2.out',
   })
@@ -223,7 +238,6 @@ function handleMouseLeave(e) {
 
   gsap.to(card, {
     y: 0,
-    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
     duration: 0.3,
     ease: 'power2.out',
     clearProps: 'transform',
@@ -258,19 +272,25 @@ function handleMouseLeave(e) {
     <WallpaperCardMedia
       :bing-date="bingDate"
       :category-display="categoryDisplay"
+      :collected="collected"
+      :action-mode="actionMode"
       :image-alt="imageAlt"
       :image-error="imageError"
       :image-loaded="imageLoaded"
       :image-ref="imageRef"
       :index="index"
+      :is-authenticated="isAuthenticated"
       :is-bing-wallpaper="isBingWallpaper"
       :is-mobile="isMobile"
+      :liked="liked"
       :popular-rank="popularRank"
       :style="viewMode === 'list' ? listImageStyle : cardImageStyle"
       :thumbnail-url="thumbnailUrl"
       :view-mode="viewMode"
       @load="handleImageLoad"
       @error="handleImageError"
+      @toggle-like="emit('toggleLike')"
+      @toggle-collect="emit('toggleCollect')"
     />
 
     <WallpaperCardInfo
@@ -296,16 +316,18 @@ function handleMouseLeave(e) {
 <style lang="scss" scoped>
 .wallpaper-card {
   position: relative;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
-  border: 1px solid rgba(102, 126, 234, 0.15);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(239, 246, 255, 0.86)),
+    radial-gradient(circle at top left, rgba(var(--color-accent-rgb), 0.18), transparent 58%),
+    radial-gradient(circle at bottom right, rgba(var(--color-accent-secondary-rgb), 0.12), transparent 56%);
+  border: 1px solid var(--accent-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
   cursor: pointer;
   box-shadow:
-    0 2px 4px rgba(102, 126, 234, 0.08),
-    0 4px 12px rgba(102, 126, 234, 0.12),
-    0 8px 24px rgba(102, 126, 234, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 14px 30px rgba(37, 99, 235, 0.08),
+    0 24px 48px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58);
   backface-visibility: hidden;
   transition:
     background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
@@ -313,24 +335,92 @@ function handleMouseLeave(e) {
     box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-  &:hover {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(118, 75, 162, 0.12));
-    border-color: rgba(102, 126, 234, 0.3);
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0));
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  [data-theme='dark'] & {
+    background:
+      linear-gradient(180deg, rgba(9, 16, 30, 0.98), rgba(6, 11, 22, 0.96)),
+      linear-gradient(145deg, rgba(96, 165, 250, 0.14), rgba(14, 165, 233, 0.06) 42%, rgba(2, 6, 23, 0) 68%);
+    border-color: rgba(96, 165, 250, 0.22);
     box-shadow:
-      0 4px 8px rgba(102, 126, 234, 0.12),
-      0 8px 20px rgba(102, 126, 234, 0.15),
-      0 16px 32px rgba(102, 126, 234, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      0 22px 44px rgba(2, 8, 23, 0.42),
+      0 10px 24px rgba(37, 99, 235, 0.1),
+      inset 0 1px 0 rgba(191, 219, 254, 0.09),
+      inset 0 -1px 0 rgba(15, 23, 42, 0.52);
+
+    &::before {
+      background: linear-gradient(180deg, rgba(191, 219, 254, 0.1), rgba(255, 255, 255, 0));
+    }
+
+    &::after {
+      opacity: 1;
+      background:
+        radial-gradient(circle at 14% 12%, rgba(96, 165, 250, 0.16), transparent 24%),
+        radial-gradient(circle at 84% 88%, rgba(14, 165, 233, 0.12), transparent 26%);
+    }
+  }
+
+  &:hover {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(219, 234, 254, 0.9)),
+      radial-gradient(circle at top left, rgba(var(--color-accent-rgb), 0.24), transparent 52%),
+      radial-gradient(circle at bottom right, rgba(var(--color-accent-secondary-rgb), 0.16), transparent 52%);
+    border-color: var(--accent-border-strong);
+    box-shadow:
+      0 18px 36px rgba(37, 99, 235, 0.12),
+      0 28px 56px rgba(15, 23, 42, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.66);
     transform: translateY(-4px);
+
+    [data-theme='dark'] & {
+      background:
+        linear-gradient(180deg, rgba(11, 20, 36, 0.99), rgba(8, 14, 27, 0.96)),
+        linear-gradient(145deg, rgba(96, 165, 250, 0.2), rgba(14, 165, 233, 0.1) 40%, rgba(2, 6, 23, 0) 66%);
+      border-color: rgba(147, 197, 253, 0.26);
+      box-shadow:
+        0 28px 54px rgba(2, 8, 23, 0.46),
+        0 14px 32px rgba(37, 99, 235, 0.14),
+        inset 0 1px 0 rgba(191, 219, 254, 0.12),
+        inset 0 -1px 0 rgba(15, 23, 42, 0.56);
+    }
   }
 
   @include mobile-only {
     &.view-grid {
       border-radius: var(--radius-sm);
       box-shadow:
-        0 1px 3px rgba(102, 126, 234, 0.08),
-        0 2px 8px rgba(102, 126, 234, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        0 10px 20px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.44);
+
+      [data-theme='dark'] & {
+        box-shadow:
+          0 14px 26px rgba(2, 8, 23, 0.3),
+          inset 0 1px 0 rgba(191, 219, 254, 0.06);
+      }
     }
   }
 }
