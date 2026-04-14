@@ -1,6 +1,277 @@
 {
-  "generatedAt": "2026-04-14T07:48:01.531Z",
+  "generatedAt": "2026-04-14T18:44:39.680Z",
   "series": "all",
-  "total": 0,
-  "tags": []
+  "total": 20,
+  "tags": [
+    {
+      "tag": "人像",
+      "score": 21,
+      "views": 21,
+      "downloads": 0,
+      "wallpaperCount": 7,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "3ecf8eacb83a4ecd9a00f59b29be7614.jpg",
+        "5b86ffa2e1a549728257bdfc8eb12ec3.jpg",
+        "2d2c4745bd9a43afb952191777732e35.jpg",
+        "4ef9c028809740999c3d29a57e2f8158.jpeg",
+        "20260406201611.jpeg"
+      ]
+    },
+    {
+      "tag": "清新",
+      "score": 19,
+      "views": 19,
+      "downloads": 0,
+      "wallpaperCount": 5,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "3ecf8eacb83a4ecd9a00f59b29be7614.jpg",
+        "5b86ffa2e1a549728257bdfc8eb12ec3.jpg",
+        "2d2c4745bd9a43afb952191777732e35.jpg",
+        "4ef9c028809740999c3d29a57e2f8158.jpeg",
+        "20260406201611.jpeg"
+      ]
+    },
+    {
+      "tag": "插画",
+      "score": 4,
+      "views": 4,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408163808.jpeg",
+        "微信图片_2026-03-27_140726_406.jpg"
+      ]
+    },
+    {
+      "tag": "初音未来",
+      "score": 3,
+      "views": 3,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408163808.jpeg"
+      ]
+    },
+    {
+      "tag": "动漫",
+      "score": 3,
+      "views": 3,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408163808.jpeg"
+      ]
+    },
+    {
+      "tag": "甜美",
+      "score": 3,
+      "views": 3,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408163808.jpeg"
+      ]
+    },
+    {
+      "tag": "蓝天",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260406201611.jpeg"
+      ]
+    },
+    {
+      "tag": "魅力",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408164632.jpeg",
+        "20260408170344.jpeg"
+      ]
+    },
+    {
+      "tag": "少女",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260406201611.jpeg"
+      ]
+    },
+    {
+      "tag": "阳光",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260406201611.jpeg"
+      ]
+    },
+    {
+      "tag": "黑丝",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408164632.jpeg"
+      ]
+    },
+    {
+      "tag": "时尚",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408170344.jpeg"
+      ]
+    },
+    {
+      "tag": "纹身",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408170344.jpeg"
+      ]
+    },
+    {
+      "tag": "乌萨奇",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "微信图片_2026-03-27_140726_406.jpg"
+      ]
+    },
+    {
+      "tag": "学生装",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408164632.jpeg"
+      ]
+    },
+    {
+      "tag": "夜景",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "微信图片_2026-03-27_140726_406.jpg"
+      ]
+    },
+    {
+      "tag": "长发",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408170344.jpeg"
+      ]
+    },
+    {
+      "tag": "IP形象",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "微信图片_2026-03-27_140726_406.jpg"
+      ]
+    },
+    {
+      "tag": "2026 04",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "bing"
+      ],
+      "topWallpapers": [
+        "bing-2026-04-11.jpg"
+      ]
+    },
+    {
+      "tag": "火山外衣",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "bing"
+      ],
+      "topWallpapers": [
+        "bing-2026-04-11.jpg"
+      ]
+    }
+  ]
 }
