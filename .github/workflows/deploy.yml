@@ -1,10 +1,9 @@
-name: Deploy to Cloudflare Pages
+name: Deploy to EdgeOne Pages
 
 on:
   push:
     branches: [main]
   schedule:
-    # 每天北京时间凌晨 02:00 自动运行一次 (UTC 18:00)
     - cron: '0 18 * * *'
   workflow_dispatch:
 
@@ -24,7 +23,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 1. 获取图床仓库最新的 CDN 版本号 (利用 GitHub 环境自带的 jq，速度极快)
       - name: Get latest CDN version
         id: cdn_version
         run: |
@@ -32,14 +30,12 @@ jobs:
           echo "version=$LATEST_TAG" >> $GITHUB_OUTPUT
           echo "✅ Got latest CDN version: $LATEST_TAG"
 
-      # 2. 修改 constants.js 中的版本号
       - name: Update CDN version in constants.js
         run: |
           CDN_VERSION="${{ steps.cdn_version.outputs.version }}"
           sed -i "s/export const CDN_VERSION = '[^']*'/export const CDN_VERSION = '$CDN_VERSION'/" src/utils/config/constants.js
           echo "📦 Updated constants.js to: $CDN_VERSION"
 
-      # 3. 克隆图床仓库数据 (利用 GitHub 内部网络，比 Cloudflare 脚本快得多)
       - name: Checkout nuanXinProPic (wallpaper source)
         uses: actions/checkout@v4
         with:
@@ -61,13 +57,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 4. 同步数据到 public 目录 (确保打包时能包含这些 JSON 数据)
       - name: Copy data from image repository
         run: |
           mkdir -p public/data
           if [ -d "nuanXinProPic/data" ]; then
             echo "📦 Copying data from nuanXinProPic/data..."
-            # 同步主系列
             for series in desktop mobile avatar; do
               if [ -d "nuanXinProPic/data/$series" ]; then
                 cp -r "nuanXinProPic/data/$series" public/data/
@@ -76,7 +70,6 @@ jobs:
                 cp "nuanXinProPic/data/$series.json" public/data/
               fi
             done
-            # 同步 Bing 数据
             if [ -d "nuanXinProPic/bing/meta" ]; then
               mkdir -p public/data/bing
               cp -r nuanXinProPic/bing/meta/* public/data/bing/
@@ -93,19 +86,15 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: pnpm sync:assets
 
-      # 5. 执行 Vite 打包构建并生成关键路由静态 HTML
       - name: Build
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: pnpm build:seo
 
-      # 6. 将构建产物推送到 Cloudflare Pages (核心步骤：解决 SEO 和 200 路由)
-      - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: wallpaper-gallery-prod # ⚠️ 请确保这与你的 Cloudflare Pages 项目名一致
-          directory: dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to EdgeOne Pages
+        run: |
+          npx edgeone pages deploy ./dist \
+            -n wallpaper \
+            -t ${{ secrets.EDGEONE_API_TOKEN }} \
+            -a overseas
