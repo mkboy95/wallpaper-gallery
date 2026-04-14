@@ -26,7 +26,7 @@ jobs:
       - name: Get latest CDN version
         id: cdn_version
         run: |
-          LATEST_TAG=$(curl -s "https://api.github.com/repos/IT-NuanxinPro/nuanXinProPic/tags" | jq -r '.[0].name // "v1.2.18"')
+          LATEST_TAG=$(curl -s "https://api.github.com/repos/mkboy95/nuanXinProPic/tags" | jq -r '.[0].name // "v1.2.18"')
           echo "version=$LATEST_TAG" >> $GITHUB_OUTPUT
           echo "✅ Got latest CDN version: $LATEST_TAG"
 
@@ -39,7 +39,7 @@ jobs:
       - name: Checkout nuanXinProPic (wallpaper source)
         uses: actions/checkout@v4
         with:
-          repository: IT-NuanxinPro/nuanXinProPic
+          repository: mkboy95/nuanXinProPic
           path: nuanXinProPic
           fetch-depth: 1
 

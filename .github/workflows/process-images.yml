@@ -1,0 +1,78 @@
+name: Process Images and Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'wallpaper/**'  # 只在壁纸目录有变更时触发
+  workflow_dispatch:  # 支持手动触发
+
+permissions:
+  contents: write  # 允许写入仓库内容
+
+jobs:
+  process-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 确保能获取完整历史
+
+      - name: Install dependencies
+        run: |
+          # 安装图片处理依赖（如 ImageMagick）
+          sudo apt-get update
+          sudo apt-get install -y imagemagick webp
+
+      - name: Make scripts executable
+        run: |
+          # 给脚本添加执行权限
+          chmod +x ./scripts/*.sh
+
+      - name: Process new images
+        run: |
+          # 遍历壁纸目录，处理新上传的图片
+          for series in desktop mobile avatar; do
+            if [ -d "wallpaper/$series" ]; then
+              # 处理该系列的图片，使用 yes 命令自动回答确认
+              yes | ./scripts/batch-process.sh "wallpaper/$series" "$series" || true
+            fi
+          done
+
+      - name: Update timestamps
+        run: |
+          # 更新时间戳文件
+          if [ -f "./scripts/update-timestamps.sh" ]; then
+            ./scripts/update-timestamps.sh
+          fi
+
+      - name: Create release tag
+        id: create-tag
+        run: |
+          # 配置 Git 身份
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          # 生成版本标签
+          VERSION="v$(date +%Y.%m.%d.%H%M)"
+          git tag -a "$VERSION" -m "Release $VERSION"
+          git push origin "$VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Commit changes
+        run: |
+          # 配置 Git 身份
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          # 添加处理后的文件
+          git add .
+          
+          # 检查是否有变更
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Process images and update timestamps"
+            git push
+          fi
