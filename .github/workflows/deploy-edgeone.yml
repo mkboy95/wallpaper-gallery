@@ -1,0 +1,31 @@
+name: Deploy to EdgeOne Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm & build
+        run: |
+          npm install -g pnpm
+          pnpm install
+          pnpm build
+
+      # ✅ 官方正确命令：用 npx 直接调用，不会 404
+      - name: Deploy with Edgeone
+        run: |
+          npx edgeone pages deploy ./dist \
+            -n wallpaper \
+            -t ${{ secrets.EDGEONE_API_TOKEN }}\
+            -a overseas
