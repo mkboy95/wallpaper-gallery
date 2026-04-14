@@ -9,7 +9,7 @@ import { resolveWallpaperSeries } from '@/utils/wallpaper/identity'
 const _urlParts = {
   p: 'https://',
   h: 'cdn.jsdelivr.net',
-  g: '/gh/IT-NuanxinPro',
+  g: '/gh/mkboy95',
   r: `/nuanXinProPic@${CDN_VERSION}`,
 }
 
@@ -367,12 +367,12 @@ export async function downloadFile(url, filename) {
  */
 export function buildRawImageUrl(cdnUrl) {
   // 从 jsDelivr URL 提取路径
-  // 示例: https://cdn.jsdelivr.net/gh/IT-NuanxinPro/nuanXinProPic@v1.1.14/wallpaper/...
-  const match = cdnUrl.match(/\/gh\/IT-NuanxinPro\/nuanXinProPic@([^/]+)(\/.*)/)
+  // 示例: https://cdn.jsdelivr.net/gh/mkboy95/nuanXinProPic@v1.1.14/wallpaper/...
+  const match = cdnUrl.match(/\/gh\/(?:IT-NuanxinPro|mkboy95)\/nuanXinProPic@([^/]+)(\/.*)/)
   if (match) {
     const version = match[1]
     const path = match[2]
-    return `https://raw.githubusercontent.com/IT-NuanxinPro/nuanXinProPic/${version}${path}`
+    return `https://raw.githubusercontent.com/mkboy95/nuanXinProPic/${version}${path}`
   }
   return cdnUrl
 }
