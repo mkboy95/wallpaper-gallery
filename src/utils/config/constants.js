@@ -95,13 +95,28 @@ export const SERIES_CONFIG = {
     // Bing 仅 PC 端显示
     pcOnly: true,
   },
+  '360': {
+    id: '360',
+    name: '360壁纸',
+    icon: 'image',
+    imageBaseUrl: `${CDN_BASE}/wallpaper/360`,
+    thumbnailBaseUrl: `${CDN_BASE}/thumbnail/360`,
+    // 新架构：指向分类索引文件（带版本参数防缓存）
+    indexUrl: `${import.meta.env.BASE_URL}data/360/index.json${DATA_CACHE_BUSTER}`,
+    latestUrl: `${import.meta.env.BASE_URL}data/360/latest.json${DATA_CACHE_BUSTER}`,
+    // 向后兼容：保留旧的 dataUrl（如需回退）
+    dataUrl: `${import.meta.env.BASE_URL}data/360.json${DATA_CACHE_BUSTER}`,
+    // 分类数据目录（动态拼接时需手动添加版本参数）
+    categoryBaseUrl: `${import.meta.env.BASE_URL}data/360`,
+    aspectRatio: '16/9',
+  },
 }
 
 // 设备可见的系列（PC端显示所有系列，平板显示所有系列，移动端不显示 Bing）
 export const DEVICE_SERIES = {
-  desktop: ['desktop', 'bing', 'mobile', 'avatar'], // PC端可见所有系列
-  tablet: ['desktop', 'bing', 'mobile', 'avatar'], // 平板可见所有系列
-  mobile: ['mobile', 'avatar'], // 移动端只显示手机壁纸和头像（Bing 仅 PC 端）
+  desktop: ['desktop', 'bing', 'mobile', 'avatar', '360'], // PC端可见所有系列
+  tablet: ['desktop', 'bing', 'mobile', 'avatar', '360'], // 平板可见所有系列
+  mobile: ['mobile', 'avatar', '360'], // 移动端显示手机壁纸、头像和360壁纸
 }
 
 // 默认系列（根据设备类型）
@@ -112,7 +127,7 @@ export const DEFAULT_SERIES = {
 }
 
 // 所有系列ID列表
-export const ALL_SERIES = ['desktop', 'bing', 'mobile', 'avatar']
+export const ALL_SERIES = ['desktop', 'bing', 'mobile', 'avatar', '360']
 
 // ========================================
 // 图片代理服务配置（备用方案，如本地缩略图不可用时使用）

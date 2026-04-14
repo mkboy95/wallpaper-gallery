@@ -74,6 +74,19 @@ const routes = [
       aspectType: 'square',
     },
   },
+  // 360壁纸
+  {
+    path: '/360',
+    name: '360',
+    component: () => import('@/views/Home.vue'),
+    meta: {
+      title: '360壁纸_高清360桌面壁纸下载 - Wallpaper Gallery',
+      description: '精选360壁纸高清资源，涵盖各种分类，支持预览与免费下载。',
+      canonicalPath: '/360',
+      series: '360',
+      aspectType: 'landscape',
+    },
+  },
   // 关于页面
   {
     path: '/about',

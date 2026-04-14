@@ -349,7 +349,7 @@ watch(isMobile, () => {
         </div>
         <div class="brand-text">
           <h1 class="brand-title">
-            Wallpaper Gallery
+            超赞壁纸
           </h1>
           <span class="brand-subtitle">精选4k高清壁纸</span>
         </div>
@@ -456,7 +456,7 @@ watch(isMobile, () => {
         </router-link>
 
         <a
-          href="https://github.com/IT-NuanxinPro/wallpaper-gallery"
+          href="https://github.com/mkboy95/wallpaper-gallery"
           target="_blank"
           rel="noopener noreferrer"
           class="github-link"

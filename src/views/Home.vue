@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import AvatarMakerBanner from '@/components/avatar/AvatarMakerBanner.vue'
 import AvatarMakerModal from '@/components/avatar/AvatarMakerModal/index.vue'
@@ -60,8 +60,27 @@ const mobileNoticeContent = computed(() => {
 
 const usePortraitModal = computed(() => ['mobile', 'avatar'].includes(currentSeries.value))
 const hideFormatFilter = computed(() => SERIES_CONFIG[currentSeries.value]?.hideFormatFilter === true)
-const categoryOptions = computed(() => filterStore.createCategoryOptions(visibleWallpapers.value))
-const subcategoryOptions = computed(() => filterStore.createSubcategoryOptions(categoryOptions.value))
+// 对于360壁纸，直接从分类定义中创建分类选项，确保所有分类都显示
+const categoryOptions = computed(() => {
+  if (currentSeries.value === '360') {
+    const categories = seriesCategoryDefinitions.value
+    return [
+      { value: 'all', label: '全部分类' },
+      ...categories.map(category => ({
+        value: category.name, // 使用分类名称作为 value，与其他系列保持一致
+        label: category.name
+      }))
+    ]
+  }
+  return filterStore.createCategoryOptions(visibleWallpapers.value)
+})
+
+const subcategoryOptions = computed(() => {
+  if (currentSeries.value === '360') {
+    return [] // 360壁纸暂时不支持子分类
+  }
+  return filterStore.createSubcategoryOptions(categoryOptions.value)
+})
 const filteredWallpapers = computed(() => filterStore.getFilteredAndSorted(visibleWallpapers.value))
 const hotTagLookup = computed(() => {
   const categorySet = new Set()
@@ -334,6 +353,77 @@ function handleAvatarMakerClick() {
 function handleAvatarMakerClose() {
   isAvatarMakerOpen.value = false
 }
+
+// 360壁纸无限滚动加载
+let isLoadingMore360 = false
+let scrollRafId = null
+let current360Category = null
+let current360Page = 1
+
+function checkScrollForMore() {
+  scrollRafId = null
+  
+  if (isLoadingMore360 || wallpaperStore.isBackgroundLoading || currentSeries.value !== '360') {
+    return
+  }
+
+  const scrollTop = window.scrollY || document.documentElement.scrollTop
+  const windowHeight = window.innerHeight
+  const documentHeight = document.documentElement.scrollHeight
+
+  // 当距离底部还有300px时开始加载更多
+  if (scrollTop + windowHeight >= documentHeight - 300) {
+    loadMore360Wallpapers()
+  }
+}
+
+function handle360Scroll() {
+  if (scrollRafId) {
+    return
+  }
+  scrollRafId = requestAnimationFrame(checkScrollForMore)
+}
+
+async function loadMore360Wallpapers() {
+  if (isLoadingMore360) {
+    return
+  }
+  
+  isLoadingMore360 = true
+  try {
+    // 检查是否选择了具体分类
+    if (filterStore.categoryFilter !== 'all') {
+      // 加载具体分类的更多分页数据
+      await wallpaperStore.loadMore360CategoryPage(filterStore.categoryFilter, current360Page)
+      current360Page++
+    } else {
+      // 加载更多分类
+      await wallpaperStore.loadMore360Categories()
+    }
+  }
+  finally {
+    isLoadingMore360 = false
+  }
+}
+
+// 监听分类变化，重置分页
+watch(() => filterStore.categoryFilter, (newCategory) => {
+  if (currentSeries.value === '360') {
+    current360Category = newCategory
+    current360Page = 1
+  }
+})
+
+onMounted(() => {
+  window.addEventListener('scroll', handle360Scroll)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handle360Scroll)
+  if (scrollRafId) {
+    cancelAnimationFrame(scrollRafId)
+  }
+})
 </script>
 
 <template>

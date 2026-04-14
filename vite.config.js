@@ -95,6 +95,18 @@ export default defineConfig({
   server: {
     port: 5173,
     host: '0.0.0.0',
+    proxy: {
+      '/360-api': {
+        target: 'http://cdn.apc.360.cn',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/360-api/, ''),
+      },
+      '/360-wallpaper': {
+        target: 'http://wallpaper.apc.360.cn',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/360-wallpaper/, ''),
+      },
+    },
   },
   esbuild: {
     drop: ['console', 'debugger'],
