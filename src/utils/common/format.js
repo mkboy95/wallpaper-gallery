@@ -36,9 +36,9 @@ const GENERIC_WALLPAPER_NAME_PATTERNS = [
  * // 使用图片专属 tag (推荐)
  * buildImageUrl('/wallpaper/desktop/xxx.png', 'v1.0.5')
  */
-export function buildImageUrl(path, cdnTag) {
+export function buildImageUrl(path, _cdnTag) {
   const { p, h, g } = _urlParts
-  const tag = cdnTag || CDN_VERSION
+  const tag = CDN_VERSION
   const r = `/nuanXinProPic@${tag}`
   return `${p}${h}${g}${r}${path}`
 }
