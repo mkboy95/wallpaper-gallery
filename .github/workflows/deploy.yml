@@ -33,8 +33,12 @@ jobs:
       - name: Update CDN version in constants.js
         run: |
           CDN_VERSION="${{ steps.cdn_version.outputs.version }}"
+          # 更新 CDN 版本号
           sed -i "s/export const CDN_VERSION = '[^']*'/export const CDN_VERSION = '$CDN_VERSION'/" src/utils/config/constants.js
+          # 确保 GitHub 用户名是 mkboy95
+          sed -i "s/g: '\/gh\/[^']*'/g: '\/gh\/mkboy95'/" src/utils/config/constants.js
           echo "📦 Updated constants.js to: $CDN_VERSION"
+          echo "📦 Updated GitHub username to: mkboy95"
 
       - name: Checkout nuanXinProPic (wallpaper source)
         uses: actions/checkout@v4
