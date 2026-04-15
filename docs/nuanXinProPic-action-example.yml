@@ -1,0 +1,88 @@
+# 图床仓库的 GitHub Actions 配置示例
+# 此文件应放在 nuanXinProPic 仓库的 .github/workflows/ 目录下
+
+name: Process Wallpapers and Trigger Deployment
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 22 * * *'  # 每天 UTC 22:00（北京时间 6:00）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write  # 允许触发其他仓库的 workflows
+
+jobs:
+  process-and-trigger:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 1. 处理图片（根据实际情况调整）
+      - name: Process new wallpapers
+        run: |
+          echo "📷 处理新上传的壁纸..."
+          # 这里放置实际的图片处理脚本
+          # 例如：
+          # ./scripts/process-images.sh
+          echo "✅ 图片处理完成"
+
+      # 2. 生成数据文件
+      - name: Generate data files
+        run: |
+          echo "📦 生成数据文件..."
+          # 这里放置生成数据文件的脚本
+          # 例如：
+          # ./scripts/generate-data.js
+          echo "✅ 数据文件生成完成"
+
+      # 3. 创建新的 tag
+      - name: Create new tag
+        id: create_tag
+        run: |
+          # 生成时间戳格式的版本号
+          VERSION_TAG=$(date -u +"v%Y.%m.%d.%H%M")
+          echo "tag=$VERSION_TAG" >> $GITHUB_OUTPUT
+          echo "�标签: $VERSION_TAG"
+
+      - name: Push tag
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/${{ steps.create_tag.outputs.tag }}`,
+              sha: context.sha
+            })
+            console.log('✅ 标签推送成功')
+
+      # 4. 触发 wallpaper-gallery 部署
+      - name: Trigger wallpaper-gallery deployment
+        run: |
+          echo "📡 触发 wallpaper-gallery 部署..."
+          
+          # 使用 curl 直接调用 GitHub API
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/mkboy95/wallpaper-gallery/dispatches \
+            -d '{"event_type": "nuanXinProPic-updated", "client_payload": {"tag": "${{ steps.create_tag.outputs.tag }}"}}'
+          
+          echo "✅ 部署触发成功！"
+
+      - name: Summary
+        run: |
+          echo "🎉 图床处理完成并触发部署"
+          echo "📅 时间: $(date -u)"
+          echo "🏷️ 版本: ${{ steps.create_tag.outputs.tag }}"
+          echo "🚀 已触发 wallpaper-gallery 部署"

@@ -6,6 +6,8 @@ on:
   schedule:
     - cron: '0 18 * * *'
   workflow_dispatch:
+  repository_dispatch:
+    types: [nuanXinProPic-updated]
 
 permissions:
   contents: read
