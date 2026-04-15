@@ -1,44 +1,44 @@
 {
-  "generatedAt": "2026-04-14T18:44:39.608Z",
+  "generatedAt": "2026-04-15T18:41:33.054Z",
   "series": "mobile",
-  "total": 18,
+  "total": 21,
   "tags": [
     {
       "tag": "人像",
-      "score": 21,
-      "views": 21,
+      "score": 31,
+      "views": 31,
       "downloads": 0,
-      "wallpaperCount": 7,
+      "wallpaperCount": 8,
       "series": [
         "mobile"
       ],
       "topWallpapers": [
         {
+          "thumbnail": "/thumbnail/mobile/人像/清新/2d2c4745bd9a43afb952191777732e35.webp",
+          "cdnTag": "v1.0.1"
+        },
+        {
           "thumbnail": "/thumbnail/mobile/人像/清新/3ecf8eacb83a4ecd9a00f59b29be7614.webp",
           "cdnTag": "v1.0.1"
+        },
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
+          "cdnTag": "v1.2.59"
         },
         {
           "thumbnail": "/thumbnail/mobile/人像/清新/5b86ffa2e1a549728257bdfc8eb12ec3.webp",
           "cdnTag": "v1.0.1"
         },
         {
-          "thumbnail": "/thumbnail/mobile/人像/清新/2d2c4745bd9a43afb952191777732e35.webp",
-          "cdnTag": "v1.0.1"
-        },
-        {
           "thumbnail": "/thumbnail/mobile/人像/清新/4ef9c028809740999c3d29a57e2f8158.webp",
           "cdnTag": "v1.0.1"
-        },
-        {
-          "thumbnail": "/thumbnail/mobile/人像/清新/20260406201611.webp",
-          "cdnTag": "v1.2.47"
         }
       ]
     },
     {
       "tag": "清新",
-      "score": 19,
-      "views": 19,
+      "score": 23,
+      "views": 23,
       "downloads": 0,
       "wallpaperCount": 5,
       "series": [
@@ -46,15 +46,15 @@
       ],
       "topWallpapers": [
         {
+          "thumbnail": "/thumbnail/mobile/人像/清新/2d2c4745bd9a43afb952191777732e35.webp",
+          "cdnTag": "v1.0.1"
+        },
+        {
           "thumbnail": "/thumbnail/mobile/人像/清新/3ecf8eacb83a4ecd9a00f59b29be7614.webp",
           "cdnTag": "v1.0.1"
         },
         {
           "thumbnail": "/thumbnail/mobile/人像/清新/5b86ffa2e1a549728257bdfc8eb12ec3.webp",
-          "cdnTag": "v1.0.1"
-        },
-        {
-          "thumbnail": "/thumbnail/mobile/人像/清新/2d2c4745bd9a43afb952191777732e35.webp",
           "cdnTag": "v1.0.1"
         },
         {
@@ -68,11 +68,31 @@
       ]
     },
     {
-      "tag": "插画",
-      "score": 4,
-      "views": 4,
+      "tag": "魅力",
+      "score": 7,
+      "views": 7,
       "downloads": 0,
       "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
+          "cdnTag": "v1.2.59"
+        },
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
+      "tag": "插画",
+      "score": 5,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 3,
       "series": [
         "mobile"
       ],
@@ -82,8 +102,60 @@
           "cdnTag": "v1.2.59"
         },
         {
+          "thumbnail": "/thumbnail/mobile/人像/插画/20260408165518.webp",
+          "cdnTag": "v1.2.59"
+        },
+        {
           "thumbnail": "/thumbnail/mobile/IP形象/乌萨奇/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-03-27_140726_406.webp",
           "cdnTag": "v1.2.53"
+        }
+      ]
+    },
+    {
+      "tag": "时尚",
+      "score": 5,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
+      "tag": "纹身",
+      "score": 5,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
+      "tag": "长发",
+      "score": 5,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
+          "cdnTag": "v1.2.59"
         }
       ]
     },
@@ -136,6 +208,22 @@
       ]
     },
     {
+      "tag": "黑丝",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
       "tag": "蓝天",
       "score": 2,
       "views": 2,
@@ -148,26 +236,6 @@
         {
           "thumbnail": "/thumbnail/mobile/人像/清新/20260406201611.webp",
           "cdnTag": "v1.2.47"
-        }
-      ]
-    },
-    {
-      "tag": "魅力",
-      "score": 2,
-      "views": 2,
-      "downloads": 0,
-      "wallpaperCount": 2,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
-          "cdnTag": "v1.2.59"
-        },
-        {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
-          "cdnTag": "v1.2.59"
         }
       ]
     },
@@ -188,6 +256,22 @@
       ]
     },
     {
+      "tag": "学生装",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
       "tag": "阳光",
       "score": 2,
       "views": 2,
@@ -204,7 +288,7 @@
       ]
     },
     {
-      "tag": "黑丝",
+      "tag": "漫画风格",
       "score": 1,
       "views": 1,
       "downloads": 0,
@@ -214,13 +298,13 @@
       ],
       "topWallpapers": [
         {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
+          "thumbnail": "/thumbnail/mobile/人像/插画/20260408165518.webp",
           "cdnTag": "v1.2.59"
         }
       ]
     },
     {
-      "tag": "时尚",
+      "tag": "时尚女孩",
       "score": 1,
       "views": 1,
       "downloads": 0,
@@ -230,23 +314,7 @@
       ],
       "topWallpapers": [
         {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
-          "cdnTag": "v1.2.59"
-        }
-      ]
-    },
-    {
-      "tag": "纹身",
-      "score": 1,
-      "views": 1,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
+          "thumbnail": "/thumbnail/mobile/人像/插画/20260408165518.webp",
           "cdnTag": "v1.2.59"
         }
       ]
@@ -268,22 +336,6 @@
       ]
     },
     {
-      "tag": "学生装",
-      "score": 1,
-      "views": 1,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
-          "cdnTag": "v1.2.59"
-        }
-      ]
-    },
-    {
       "tag": "夜景",
       "score": 1,
       "views": 1,
@@ -300,7 +352,7 @@
       ]
     },
     {
-      "tag": "长发",
+      "tag": "自拍",
       "score": 1,
       "views": 1,
       "downloads": 0,
@@ -310,7 +362,7 @@
       ],
       "topWallpapers": [
         {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
+          "thumbnail": "/thumbnail/mobile/人像/插画/20260408165518.webp",
           "cdnTag": "v1.2.59"
         }
       ]
