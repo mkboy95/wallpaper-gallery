@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    {
+      "source": "/auth/callback",
+      "destination": "/",
+      "statusCode": 200
+    },
+    {
+      "source": "/login",
+      "destination": "/",
+      "statusCode": 200
+    },
+    {
+      "source": "/profile",
+      "destination": "/",
+      "statusCode": 200
+    }
+  ]
+}
