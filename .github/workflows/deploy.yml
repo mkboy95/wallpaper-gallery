@@ -103,5 +103,4 @@ jobs:
           npx edgeone pages deploy ./dist \
             -n wallpaper \
             -t ${{ secrets.EDGEONE_API_TOKEN }} \
-            -a overseas \
-            --functions ./edge-functions
+            -a overseas
