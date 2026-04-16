@@ -1,20 +1,9 @@
 {
-  "rewrites": [
-    {
-      "source": "/auth/callback",
-      "destination": "/"
-    },
-    {
-      "source": "/login",
-      "destination": "/"
-    },
-    {
-      "source": "/profile",
-      "destination": "/"
-    },
+  "redirects": [
     {
       "source": "/*",
-      "destination": "/"
+      "destination": "/",
+      "statusCode": 200
     }
   ]
 }
