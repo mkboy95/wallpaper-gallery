@@ -1,24 +1,22 @@
 {
-  "redirects": [
+  "headers": [
     {
       "source": "/assets/*",
-      "destination": "/assets/:splat",
-      "statusCode": 200
-    },
-    {
-      "source": "/src/*",
-      "destination": "/src/:splat",
-      "statusCode": 200
-    },
-    {
-      "source": "/favicon*",
-      "destination": "/favicon:splat",
-      "statusCode": 200
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "/*",
-      "destination": "/",
-      "statusCode": 200
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
     }
   ]
 }

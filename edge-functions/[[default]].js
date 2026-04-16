@@ -1,0 +1,414 @@
+export default function onRequest(context) {
+  const { request } = context
+  const url = new URL(request.url)
+  const pathname = url.pathname
+
+  const staticExtensions = [
+    '.js',
+    '.css',
+    '.png',
+    '.jpg',
+    '.jpeg',
+    '.gif',
+    '.webp',
+    '.ico',
+    '.svg',
+    '.json',
+    '.txt',
+    '.xml',
+    '.woff',
+    '.woff2',
+    '.ttf',
+    '.eot',
+    '.br',
+    '.gz',
+  ]
+
+  const isStaticResource = staticExtensions.some(ext =>
+    pathname.toLowerCase().endsWith(ext),
+  )
+
+  if (isStaticResource || pathname.startsWith('/assets/') || pathname.startsWith('/favicon') || pathname.startsWith('/lottie/')) {
+    return fetch(request)
+  }
+
+  if (pathname.startsWith('/api/')) {
+    return fetch(request)
+  }
+
+  const indexHtml = `<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- SEO 基础优化 -->
+    <meta
+      name="description"
+      content="Wallpaper Gallery 提供 4K 高清壁纸免费下载，涵盖电脑桌面壁纸、手机壁纸、动漫头像和每日 Bing 壁纸等分类，适配 Windows、Mac、iPhone 和 Android 设备，支持高清预览。"
+    />
+    <meta name="keywords" content="4K壁纸,高清壁纸,电脑壁纸,桌面壁纸,手机壁纸,动漫头像,免费壁纸下载,Bing壁纸" />
+    <meta name="author" content="Wallpaper Gallery" />
+    <meta name="theme-color" content="#6366f1" />
+
+    <meta name="msvalidate.01" content="F7BD40FE9A903E88D1BF4F71F8DDCAA3" />
+    <meta name="google-site-verification" content="googled18f1d057f89f650" />
+    <meta name="baidu-site-verification" content="codeva-0y9FGffGpu" />
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wallpaper.061129.xyz/" />
+    <meta property="og:title" content="4K高清壁纸下载_电脑桌面壁纸_手机壁纸 - Wallpaper Gallery" />
+    <meta
+      property="og:description"
+      content="Wallpaper Gallery 提供 4K 高清壁纸免费下载，涵盖电脑桌面壁纸、手机壁纸、动漫头像和每日 Bing 壁纸等分类。"
+    />
+    <meta property="og:image" content="https://wallpaper.061129.xyz/og-image.jpg" />
+    <meta property="og:site_name" content="Wallpaper Gallery" />
+    <meta property="og:locale" content="zh_CN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://wallpaper.061129.xyz/" />
+    <meta name="twitter:title" content="4K高清壁纸下载_电脑桌面壁纸_手机壁纸 - Wallpaper Gallery" />
+    <meta
+      name="twitter:description"
+      content="Wallpaper Gallery 提供 4K 高清壁纸免费下载，涵盖电脑桌面壁纸、手机壁纸、动漫头像和每日 Bing 壁纸等分类。"
+    />
+    <meta name="twitter:image" content="https://wallpaper.061129.xyz/twitter-card.jpg" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://wallpaper.061129.xyz/" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://wallpaper.061129.xyz/#website",
+            "url": "https://wallpaper.061129.xyz/",
+            "name": "Wallpaper Gallery",
+            "description": "提供 4K 高清壁纸免费下载，涵盖电脑桌面壁纸、手机壁纸、动漫头像和每日 Bing 壁纸",
+            "inLanguage": "zh-CN",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://wallpaper.061129.xyz/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://wallpaper.061129.xyz/#organization",
+            "name": "Wallpaper Gallery",
+            "url": "https://wallpaper.061129.xyz/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://wallpaper.061129.xyz/favicon.svg"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://wallpaper.061129.xyz/#breadcrumb",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://wallpaper.061129.xyz/" },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "电脑壁纸",
+                "item": "https://wallpaper.061129.xyz/desktop/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "手机壁纸",
+                "item": "https://wallpaper.061129.xyz/mobile/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "高清头像",
+                "item": "https://wallpaper.061129.xyz/avatar/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "name": "每日Bing壁纸",
+                "item": "https://wallpaper.061129.xyz/bing/"
+              }
+            ]
+          },
+          {
+            "@type": "ImageGallery",
+            "@id": "https://wallpaper.061129.xyz/#gallery",
+            "name": "4K高清壁纸下载",
+            "description": "精选4K高清壁纸，涵盖电脑桌面壁纸、手机壁纸、动漫头像等分类",
+            "url": "https://wallpaper.061129.xyz/",
+            "inLanguage": "zh-CN"
+          }
+        ]
+      }
+    </script>
+
+    <title>精选4k高清壁纸 - Wallpaper Gallery</title>
+
+    <!-- 关键 CSS 内联（首屏渲染优化） -->
+    <style>
+      :root {
+        --color-bg-primary: #f8f9fa;
+        --color-bg-secondary: #ffffff;
+        --color-bg-card: #ffffff;
+        --color-bg-hover: #f1f3f4;
+        --color-bg-modal: rgba(0, 0, 0, 0.6);
+        --color-text-primary: #1a1a2e;
+        --color-text-secondary: #6c757d;
+        --color-text-muted: #adb5bd;
+        --color-border: #e9ecef;
+        --color-accent: #6366f1;
+        --color-accent-hover: #4f46e5;
+        --color-success: #10b981;
+        --color-warning: #f59e0b;
+        --radius-sm: 6px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-xl: 24px;
+        --radius-full: 9999px;
+        --transition-fast: 150ms ease;
+        --transition-slow: 350ms ease;
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
+        --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.25);
+      }
+
+      [data-theme='dark'] {
+        --color-bg-primary: #0f0f1a;
+        --color-bg-secondary: #1a1a2e;
+        --color-bg-card: #1e1e32;
+        --color-bg-hover: #2a2a42;
+        --color-bg-modal: rgba(0, 0, 0, 0.8);
+        --color-text-primary: #f8f9fa;
+        --color-text-secondary: #a0a0b0;
+        --color-text-muted: #6c6c7c;
+        --color-border: #2a2a42;
+        --color-accent: #818cf8;
+        --color-accent-hover: #a5b4fc;
+      }
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: clip;
+        scrollbar-gutter: stable;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--color-text-primary);
+        background-color: var(--color-bg-primary);
+        transition: background-color var(--transition-slow), color var(--transition-slow);
+        min-height: 100vh;
+        overflow-x: clip;
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+
+      body.modal-open {
+        position: fixed;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      #app {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .seo-noscript {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 32px 20px;
+        color: var(--color-text-primary);
+      }
+
+      .seo-shell {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .seo-noscript h1 {
+        font-size: 28px;
+        margin-bottom: 12px;
+      }
+
+      .seo-noscript p {
+        color: var(--color-text-secondary);
+        margin-bottom: 16px;
+      }
+
+      .seo-noscript ul {
+        padding-left: 20px;
+      }
+
+      .seo-noscript li + li {
+        margin-top: 8px;
+      }
+
+      .seo-noscript a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+
+      .seo-noscript a:hover {
+        text-decoration: underline;
+      }
+
+      .skeleton-shimmer {
+        animation: shimmer 1.5s infinite;
+      }
+
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+    </style>
+
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link rel="dns-prefetch" href="https://unpkg.com" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://cn.bing.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cn.bing.com" />
+    <link rel="preconnect" href="https://wsrv.nl" crossorigin />
+    <link rel="dns-prefetch" href="https://wsrv.nl" />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3.5.24/dist/vue.esm-browser.prod.js",
+          "vue-router": "https://unpkg.com/vue-router@4.6.4/dist/vue-router.esm-browser.js",
+          "@vue/devtools-api": "https://unpkg.com/@vue/devtools-api@6.6.4/lib/esm/index.js",
+          "gsap": "https://unpkg.com/gsap@3.14.2/index.js"
+        }
+      }
+    </script>
+
+    <script>
+      ;(function () {
+        const THEME_MODES = { LIGHT: 'light', DARK: 'dark', SYSTEM: 'system', AUTO: 'auto' };
+        const THEMES = { LIGHT: 'light', DARK: 'dark' };
+
+        function getThemeByTime() {
+          const hour = new Date().getHours();
+          return hour >= 6 && hour < 18 ? THEMES.LIGHT : THEMES.DARK;
+        }
+
+        function getThemeBySystem() {
+          if (typeof window !== 'undefined' && window.matchMedia) {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEMES.DARK : THEMES.LIGHT;
+          }
+          return THEMES.LIGHT;
+        }
+
+        function computeTheme(mode) {
+          switch (mode) {
+            case THEME_MODES.LIGHT: return THEMES.LIGHT;
+            case THEME_MODES.DARK: return THEMES.DARK;
+            case THEME_MODES.SYSTEM: return getThemeBySystem();
+            case THEME_MODES.AUTO: return getThemeByTime();
+            default: return getThemeBySystem();
+          }
+        }
+
+        function applyTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+          document.documentElement.style.colorScheme = theme;
+          const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+          if (themeColorMeta) {
+            themeColorMeta.setAttribute('content', theme === THEMES.DARK ? '#0f0f1a' : '#6366f1');
+          }
+        }
+
+        let savedMode = null;
+        let legacyTheme = null;
+        try {
+          savedMode = localStorage.getItem('wallpaper-gallery-theme-mode');
+          legacyTheme = localStorage.getItem('wallpaper-gallery-theme');
+        } catch (e) {}
+
+        const themeMode = savedMode && Object.values(THEME_MODES).includes(savedMode)
+          ? savedMode
+          : legacyTheme && Object.values(THEMES).includes(legacyTheme)
+            ? legacyTheme
+            : THEME_MODES.SYSTEM;
+
+        const theme = computeTheme(themeMode);
+        applyTheme(theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <section class="seo-shell" aria-label="SEO 页面摘要">
+      <h1>Wallpaper Gallery - 4K 高清壁纸下载</h1>
+      <p>Wallpaper Gallery 提供电脑桌面壁纸、手机壁纸、动漫头像和每日 Bing 壁纸，支持多设备高清预览与下载。</p>
+      <nav aria-label="站点主分类">
+        <a href="/desktop">电脑桌面壁纸</a>
+        <a href="/mobile">手机壁纸</a>
+        <a href="/avatar">高清头像</a>
+        <a href="/bing">每日 Bing 壁纸</a>
+        <a href="/about">关于 Wallpaper Gallery</a>
+      </nav>
+    </section>
+    <div id="app"></div>
+    <noscript>
+      <div class="seo-noscript">
+        <h1>Wallpaper Gallery - 4K 高清壁纸下载</h1>
+        <p>Wallpaper Gallery 提供电脑桌面壁纸、手机壁纸、动漫头像和每日 Bing 壁纸，支持多设备高清预览与下载。</p>
+        <nav aria-label="站点导航">
+          <ul>
+            <li><a href="/desktop">电脑桌面壁纸</a></li>
+            <li><a href="/mobile">手机壁纸</a></li>
+            <li><a href="/avatar">高清头像</a></li>
+            <li><a href="/bing">每日 Bing 壁纸</a></li>
+            <li><a href="/about">关于 Wallpaper Gallery</a></li>
+          </ul>
+        </nav>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>`
+
+  return new Response(indexHtml, {
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'no-cache',
+    },
+    status: 200,
+  })
+}
