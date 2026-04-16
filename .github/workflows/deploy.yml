@@ -98,6 +98,12 @@ jobs:
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: pnpm build:seo
 
+      - name: Copy Edge Functions to dist
+        run: |
+          cp -r edge-functions dist/edge-functions
+          echo "✅ Edge Functions copied to dist/"
+          ls -la dist/edge-functions/
+
       - name: Deploy to EdgeOne Pages
         run: |
           npx edgeone pages deploy ./dist \
