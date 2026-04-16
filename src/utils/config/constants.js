@@ -95,20 +95,23 @@ export const SERIES_CONFIG = {
     // Bing 仅 PC 端显示
     pcOnly: true,
   },
-  '360': {
+  360: {
     id: '360',
     name: '360壁纸',
     icon: 'image',
     imageBaseUrl: `${CDN_BASE}/wallpaper/360`,
     thumbnailBaseUrl: `${CDN_BASE}/thumbnail/360`,
-    // 新架构：指向分类索引文件（带版本参数防缓存）
     indexUrl: `${import.meta.env.BASE_URL}data/360/index.json${DATA_CACHE_BUSTER}`,
     latestUrl: `${import.meta.env.BASE_URL}data/360/latest.json${DATA_CACHE_BUSTER}`,
-    // 向后兼容：保留旧的 dataUrl（如需回退）
     dataUrl: `${import.meta.env.BASE_URL}data/360.json${DATA_CACHE_BUSTER}`,
-    // 分类数据目录（动态拼接时需手动添加版本参数）
     categoryBaseUrl: `${import.meta.env.BASE_URL}data/360`,
     aspectRatio: '16/9',
+    apiBaseUrl: import.meta.env.DEV
+      ? '/360-api'
+      : 'http://cdn.apc.360.cn',
+    wallpaperApiBaseUrl: import.meta.env.DEV
+      ? '/360-wallpaper'
+      : 'http://wallpaper.apc.360.cn',
   },
 }
 

@@ -210,25 +210,25 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
       if (seriesId === '360') {
         // 从categoryFile中提取分类ID
         const categoryId = categoryFile.replace('.json', '')
-        
+
         // 调用360 API获取分类壁纸（使用代理）
-        const wallpapersUrl = `/360-wallpaper/index.php?c=WallPaper&a=getAppsByCategory&cid=${categoryId}&start=0&count=50&from=360chrome`
+        const wallpapersUrl = `${SERIES_CONFIG['360'].wallpaperApiBaseUrl}/index.php?c=WallPaper&a=getAppsByCategory&cid=${categoryId}&start=0&count=50&from=360chrome`
         const response = await fetchWithRetry(wallpapersUrl, {}, retryConfig)
         const data = await response.json()
-        
+
         // 验证数据格式
         if (!data.data || !Array.isArray(data.data)) {
           const err = new Error(`Invalid 360 category data format: ${categoryFile}`)
           errorType.value = 'format'
           throw err
         }
-        
+
         // 获取分类名称
         const indexData = seriesIndexCache.value[seriesId]
         const category = indexData?.categories?.find(c => c.id === categoryId) || { name: '360壁纸' }
-        
+
         // 转换数据格式
-        const wallpaperList = data.data.map((item, index) => {
+        const wallpaperList = data.data.map((item) => {
           // 提取合适的标题
           let title = '360壁纸'
           if (item.tag && typeof item.tag === 'string') {
@@ -240,7 +240,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
           if (item.title && typeof item.title === 'string' && item.title.trim()) {
             title = item.title
           }
-          
+
           return {
             id: `360-${item.id}`,
             filename: `360-${item.id}.jpg`,
@@ -250,7 +250,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
             downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
             thumbnailUrl: item.img_1600_900 || item.url,
             previewUrl: item.img_1600_900 || item.url,
-            title: title,
+            title,
             tag: item.tag,
             size: 0,
             format: 'JPG',
@@ -259,21 +259,21 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
               width: 1600,
               height: 900,
               label: '1600x900',
-              type: 'primary'
+              type: 'primary',
             },
             is360: true,
-            tags: item.tag ? item.tag.split(',').filter(Boolean) : []
+            tags: item.tag ? item.tag.split(',').filter(Boolean) : [],
           }
         })
-        
+
         // 按创建时间降序排序
         const transformedList = wallpaperList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        
+
         // 存入缓存（LRU 会自动淘汰旧数据）
         categoryCache.set(cacheKey, transformedList)
         return transformedList
       }
-      
+
       // 处理其他系列的分类加载
       const categoryUrl = `${seriesConfig.categoryBaseUrl}/${categoryFile}${DATA_CACHE_BUSTER}`
       const response = await fetchWithRetry(categoryUrl, {}, retryConfig)
@@ -344,20 +344,20 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
 
       try {
         // 先获取分类列表（使用代理）
-        const categoriesUrl = '/360-api/index.php?c=WallPaper&a=getAllCategoriesV2&from=360chrome'
+        const categoriesUrl = `${SERIES_CONFIG['360'].apiBaseUrl}/index.php?c=WallPaper&a=getAllCategoriesV2&from=360chrome`
         const categoriesResponse = await fetchWithRetry(categoriesUrl, {}, retryConfig)
         const categoriesData = await categoriesResponse.json()
 
         if (categoriesData.data && Array.isArray(categoriesData.data) && categoriesData.data.length > 0) {
           // 选择第一个分类获取最新壁纸（使用代理）
           const firstCategory = categoriesData.data[0]
-          const wallpapersUrl = `/360-wallpaper/index.php?c=WallPaper&a=getAppsByCategory&cid=${firstCategory.id}&start=0&count=50&from=360chrome`
+          const wallpapersUrl = `${SERIES_CONFIG['360'].wallpaperApiBaseUrl}/index.php?c=WallPaper&a=getAppsByCategory&cid=${firstCategory.id}&start=0&count=50&from=360chrome`
           const wallpapersResponse = await fetchWithRetry(wallpapersUrl, {}, retryConfig)
           const wallpapersData = await wallpapersResponse.json()
 
           if (wallpapersData.data && Array.isArray(wallpapersData.data)) {
             // 转换数据格式
-            const wallpaperList = wallpapersData.data.map((item, index) => {
+            const wallpaperList = wallpapersData.data.map((item) => {
               // 提取合适的标题
               let title = '360壁纸'
               if (item.tag && typeof item.tag === 'string') {
@@ -369,7 +369,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
               if (item.title && typeof item.title === 'string' && item.title.trim()) {
                 title = item.title
               }
-              
+
               return {
                 id: `360-${item.id}`,
                 filename: `360-${item.id}.jpg`,
@@ -379,7 +379,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
                 downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
                 thumbnailUrl: item.img_1600_900 || item.url,
                 previewUrl: item.img_1600_900 || item.url,
-                title: title,
+                title,
                 tag: item.tag,
                 size: 0,
                 format: 'JPG',
@@ -388,10 +388,10 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
                   width: 1600,
                   height: 900,
                   label: '1600x900',
-                  type: 'primary'
+                  type: 'primary',
                 },
                 is360: true,
-                tags: item.tag ? item.tag.split(',').filter(Boolean) : []
+                tags: item.tag ? item.tag.split(',').filter(Boolean) : [],
               }
             })
 
@@ -731,7 +731,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
 
     try {
       // 1. 先获取360壁纸的分类列表（使用代理）
-      const categoriesUrl = '/360-api/index.php?c=WallPaper&a=getAllCategoriesV2&from=360chrome'
+      const categoriesUrl = `${SERIES_CONFIG['360'].apiBaseUrl}/index.php?c=WallPaper&a=getAllCategoriesV2&from=360chrome`
       const categoriesResponse = await fetchWithRetry(categoriesUrl, {}, retryConfig)
       const categoriesData = await categoriesResponse.json()
 
@@ -742,21 +742,23 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
 
       // 2. 保存分类数据到索引缓存，调整分类排序
       let categories = categoriesData.data || []
-      
+
       // 调整分类排序：4K专区第一，美女模特第二，其他按原始顺序
       const sortedCategories = []
       const remainingCategories = []
-      
-      categories.forEach(cat => {
+
+      categories.forEach((cat) => {
         if (cat.name === '4K专区') {
           sortedCategories[0] = cat
-        } else if (cat.name === '美女模特') {
+        }
+        else if (cat.name === '美女模特') {
           sortedCategories[1] = cat
-        } else {
+        }
+        else {
           remainingCategories.push(cat)
         }
       })
-      
+
       // 填充空位置并添加剩余分类
       if (!sortedCategories[0]) {
         sortedCategories[0] = remainingCategories.shift()
@@ -764,11 +766,11 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
       if (!sortedCategories[1]) {
         sortedCategories[1] = remainingCategories.shift()
       }
-      
+
       // 添加剩余分类
       sortedCategories.push(...remainingCategories)
       categories = sortedCategories
-      
+
       seriesIndexCache.value[seriesId] = {
         generatedAt: new Date().toISOString(),
         series: seriesId,
@@ -778,67 +780,67 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
         categories: categories.map(cat => ({
           id: cat.id,
           name: cat.name,
-          file: `${cat.id}.json`
+          file: `${cat.id}.json`,
         })),
         schema: 2,
-        env: 'production'
+        env: 'production',
       }
 
       // 3. 加载前5个分类的壁纸数据，确保有足够的初始数据
       if (categories.length > 0) {
         const initialCategoriesCount = Math.min(5, categories.length) // 加载前5个分类
         const allWallpapers = []
-        
+
         for (let i = 0; i < initialCategoriesCount; i++) {
           const category = categories[i]
-          const wallpapersUrl = `/360-wallpaper/index.php?c=WallPaper&a=getAppsByCategory&cid=${category.id}&start=0&count=50&from=360chrome`
+          const wallpapersUrl = `${SERIES_CONFIG['360'].wallpaperApiBaseUrl}/index.php?c=WallPaper&a=getAppsByCategory&cid=${category.id}&start=0&count=50&from=360chrome`
           const wallpapersResponse = await fetchWithRetry(wallpapersUrl, {}, retryConfig)
           const wallpapersData = await wallpapersResponse.json()
 
           if (wallpapersData.data && Array.isArray(wallpapersData.data)) {
             // 转换数据格式
-        const transformedItems = wallpapersData.data.map((item, index) => {
-          // 提取合适的标题
-          let title = '360壁纸'
-          if (item.tag && typeof item.tag === 'string') {
-            const tags = item.tag.split(',').filter(Boolean)
-            if (tags.length > 0) {
-              title = tags[0] // 使用第一个标签作为标题
-            }
-          }
-          if (item.title && typeof item.title === 'string' && item.title.trim()) {
-            title = item.title
-          }
+            const transformedItems = wallpapersData.data.map((item, index) => {
+              // 提取合适的标题
+              let title = '360壁纸'
+              if (item.tag && typeof item.tag === 'string') {
+                const tags = item.tag.split(',').filter(Boolean)
+                if (tags.length > 0) {
+                  title = tags[0] // 使用第一个标签作为标题
+                }
+              }
+              if (item.title && typeof item.title === 'string' && item.title.trim()) {
+                title = item.title
+              }
 
-          // 生成稳定的创建时间，确保排序稳定
-          // 使用递减的时间戳，确保新加载的壁纸总是在列表的末尾
-          const baseTime = new Date().getTime()
-          const stableTime = new Date(baseTime - index * 1000)
+              // 生成稳定的创建时间，确保排序稳定
+              // 使用递减的时间戳，确保新加载的壁纸总是在列表的末尾
+              const baseTime = new Date().getTime()
+              const stableTime = new Date(baseTime - index * 1000)
 
-          return {
-            id: `360-${item.id}`,
-            filename: `360-${item.id}.jpg`,
-            category: category.name,
-            displayTitle: title,
-            url: item.img_1600_900 || item.url,
-            downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
-            thumbnailUrl: item.img_1600_900 || item.url,
-            previewUrl: item.img_1600_900 || item.url,
-            title: title,
-            tag: item.tag,
-            size: 0,
-            format: 'JPG',
-            createdAt: stableTime.toISOString(),
-            resolution: {
-              width: 1600,
-              height: 900,
-              label: '1600x900',
-              type: 'primary'
-            },
-            is360: true,
-            tags: item.tag ? item.tag.split(',').filter(Boolean) : []
-          }
-        })
+              return {
+                id: `360-${item.id}`,
+                filename: `360-${item.id}.jpg`,
+                category: category.name,
+                displayTitle: title,
+                url: item.img_1600_900 || item.url,
+                downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
+                thumbnailUrl: item.img_1600_900 || item.url,
+                previewUrl: item.img_1600_900 || item.url,
+                title,
+                tag: item.tag,
+                size: 0,
+                format: 'JPG',
+                createdAt: stableTime.toISOString(),
+                resolution: {
+                  width: 1600,
+                  height: 900,
+                  label: '1600x900',
+                  type: 'primary',
+                },
+                is360: true,
+                tags: item.tag ? item.tag.split(',').filter(Boolean) : [],
+              }
+            })
             allWallpapers.push(...transformedItems)
             // 标记已加载的分类
             loadedCategories.value.add(category.id.toString())
@@ -896,8 +898,8 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
     }
 
     // 找到下一个未加载的分类
-    const nextCategory = indexData.categories.find(cat => 
-      !loadedCategories.value.has(cat.id.toString())
+    const nextCategory = indexData.categories.find(cat =>
+      !loadedCategories.value.has(cat.id.toString()),
     )
 
     if (!nextCategory) {
@@ -906,9 +908,9 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
 
     try {
       isBackgroundLoading.value = true
-      
+
       // 加载下一个分类的数据
-      const wallpapersUrl = `/360-wallpaper/index.php?c=WallPaper&a=getAppsByCategory&cid=${nextCategory.id}&start=0&count=50&from=360chrome`
+      const wallpapersUrl = `${SERIES_CONFIG['360'].wallpaperApiBaseUrl}/index.php?c=WallPaper&a=getAppsByCategory&cid=${nextCategory.id}&start=0&count=50&from=360chrome`
       const wallpapersResponse = await fetchWithRetry(wallpapersUrl, {}, retryConfig)
       const wallpapersData = await wallpapersResponse.json()
 
@@ -919,7 +921,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
           const existingTimes = wallpapers.value.map(w => new Date(w.createdAt).getTime())
           earliestTime = Math.min(...existingTimes) - 1000 // 确保新壁纸的时间比所有现有壁纸早1秒
         }
-        
+
         // 转换数据格式
         const transformedItems = wallpapersData.data.map((item, index) => {
           // 提取合适的标题
@@ -947,7 +949,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
             downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
             thumbnailUrl: item.img_1600_900 || item.url,
             previewUrl: item.img_1600_900 || item.url,
-            title: title,
+            title,
             tag: item.tag,
             size: 0,
             format: 'JPG',
@@ -956,17 +958,17 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
               width: 1600,
               height: 900,
               label: '1600x900',
-              type: 'primary'
+              type: 'primary',
             },
             is360: true,
-            tags: item.tag ? item.tag.split(',').filter(Boolean) : []
+            tags: item.tag ? item.tag.split(',').filter(Boolean) : [],
           }
         })
 
         // 直接追加到现有壁纸列表的末尾
         // 这样可以确保之前加载的壁纸位置不变
         const updatedWallpapers = [...wallpapers.value, ...transformedItems]
-        
+
         // 替换壁纸列表
         wallpapers.value = updatedWallpapers
         initialLoadedCount.value = wallpapers.value.length
@@ -998,7 +1000,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
     if (seriesConfig?.isDaily) {
       return initBingSeries(seriesId, forceRefresh)
     }
-    
+
     // 检查是否为360壁纸系列
     if (seriesId === '360') {
       return init360Series(seriesId, forceRefresh)
@@ -1343,12 +1345,12 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
 
     try {
       isBackgroundLoading.value = true
-      
+
       // 计算起始位置（每页50条）
       const start = page * 50
-      
+
       // 加载更多数据
-      const wallpapersUrl = `/360-wallpaper/index.php?c=WallPaper&a=getAppsByCategory&cid=${category.id}&start=${start}&count=50&from=360chrome`
+      const wallpapersUrl = `${SERIES_CONFIG['360'].wallpaperApiBaseUrl}/index.php?c=WallPaper&a=getAppsByCategory&cid=${category.id}&start=${start}&count=50&from=360chrome`
       const wallpapersResponse = await fetchWithRetry(wallpapersUrl, {}, retryConfig)
       const wallpapersData = await wallpapersResponse.json()
 
@@ -1359,7 +1361,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
           const existingTimes = wallpapers.value.map(w => new Date(w.createdAt).getTime())
           earliestTime = Math.min(...existingTimes) - 1000 // 确保新壁纸的时间比所有现有壁纸早1秒
         }
-        
+
         // 转换数据格式
         const transformedItems = wallpapersData.data.map((item, index) => {
           // 提取合适的标题
@@ -1387,7 +1389,7 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
             downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
             thumbnailUrl: item.img_1600_900 || item.url,
             previewUrl: item.img_1600_900 || item.url,
-            title: title,
+            title,
             tag: item.tag,
             size: 0,
             format: 'JPG',
@@ -1396,25 +1398,25 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
               width: 1600,
               height: 900,
               label: '1600x900',
-              type: 'primary'
+              type: 'primary',
             },
             is360: true,
-            tags: item.tag ? item.tag.split(',').filter(Boolean) : []
+            tags: item.tag ? item.tag.split(',').filter(Boolean) : [],
           }
         })
 
         // 过滤出当前分类的壁纸
         const currentCategoryWallpapers = wallpapers.value.filter(w => w.category === categoryName)
-        
+
         // 直接追加到当前分类的壁纸列表
         // 由于我们已经确保新壁纸的时间戳比现有壁纸晚，所以不需要重新排序
         const newCategoryWallpapers = [...currentCategoryWallpapers, ...transformedItems]
-        
+
         // 替换整个壁纸列表，但保持其他分类的壁纸位置不变
         // 遍历原始壁纸列表，只替换当前分类的壁纸
         const updatedWallpapers = []
         let hasAddedCategory = false
-        
+
         for (const wallpaper of wallpapers.value) {
           if (wallpaper.category === categoryName) {
             // 第一次遇到当前分类时，添加所有新的分类壁纸
@@ -1423,17 +1425,18 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
               hasAddedCategory = true
             }
             // 跳过原始的分类壁纸，因为我们已经添加了更新后的版本
-          } else {
+          }
+          else {
             // 保留其他分类的壁纸
             updatedWallpapers.push(wallpaper)
           }
         }
-        
+
         // 如果原始列表中没有当前分类的壁纸（可能是第一次加载），直接添加到末尾
         if (!hasAddedCategory) {
           updatedWallpapers.push(...newCategoryWallpapers)
         }
-        
+
         // 替换壁纸列表
         wallpapers.value = updatedWallpapers
         initialLoadedCount.value = wallpapers.value.length
