@@ -6,6 +6,11 @@
       "statusCode": 200
     },
     {
+      "source": "/src/*",
+      "destination": "/src/:splat",
+      "statusCode": 200
+    },
+    {
       "source": "/favicon*",
       "destination": "/favicon:splat",
       "statusCode": 200
