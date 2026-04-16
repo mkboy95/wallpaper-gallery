@@ -1,30 +1,30 @@
 {
-  "generatedAt": "2026-04-15T18:41:33.129Z",
+  "generatedAt": "2026-04-16T18:44:07.761Z",
   "series": "all",
-  "total": 23,
+  "total": 30,
   "tags": [
     {
       "tag": "人像",
-      "score": 32,
-      "views": 32,
+      "score": 43,
+      "views": 43,
       "downloads": 0,
-      "wallpaperCount": 9,
+      "wallpaperCount": 12,
       "series": [
         "desktop",
         "mobile"
       ],
       "topWallpapers": [
-        "2d2c4745bd9a43afb952191777732e35.jpg",
         "3ecf8eacb83a4ecd9a00f59b29be7614.jpg",
+        "2d2c4745bd9a43afb952191777732e35.jpg",
         "20260408170344.jpeg",
-        "5b86ffa2e1a549728257bdfc8eb12ec3.jpg",
-        "4ef9c028809740999c3d29a57e2f8158.jpeg"
+        "4ef9c028809740999c3d29a57e2f8158.jpeg",
+        "5b86ffa2e1a549728257bdfc8eb12ec3.jpg"
       ]
     },
     {
       "tag": "清新",
-      "score": 24,
-      "views": 24,
+      "score": 27,
+      "views": 27,
       "downloads": 0,
       "wallpaperCount": 6,
       "series": [
@@ -32,19 +32,19 @@
         "mobile"
       ],
       "topWallpapers": [
-        "2d2c4745bd9a43afb952191777732e35.jpg",
         "3ecf8eacb83a4ecd9a00f59b29be7614.jpg",
-        "5b86ffa2e1a549728257bdfc8eb12ec3.jpg",
+        "2d2c4745bd9a43afb952191777732e35.jpg",
         "4ef9c028809740999c3d29a57e2f8158.jpeg",
+        "5b86ffa2e1a549728257bdfc8eb12ec3.jpg",
         "20260406201611.jpeg"
       ]
     },
     {
       "tag": "魅力",
-      "score": 8,
-      "views": 8,
+      "score": 12,
+      "views": 12,
       "downloads": 0,
-      "wallpaperCount": 3,
+      "wallpaperCount": 4,
       "series": [
         "desktop",
         "mobile"
@@ -52,13 +52,14 @@
       "topWallpapers": [
         "20260408170344.jpeg",
         "20260408164632.jpeg",
+        "城市景观-壁纸.png",
         "20260408171457.jpeg"
       ]
     },
     {
       "tag": "插画",
-      "score": 5,
-      "views": 5,
+      "score": 7,
+      "views": 7,
       "downloads": 0,
       "wallpaperCount": 3,
       "series": [
@@ -68,6 +69,20 @@
         "20260408163808.jpeg",
         "20260408165518.jpeg",
         "微信图片_2026-03-27_140726_406.jpg"
+      ]
+    },
+    {
+      "tag": "黑丝",
+      "score": 6,
+      "views": 6,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408164632.jpeg",
+        "城市景观-壁纸.png"
       ]
     },
     {
@@ -110,6 +125,33 @@
       ]
     },
     {
+      "tag": "甜美",
+      "score": 4,
+      "views": 4,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408163808.jpeg",
+        "image_这么多年珑妈依旧童颜Apink话..._0.png"
+      ]
+    },
+    {
+      "tag": "学生装",
+      "score": 4,
+      "views": 4,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408164632.jpeg"
+      ]
+    },
+    {
       "tag": "初音未来",
       "score": 3,
       "views": 3,
@@ -136,74 +178,9 @@
       ]
     },
     {
-      "tag": "甜美",
+      "tag": "蓝天",
       "score": 3,
       "views": 3,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260408163808.jpeg"
-      ]
-    },
-    {
-      "tag": "黑丝",
-      "score": 2,
-      "views": 2,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260408164632.jpeg"
-      ]
-    },
-    {
-      "tag": "蓝天",
-      "score": 2,
-      "views": 2,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260406201611.jpeg"
-      ]
-    },
-    {
-      "tag": "少女",
-      "score": 2,
-      "views": 2,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260406201611.jpeg"
-      ]
-    },
-    {
-      "tag": "学生装",
-      "score": 2,
-      "views": 2,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260408164632.jpeg"
-      ]
-    },
-    {
-      "tag": "阳光",
-      "score": 2,
-      "views": 2,
       "downloads": 0,
       "wallpaperCount": 1,
       "series": [
@@ -215,8 +192,8 @@
     },
     {
       "tag": "漫画风格",
-      "score": 1,
-      "views": 1,
+      "score": 3,
+      "views": 3,
       "downloads": 0,
       "wallpaperCount": 1,
       "series": [
@@ -227,7 +204,127 @@
       ]
     },
     {
+      "tag": "少女",
+      "score": 3,
+      "views": 3,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260406201611.jpeg"
+      ]
+    },
+    {
       "tag": "时尚女孩",
+      "score": 3,
+      "views": 3,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408165518.jpeg"
+      ]
+    },
+    {
+      "tag": "阳光",
+      "score": 3,
+      "views": 3,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260406201611.jpeg"
+      ]
+    },
+    {
+      "tag": "自拍",
+      "score": 3,
+      "views": 3,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408165518.jpeg"
+      ]
+    },
+    {
+      "tag": "城市风",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "城市景观-壁纸.png"
+      ]
+    },
+    {
+      "tag": "紧身衣",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "城市景观-壁纸.png"
+      ]
+    },
+    {
+      "tag": "朴初珑",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "朴初珑.jpg",
+        "image_这么多年珑妈依旧童颜Apink话..._0.png"
+      ]
+    },
+    {
+      "tag": "Apink",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "朴初珑.jpg",
+        "image_这么多年珑妈依旧童颜Apink话..._0.png"
+      ]
+    },
+    {
+      "tag": "Apink 朴初珑",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "朴初珑.jpg",
+        "image_这么多年珑妈依旧童颜Apink话..._0.png"
+      ]
+    },
+    {
+      "tag": "黑裙",
       "score": 1,
       "views": 1,
       "downloads": 0,
@@ -236,7 +333,7 @@
         "mobile"
       ],
       "topWallpapers": [
-        "20260408165518.jpeg"
+        "朴初珑.jpg"
       ]
     },
     {
@@ -253,6 +350,19 @@
       ]
     },
     {
+      "tag": "眼镜",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "image_这么多年珑妈依旧童颜Apink话..._0.png"
+      ]
+    },
+    {
       "tag": "夜景",
       "score": 1,
       "views": 1,
@@ -263,19 +373,6 @@
       ],
       "topWallpapers": [
         "微信图片_2026-03-27_140726_406.jpg"
-      ]
-    },
-    {
-      "tag": "自拍",
-      "score": 1,
-      "views": 1,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260408165518.jpeg"
       ]
     },
     {

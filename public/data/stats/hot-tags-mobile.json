@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-04-15T18:41:33.054Z",
+  "generatedAt": "2026-04-16T18:44:07.686Z",
   "series": "mobile",
-  "total": 21,
+  "total": 28,
   "tags": [
     {
       "tag": "人像",
-      "score": 31,
-      "views": 31,
+      "score": 42,
+      "views": 42,
       "downloads": 0,
-      "wallpaperCount": 8,
+      "wallpaperCount": 11,
       "series": [
         "mobile"
       ],
       "topWallpapers": [
         {
-          "thumbnail": "/thumbnail/mobile/人像/清新/2d2c4745bd9a43afb952191777732e35.webp",
+          "thumbnail": "/thumbnail/mobile/人像/清新/3ecf8eacb83a4ecd9a00f59b29be7614.webp",
           "cdnTag": "v1.0.1"
         },
         {
-          "thumbnail": "/thumbnail/mobile/人像/清新/3ecf8eacb83a4ecd9a00f59b29be7614.webp",
+          "thumbnail": "/thumbnail/mobile/人像/清新/2d2c4745bd9a43afb952191777732e35.webp",
           "cdnTag": "v1.0.1"
         },
         {
@@ -26,19 +26,19 @@
           "cdnTag": "v1.2.59"
         },
         {
-          "thumbnail": "/thumbnail/mobile/人像/清新/5b86ffa2e1a549728257bdfc8eb12ec3.webp",
+          "thumbnail": "/thumbnail/mobile/人像/清新/4ef9c028809740999c3d29a57e2f8158.webp",
           "cdnTag": "v1.0.1"
         },
         {
-          "thumbnail": "/thumbnail/mobile/人像/清新/4ef9c028809740999c3d29a57e2f8158.webp",
+          "thumbnail": "/thumbnail/mobile/人像/清新/5b86ffa2e1a549728257bdfc8eb12ec3.webp",
           "cdnTag": "v1.0.1"
         }
       ]
     },
     {
       "tag": "清新",
-      "score": 23,
-      "views": 23,
+      "score": 26,
+      "views": 26,
       "downloads": 0,
       "wallpaperCount": 5,
       "series": [
@@ -46,19 +46,19 @@
       ],
       "topWallpapers": [
         {
-          "thumbnail": "/thumbnail/mobile/人像/清新/2d2c4745bd9a43afb952191777732e35.webp",
-          "cdnTag": "v1.0.1"
-        },
-        {
           "thumbnail": "/thumbnail/mobile/人像/清新/3ecf8eacb83a4ecd9a00f59b29be7614.webp",
           "cdnTag": "v1.0.1"
         },
         {
-          "thumbnail": "/thumbnail/mobile/人像/清新/5b86ffa2e1a549728257bdfc8eb12ec3.webp",
+          "thumbnail": "/thumbnail/mobile/人像/清新/2d2c4745bd9a43afb952191777732e35.webp",
           "cdnTag": "v1.0.1"
         },
         {
           "thumbnail": "/thumbnail/mobile/人像/清新/4ef9c028809740999c3d29a57e2f8158.webp",
+          "cdnTag": "v1.0.1"
+        },
+        {
+          "thumbnail": "/thumbnail/mobile/人像/清新/5b86ffa2e1a549728257bdfc8eb12ec3.webp",
           "cdnTag": "v1.0.1"
         },
         {
@@ -69,10 +69,10 @@
     },
     {
       "tag": "魅力",
-      "score": 7,
-      "views": 7,
+      "score": 11,
+      "views": 11,
       "downloads": 0,
-      "wallpaperCount": 2,
+      "wallpaperCount": 3,
       "series": [
         "mobile"
       ],
@@ -84,13 +84,17 @@
         {
           "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
           "cdnTag": "v1.2.59"
+        },
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/%E5%9F%8E%E5%B8%82%E6%99%AF%E8%A7%82-%E5%A3%81%E7%BA%B8.webp",
+          "cdnTag": "v1.2.41"
         }
       ]
     },
     {
       "tag": "插画",
-      "score": 5,
-      "views": 5,
+      "score": 7,
+      "views": 7,
       "downloads": 0,
       "wallpaperCount": 3,
       "series": [
@@ -108,6 +112,26 @@
         {
           "thumbnail": "/thumbnail/mobile/IP形象/乌萨奇/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-03-27_140726_406.webp",
           "cdnTag": "v1.2.53"
+        }
+      ]
+    },
+    {
+      "tag": "黑丝",
+      "score": 6,
+      "views": 6,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
+          "cdnTag": "v1.2.59"
+        },
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/%E5%9F%8E%E5%B8%82%E6%99%AF%E8%A7%82-%E5%A3%81%E7%BA%B8.webp",
+          "cdnTag": "v1.2.41"
         }
       ]
     },
@@ -160,6 +184,42 @@
       ]
     },
     {
+      "tag": "甜美",
+      "score": 4,
+      "views": 4,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/插画/动漫/20260408163808.webp",
+          "cdnTag": "v1.2.59"
+        },
+        {
+          "thumbnail": "/thumbnail/mobile/人像/Apink&朴初珑/image_%E8%BF%99%E4%B9%88%E5%A4%9A%E5%B9%B4%E7%8F%91%E5%A6%88%E4%BE%9D%E6%97%A7%E7%AB%A5%E9%A2%9CApink%E8%AF%9D..._0.webp",
+          "cdnTag": "v1.2.48"
+        }
+      ]
+    },
+    {
+      "tag": "学生装",
+      "score": 4,
+      "views": 4,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
       "tag": "初音未来",
       "score": 3,
       "views": 3,
@@ -192,89 +252,9 @@
       ]
     },
     {
-      "tag": "甜美",
+      "tag": "蓝天",
       "score": 3,
       "views": 3,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/mobile/插画/动漫/20260408163808.webp",
-          "cdnTag": "v1.2.59"
-        }
-      ]
-    },
-    {
-      "tag": "黑丝",
-      "score": 2,
-      "views": 2,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
-          "cdnTag": "v1.2.59"
-        }
-      ]
-    },
-    {
-      "tag": "蓝天",
-      "score": 2,
-      "views": 2,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/mobile/人像/清新/20260406201611.webp",
-          "cdnTag": "v1.2.47"
-        }
-      ]
-    },
-    {
-      "tag": "少女",
-      "score": 2,
-      "views": 2,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/mobile/人像/清新/20260406201611.webp",
-          "cdnTag": "v1.2.47"
-        }
-      ]
-    },
-    {
-      "tag": "学生装",
-      "score": 2,
-      "views": 2,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408164632.webp",
-          "cdnTag": "v1.2.59"
-        }
-      ]
-    },
-    {
-      "tag": "阳光",
-      "score": 2,
-      "views": 2,
       "downloads": 0,
       "wallpaperCount": 1,
       "series": [
@@ -289,8 +269,8 @@
     },
     {
       "tag": "漫画风格",
-      "score": 1,
-      "views": 1,
+      "score": 3,
+      "views": 3,
       "downloads": 0,
       "wallpaperCount": 1,
       "series": [
@@ -304,9 +284,25 @@
       ]
     },
     {
+      "tag": "少女",
+      "score": 3,
+      "views": 3,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/清新/20260406201611.webp",
+          "cdnTag": "v1.2.47"
+        }
+      ]
+    },
+    {
       "tag": "时尚女孩",
-      "score": 1,
-      "views": 1,
+      "score": 3,
+      "views": 3,
       "downloads": 0,
       "wallpaperCount": 1,
       "series": [
@@ -316,6 +312,146 @@
         {
           "thumbnail": "/thumbnail/mobile/人像/插画/20260408165518.webp",
           "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
+      "tag": "阳光",
+      "score": 3,
+      "views": 3,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/清新/20260406201611.webp",
+          "cdnTag": "v1.2.47"
+        }
+      ]
+    },
+    {
+      "tag": "自拍",
+      "score": 3,
+      "views": 3,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/插画/20260408165518.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
+      "tag": "城市风",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/%E5%9F%8E%E5%B8%82%E6%99%AF%E8%A7%82-%E5%A3%81%E7%BA%B8.webp",
+          "cdnTag": "v1.2.41"
+        }
+      ]
+    },
+    {
+      "tag": "紧身衣",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/%E5%9F%8E%E5%B8%82%E6%99%AF%E8%A7%82-%E5%A3%81%E7%BA%B8.webp",
+          "cdnTag": "v1.2.41"
+        }
+      ]
+    },
+    {
+      "tag": "朴初珑",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/Apink&朴初珑/%E6%9C%B4%E5%88%9D%E7%8F%91.webp",
+          "cdnTag": "v1.2.48"
+        },
+        {
+          "thumbnail": "/thumbnail/mobile/人像/Apink&朴初珑/image_%E8%BF%99%E4%B9%88%E5%A4%9A%E5%B9%B4%E7%8F%91%E5%A6%88%E4%BE%9D%E6%97%A7%E7%AB%A5%E9%A2%9CApink%E8%AF%9D..._0.webp",
+          "cdnTag": "v1.2.48"
+        }
+      ]
+    },
+    {
+      "tag": "Apink",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/Apink&朴初珑/%E6%9C%B4%E5%88%9D%E7%8F%91.webp",
+          "cdnTag": "v1.2.48"
+        },
+        {
+          "thumbnail": "/thumbnail/mobile/人像/Apink&朴初珑/image_%E8%BF%99%E4%B9%88%E5%A4%9A%E5%B9%B4%E7%8F%91%E5%A6%88%E4%BE%9D%E6%97%A7%E7%AB%A5%E9%A2%9CApink%E8%AF%9D..._0.webp",
+          "cdnTag": "v1.2.48"
+        }
+      ]
+    },
+    {
+      "tag": "Apink 朴初珑",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/Apink&朴初珑/%E6%9C%B4%E5%88%9D%E7%8F%91.webp",
+          "cdnTag": "v1.2.48"
+        },
+        {
+          "thumbnail": "/thumbnail/mobile/人像/Apink&朴初珑/image_%E8%BF%99%E4%B9%88%E5%A4%9A%E5%B9%B4%E7%8F%91%E5%A6%88%E4%BE%9D%E6%97%A7%E7%AB%A5%E9%A2%9CApink%E8%AF%9D..._0.webp",
+          "cdnTag": "v1.2.48"
+        }
+      ]
+    },
+    {
+      "tag": "黑裙",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/Apink&朴初珑/%E6%9C%B4%E5%88%9D%E7%8F%91.webp",
+          "cdnTag": "v1.2.48"
         }
       ]
     },
@@ -336,6 +472,22 @@
       ]
     },
     {
+      "tag": "眼镜",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/Apink&朴初珑/image_%E8%BF%99%E4%B9%88%E5%A4%9A%E5%B9%B4%E7%8F%91%E5%A6%88%E4%BE%9D%E6%97%A7%E7%AB%A5%E9%A2%9CApink%E8%AF%9D..._0.webp",
+          "cdnTag": "v1.2.48"
+        }
+      ]
+    },
+    {
       "tag": "夜景",
       "score": 1,
       "views": 1,
@@ -348,22 +500,6 @@
         {
           "thumbnail": "/thumbnail/mobile/IP形象/乌萨奇/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-03-27_140726_406.webp",
           "cdnTag": "v1.2.53"
-        }
-      ]
-    },
-    {
-      "tag": "自拍",
-      "score": 1,
-      "views": 1,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/mobile/人像/插画/20260408165518.webp",
-          "cdnTag": "v1.2.59"
         }
       ]
     },
