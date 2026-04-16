@@ -106,12 +106,8 @@ export const SERIES_CONFIG = {
     dataUrl: `${import.meta.env.BASE_URL}data/360.json${DATA_CACHE_BUSTER}`,
     categoryBaseUrl: `${import.meta.env.BASE_URL}data/360`,
     aspectRatio: '16/9',
-    apiBaseUrl: import.meta.env.DEV
-      ? '/360-api'
-      : 'http://cdn.apc.360.cn',
-    wallpaperApiBaseUrl: import.meta.env.DEV
-      ? '/360-wallpaper'
-      : 'http://wallpaper.apc.360.cn',
+    apiBaseUrl: '/360-api',
+    wallpaperApiBaseUrl: '/360-wallpaper',
   },
 }
 
