@@ -9,7 +9,6 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
-import compression from 'vite-plugin-compression'
 import { cdnPlugin } from './build/vite-plugin-cdn.js'
 import { obfuscatePlugin } from './build/vite-plugin-obfuscate.js'
 import { formatBuildTime, versionPlugin } from './build/vite-plugin-version.js'
@@ -43,12 +42,13 @@ export default defineConfig({
       resolvers: [ElementPlusResolver({ importStyle: 'css' }), VantResolver()],
     }),
     // Brotli 压缩（压缩率更高，GitHub Pages 支持）
-    compression({
-      algorithm: 'brotliCompress',
-      ext: '.br',
-      threshold: 10240,
-      deleteOriginFile: false,
-    }),
+    // 暂时禁用压缩插件以避免路径问题
+    // compression({
+    //   algorithm: 'brotliCompress',
+    //   ext: '.br',
+    //   threshold: 10240,
+    //   deleteOriginFile: false,
+    // }),
     // 生产环境：对敏感文件进行混淆
     isProduction && obfuscatePlugin({
       include: [
@@ -99,12 +99,12 @@ export default defineConfig({
       '/360-api': {
         target: 'http://cdn.apc.360.cn',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/360-api/, ''),
+        rewrite: path => path.replace(/^\/360-api/, ''),
       },
       '/360-wallpaper': {
         target: 'http://wallpaper.apc.360.cn',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/360-wallpaper/, ''),
+        rewrite: path => path.replace(/^\/360-wallpaper/, ''),
       },
     },
   },
