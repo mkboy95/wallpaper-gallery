@@ -1,54 +1,112 @@
 {
-  "generatedAt": "2026-04-14T18:44:39.680Z",
+  "generatedAt": "2026-04-15T18:41:33.129Z",
   "series": "all",
-  "total": 20,
+  "total": 23,
   "tags": [
     {
       "tag": "人像",
-      "score": 21,
-      "views": 21,
+      "score": 32,
+      "views": 32,
       "downloads": 0,
-      "wallpaperCount": 7,
+      "wallpaperCount": 9,
       "series": [
+        "desktop",
         "mobile"
       ],
       "topWallpapers": [
-        "3ecf8eacb83a4ecd9a00f59b29be7614.jpg",
-        "5b86ffa2e1a549728257bdfc8eb12ec3.jpg",
         "2d2c4745bd9a43afb952191777732e35.jpg",
-        "4ef9c028809740999c3d29a57e2f8158.jpeg",
-        "20260406201611.jpeg"
+        "3ecf8eacb83a4ecd9a00f59b29be7614.jpg",
+        "20260408170344.jpeg",
+        "5b86ffa2e1a549728257bdfc8eb12ec3.jpg",
+        "4ef9c028809740999c3d29a57e2f8158.jpeg"
       ]
     },
     {
       "tag": "清新",
-      "score": 19,
-      "views": 19,
+      "score": 24,
+      "views": 24,
       "downloads": 0,
-      "wallpaperCount": 5,
+      "wallpaperCount": 6,
       "series": [
+        "desktop",
         "mobile"
       ],
       "topWallpapers": [
+        "2d2c4745bd9a43afb952191777732e35.jpg",
         "3ecf8eacb83a4ecd9a00f59b29be7614.jpg",
         "5b86ffa2e1a549728257bdfc8eb12ec3.jpg",
-        "2d2c4745bd9a43afb952191777732e35.jpg",
         "4ef9c028809740999c3d29a57e2f8158.jpeg",
         "20260406201611.jpeg"
       ]
     },
     {
-      "tag": "插画",
-      "score": 4,
-      "views": 4,
+      "tag": "魅力",
+      "score": 8,
+      "views": 8,
       "downloads": 0,
-      "wallpaperCount": 2,
+      "wallpaperCount": 3,
+      "series": [
+        "desktop",
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408170344.jpeg",
+        "20260408164632.jpeg",
+        "20260408171457.jpeg"
+      ]
+    },
+    {
+      "tag": "插画",
+      "score": 5,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 3,
       "series": [
         "mobile"
       ],
       "topWallpapers": [
         "20260408163808.jpeg",
+        "20260408165518.jpeg",
         "微信图片_2026-03-27_140726_406.jpg"
+      ]
+    },
+    {
+      "tag": "时尚",
+      "score": 5,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408170344.jpeg"
+      ]
+    },
+    {
+      "tag": "纹身",
+      "score": 5,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408170344.jpeg"
+      ]
+    },
+    {
+      "tag": "长发",
+      "score": 5,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408170344.jpeg"
       ]
     },
     {
@@ -91,6 +149,19 @@
       ]
     },
     {
+      "tag": "黑丝",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408164632.jpeg"
+      ]
+    },
+    {
       "tag": "蓝天",
       "score": 2,
       "views": 2,
@@ -101,20 +172,6 @@
       ],
       "topWallpapers": [
         "20260406201611.jpeg"
-      ]
-    },
-    {
-      "tag": "魅力",
-      "score": 2,
-      "views": 2,
-      "downloads": 0,
-      "wallpaperCount": 2,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260408164632.jpeg",
-        "20260408170344.jpeg"
       ]
     },
     {
@@ -131,6 +188,19 @@
       ]
     },
     {
+      "tag": "学生装",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408164632.jpeg"
+      ]
+    },
+    {
       "tag": "阳光",
       "score": 2,
       "views": 2,
@@ -144,7 +214,7 @@
       ]
     },
     {
-      "tag": "黑丝",
+      "tag": "漫画风格",
       "score": 1,
       "views": 1,
       "downloads": 0,
@@ -153,11 +223,11 @@
         "mobile"
       ],
       "topWallpapers": [
-        "20260408164632.jpeg"
+        "20260408165518.jpeg"
       ]
     },
     {
-      "tag": "时尚",
+      "tag": "时尚女孩",
       "score": 1,
       "views": 1,
       "downloads": 0,
@@ -166,20 +236,7 @@
         "mobile"
       ],
       "topWallpapers": [
-        "20260408170344.jpeg"
-      ]
-    },
-    {
-      "tag": "纹身",
-      "score": 1,
-      "views": 1,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260408170344.jpeg"
+        "20260408165518.jpeg"
       ]
     },
     {
@@ -196,19 +253,6 @@
       ]
     },
     {
-      "tag": "学生装",
-      "score": 1,
-      "views": 1,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260408164632.jpeg"
-      ]
-    },
-    {
       "tag": "夜景",
       "score": 1,
       "views": 1,
@@ -222,7 +266,7 @@
       ]
     },
     {
-      "tag": "长发",
+      "tag": "自拍",
       "score": 1,
       "views": 1,
       "downloads": 0,
@@ -231,7 +275,7 @@
         "mobile"
       ],
       "topWallpapers": [
-        "20260408170344.jpeg"
+        "20260408165518.jpeg"
       ]
     },
     {

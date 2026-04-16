@@ -1,17 +1,17 @@
 <div align="center">
-  <img src="https://wallpaper.061129.xyz/favicon.svg" width="120" height="120" alt="Wallpaper Gallery Logo" />
+  <img src="https://wall.202597.xyz/favicon.svg" width="120" height="120" alt="Wallpaper Gallery Logo" />
   <h1>Wallpaper Gallery</h1>
   <p>一个专注精选 4K 高清壁纸质感与浏览体验的壁纸项目，覆盖电脑、手机、头像与每日 Bing 壁纸场景</p>
 
   <p>
-    <a href="https://wallpaper.061129.xyz"><img src="https://img.shields.io/badge/Deployed_with-Cloudflare_Pages-f38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Pages"></a>
+    <a href="https://wall.202597.xyz"><img src="https://img.shields.io/badge/Deployed_with-Cloudflare_Pages-f38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Pages"></a>
     <img src="https://img.shields.io/badge/Vue-3.5-4fc08d?style=flat-square&logo=vue.js&logoColor=white" alt="Vue 3">
     <img src="https://img.shields.io/badge/Vite-7.0-646cff?style=flat-square&logo=vite&logoColor=white" alt="Vite 7">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
   </p>
   
   <p>
-    <a href="https://wallpaper.061129.xyz" target="_blank">🌐 访问体验站</a> | 
+    <a href="https://wall.202597.xyz" target="_blank">🌐 访问体验站</a> | 
     <a href="https://wallpaper-gallery-architecture.061129.xyz/" target="_blank">🏗️ 架构在线文档</a> |
     <a href="https://linux.do" target="_blank">🤝 鸣谢社区 LINUX DO</a> |
     <a href="#-特性">✨ 功能亮点</a> | 
