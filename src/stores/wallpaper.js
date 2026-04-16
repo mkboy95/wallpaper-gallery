@@ -62,6 +62,12 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
   // 请求版本号（用于防止竞态条件）
   let requestVersion = 0
 
+  function toHttps(url) {
+    if (!url || typeof url !== 'string')
+      return url
+    return url.replace(/^http:\/\//, 'https://')
+  }
+
   function compareWallpapers(a, b) {
     const dateDiff = new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
     if (dateDiff !== 0) {
@@ -246,10 +252,10 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
             filename: `360-${item.id}.jpg`,
             category: category.name,
             displayTitle: title,
-            url: item.img_1600_900 || item.url,
-            downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
-            thumbnailUrl: item.img_1600_900 || item.url,
-            previewUrl: item.img_1600_900 || item.url,
+            url: toHttps(item.img_1600_900 || item.url),
+            downloadUrl: toHttps(item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url),
+            thumbnailUrl: toHttps(item.img_1600_900 || item.url),
+            previewUrl: toHttps(item.img_1600_900 || item.url),
             title,
             tag: item.tag,
             size: 0,
@@ -375,10 +381,10 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
                 filename: `360-${item.id}.jpg`,
                 category: firstCategory.name,
                 displayTitle: title,
-                url: item.img_1600_900 || item.url,
-                downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
-                thumbnailUrl: item.img_1600_900 || item.url,
-                previewUrl: item.img_1600_900 || item.url,
+                url: toHttps(item.img_1600_900 || item.url),
+                downloadUrl: toHttps(item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url),
+                thumbnailUrl: toHttps(item.img_1600_900 || item.url),
+                previewUrl: toHttps(item.img_1600_900 || item.url),
                 title,
                 tag: item.tag,
                 size: 0,
@@ -822,10 +828,10 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
                 filename: `360-${item.id}.jpg`,
                 category: category.name,
                 displayTitle: title,
-                url: item.img_1600_900 || item.url,
-                downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
-                thumbnailUrl: item.img_1600_900 || item.url,
-                previewUrl: item.img_1600_900 || item.url,
+                url: toHttps(item.img_1600_900 || item.url),
+                downloadUrl: toHttps(item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url),
+                thumbnailUrl: toHttps(item.img_1600_900 || item.url),
+                previewUrl: toHttps(item.img_1600_900 || item.url),
                 title,
                 tag: item.tag,
                 size: 0,
@@ -945,10 +951,10 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
             filename: `360-${item.id}.jpg`,
             category: nextCategory.name,
             displayTitle: title,
-            url: item.img_1600_900 || item.url,
-            downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
-            thumbnailUrl: item.img_1600_900 || item.url,
-            previewUrl: item.img_1600_900 || item.url,
+            url: toHttps(item.img_1600_900 || item.url),
+            downloadUrl: toHttps(item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url),
+            thumbnailUrl: toHttps(item.img_1600_900 || item.url),
+            previewUrl: toHttps(item.img_1600_900 || item.url),
             title,
             tag: item.tag,
             size: 0,
@@ -1385,10 +1391,10 @@ export const useWallpaperStore = defineStore('wallpaper', () => {
             filename: `360-${item.id}.jpg`,
             category: category.name,
             displayTitle: title,
-            url: item.img_1600_900 || item.url,
-            downloadUrl: item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url,
-            thumbnailUrl: item.img_1600_900 || item.url,
-            previewUrl: item.img_1600_900 || item.url,
+            url: toHttps(item.img_1600_900 || item.url),
+            downloadUrl: toHttps(item.img_url || item.img_1920_1080 || item.img_1600_900 || item.url),
+            thumbnailUrl: toHttps(item.img_1600_900 || item.url),
+            previewUrl: toHttps(item.img_1600_900 || item.url),
             title,
             tag: item.tag,
             size: 0,
