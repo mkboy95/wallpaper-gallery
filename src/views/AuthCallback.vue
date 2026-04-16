@@ -61,7 +61,20 @@ async function finishAuthCallback() {
     return
   }
 
+  // 初始化 auth store
   await authStore.initialize()
+
+  // 等待 Supabase 处理 URL 中的认证参数
+  let retryCount = 0
+  const maxRetries = 5
+  const retryDelay = 1000
+
+  while (!authStore.isAuthenticated && retryCount < maxRetries) {
+    retryCount++
+    message.value = `正在处理认证信息... (${retryCount}/${maxRetries})`
+    await new Promise(resolve => setTimeout(resolve, retryDelay))
+    await authStore.refreshSession()
+  }
 
   if (!authStore.isAuthenticated) {
     state.value = 'error'
