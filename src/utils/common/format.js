@@ -382,6 +382,10 @@ export function buildProxyImageUrl(imageUrl, options = {}) {
     return ''
   }
 
+  if (imageUrl.includes('qhimg.com')) {
+    return imageUrl
+  }
+
   const targetUrl = buildRawImageUrl(imageUrl)
   const width = options.width || IMAGE_PROXY.THUMB_WIDTH
   const quality = options.quality || IMAGE_PROXY.THUMB_QUALITY
