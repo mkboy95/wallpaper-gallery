@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-04-18T18:03:14.200Z",
+  "generatedAt": "2026-04-19T18:02:59.798Z",
   "series": "all",
-  "total": 30,
+  "total": 37,
   "tags": [
     {
       "tag": "人像",
@@ -58,8 +58,8 @@
     },
     {
       "tag": "插画",
-      "score": 7,
-      "views": 7,
+      "score": 8,
+      "views": 8,
       "downloads": 0,
       "wallpaperCount": 3,
       "series": [
@@ -99,6 +99,20 @@
       ]
     },
     {
+      "tag": "甜美",
+      "score": 5,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408163808.jpeg",
+        "image_这么多年珑妈依旧童颜Apink话..._0.png"
+      ]
+    },
+    {
       "tag": "纹身",
       "score": 5,
       "views": 5,
@@ -125,17 +139,29 @@
       ]
     },
     {
-      "tag": "甜美",
+      "tag": "初音未来",
       "score": 4,
       "views": 4,
       "downloads": 0,
-      "wallpaperCount": 2,
+      "wallpaperCount": 1,
       "series": [
         "mobile"
       ],
       "topWallpapers": [
-        "20260408163808.jpeg",
-        "image_这么多年珑妈依旧童颜Apink话..._0.png"
+        "20260408163808.jpeg"
+      ]
+    },
+    {
+      "tag": "动漫",
+      "score": 4,
+      "views": 4,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408163808.jpeg"
       ]
     },
     {
@@ -149,32 +175,6 @@
       ],
       "topWallpapers": [
         "20260408164632.jpeg"
-      ]
-    },
-    {
-      "tag": "初音未来",
-      "score": 3,
-      "views": 3,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260408163808.jpeg"
-      ]
-    },
-    {
-      "tag": "动漫",
-      "score": 3,
-      "views": 3,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260408163808.jpeg"
       ]
     },
     {
@@ -324,6 +324,46 @@
       ]
     },
     {
+      "tag": "风景",
+      "score": 1,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 2,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "image_高级全面屏4k超清手机壁纸_景深..._10.png",
+        "地球日出星环宇宙奇观.png"
+      ]
+    },
+    {
+      "tag": "公路",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "image_高级全面屏4k超清手机壁纸_景深..._10.png"
+      ]
+    },
+    {
+      "tag": "海滨",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "image_高级全面屏4k超清手机壁纸_景深..._10.png"
+      ]
+    },
+    {
       "tag": "黑裙",
       "score": 1,
       "views": 1,
@@ -334,6 +374,19 @@
       ],
       "topWallpapers": [
         "朴初珑.jpg"
+      ]
+    },
+    {
+      "tag": "黄昏",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "image_高级全面屏4k超清手机壁纸_景深..._10.png"
       ]
     },
     {
@@ -376,6 +429,19 @@
       ]
     },
     {
+      "tag": "棕榈树",
+      "score": 1,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "image_高级全面屏4k超清手机壁纸_景深..._10.png"
+      ]
+    },
+    {
       "tag": "IP形象",
       "score": 1,
       "views": 1,
@@ -412,6 +478,32 @@
       ],
       "topWallpapers": [
         "bing-2026-04-11.jpg"
+      ]
+    },
+    {
+      "tag": "地球日出星环宇宙奇观",
+      "score": 0,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "地球日出星环宇宙奇观.png"
+      ]
+    },
+    {
+      "tag": "星空",
+      "score": 0,
+      "views": 1,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "地球日出星环宇宙奇观.png"
       ]
     }
   ]
