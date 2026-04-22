@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-04-21T18:39:33.343Z",
+  "generatedAt": "2026-04-22T18:38:54.635Z",
   "series": "mobile",
   "total": 35,
   "tags": [
     {
       "tag": "人像",
-      "score": 41,
+      "score": 39,
       "views": 42,
       "downloads": 0,
       "wallpaperCount": 11,
@@ -22,22 +22,22 @@
           "cdnTag": "v1.0.1"
         },
         {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
-          "cdnTag": "v1.2.59"
-        },
-        {
           "thumbnail": "/thumbnail/mobile/人像/清新/4ef9c028809740999c3d29a57e2f8158.webp",
           "cdnTag": "v1.0.1"
         },
         {
           "thumbnail": "/thumbnail/mobile/人像/清新/5b86ffa2e1a549728257bdfc8eb12ec3.webp",
           "cdnTag": "v1.0.1"
+        },
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
+          "cdnTag": "v1.2.59"
         }
       ]
     },
     {
       "tag": "清新",
-      "score": 25,
+      "score": 24,
       "views": 26,
       "downloads": 0,
       "wallpaperCount": 5,
@@ -69,7 +69,7 @@
     },
     {
       "tag": "魅力",
-      "score": 11,
+      "score": 10,
       "views": 11,
       "downloads": 0,
       "wallpaperCount": 3,
@@ -136,22 +136,6 @@
       ]
     },
     {
-      "tag": "时尚",
-      "score": 5,
-      "views": 5,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        {
-          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
-          "cdnTag": "v1.2.59"
-        }
-      ]
-    },
-    {
       "tag": "甜美",
       "score": 5,
       "views": 5,
@@ -172,8 +156,24 @@
       ]
     },
     {
+      "tag": "时尚",
+      "score": 4,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/mobile/人像/魅力/20260408170344.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
       "tag": "纹身",
-      "score": 5,
+      "score": 4,
       "views": 5,
       "downloads": 0,
       "wallpaperCount": 1,
@@ -189,7 +189,7 @@
     },
     {
       "tag": "长发",
-      "score": 5,
+      "score": 4,
       "views": 5,
       "downloads": 0,
       "wallpaperCount": 1,

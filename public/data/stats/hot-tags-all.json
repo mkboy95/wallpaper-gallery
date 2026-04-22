@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-04-21T18:39:33.417Z",
+  "generatedAt": "2026-04-22T18:38:54.710Z",
   "series": "all",
   "total": 37,
   "tags": [
     {
       "tag": "人像",
-      "score": 42,
+      "score": 40,
       "views": 43,
       "downloads": 0,
       "wallpaperCount": 12,
@@ -16,14 +16,14 @@
       "topWallpapers": [
         "3ecf8eacb83a4ecd9a00f59b29be7614.jpg",
         "2d2c4745bd9a43afb952191777732e35.jpg",
-        "20260408170344.jpeg",
         "4ef9c028809740999c3d29a57e2f8158.jpeg",
-        "5b86ffa2e1a549728257bdfc8eb12ec3.jpg"
+        "5b86ffa2e1a549728257bdfc8eb12ec3.jpg",
+        "20260408170344.jpeg"
       ]
     },
     {
       "tag": "清新",
-      "score": 26,
+      "score": 25,
       "views": 27,
       "downloads": 0,
       "wallpaperCount": 6,
@@ -41,7 +41,7 @@
     },
     {
       "tag": "魅力",
-      "score": 12,
+      "score": 11,
       "views": 12,
       "downloads": 0,
       "wallpaperCount": 4,
@@ -86,19 +86,6 @@
       ]
     },
     {
-      "tag": "时尚",
-      "score": 5,
-      "views": 5,
-      "downloads": 0,
-      "wallpaperCount": 1,
-      "series": [
-        "mobile"
-      ],
-      "topWallpapers": [
-        "20260408170344.jpeg"
-      ]
-    },
-    {
       "tag": "甜美",
       "score": 5,
       "views": 5,
@@ -113,8 +100,21 @@
       ]
     },
     {
+      "tag": "时尚",
+      "score": 4,
+      "views": 5,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "mobile"
+      ],
+      "topWallpapers": [
+        "20260408170344.jpeg"
+      ]
+    },
+    {
       "tag": "纹身",
-      "score": 5,
+      "score": 4,
       "views": 5,
       "downloads": 0,
       "wallpaperCount": 1,
@@ -127,7 +127,7 @@
     },
     {
       "tag": "长发",
-      "score": 5,
+      "score": 4,
       "views": 5,
       "downloads": 0,
       "wallpaperCount": 1,
