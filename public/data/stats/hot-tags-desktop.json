@@ -1,8 +1,72 @@
 {
-  "generatedAt": "2026-04-22T18:38:54.521Z",
+  "generatedAt": "2026-04-23T18:42:14.452Z",
   "series": "desktop",
-  "total": 3,
+  "total": 7,
   "tags": [
+    {
+      "tag": "插画",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "desktop"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/desktop/插画/创意/20260406201533.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
+      "tag": "创意",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "desktop"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/desktop/插画/创意/20260406201533.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
+      "tag": "梦幻",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "desktop"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/desktop/插画/创意/20260406201533.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
+    {
+      "tag": "樱花",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "desktop"
+      ],
+      "topWallpapers": [
+        {
+          "thumbnail": "/thumbnail/desktop/插画/创意/20260406201533.webp",
+          "cdnTag": "v1.2.59"
+        }
+      ]
+    },
     {
       "tag": "魅力",
       "score": 1,

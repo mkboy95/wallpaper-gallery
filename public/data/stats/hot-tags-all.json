@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-04-22T18:38:54.710Z",
+  "generatedAt": "2026-04-23T18:42:14.635Z",
   "series": "all",
-  "total": 37,
+  "total": 40,
   "tags": [
     {
       "tag": "人像",
@@ -58,16 +58,18 @@
     },
     {
       "tag": "插画",
-      "score": 8,
-      "views": 8,
+      "score": 10,
+      "views": 10,
       "downloads": 0,
-      "wallpaperCount": 3,
+      "wallpaperCount": 4,
       "series": [
+        "desktop",
         "mobile"
       ],
       "topWallpapers": [
         "20260408163808.jpeg",
         "20260408165518.jpeg",
+        "20260406201533.png",
         "微信图片_2026-03-27_140726_406.jpg"
       ]
     },
@@ -253,6 +255,45 @@
       ],
       "topWallpapers": [
         "20260408165518.jpeg"
+      ]
+    },
+    {
+      "tag": "创意",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "desktop"
+      ],
+      "topWallpapers": [
+        "20260406201533.png"
+      ]
+    },
+    {
+      "tag": "梦幻",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "desktop"
+      ],
+      "topWallpapers": [
+        "20260406201533.png"
+      ]
+    },
+    {
+      "tag": "樱花",
+      "score": 2,
+      "views": 2,
+      "downloads": 0,
+      "wallpaperCount": 1,
+      "series": [
+        "desktop"
+      ],
+      "topWallpapers": [
+        "20260406201533.png"
       ]
     },
     {
