@@ -102,19 +102,9 @@ jobs:
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: pnpm build:seo
 
-      # 6. 将构建产物推送到 Cloudflare Pages (核心步骤：解决 SEO 和 200 路由)
-      - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: wallpaper-gallery-prod
-          directory: dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: '3'
-
-      # 7. 从 Supabase 生成最新 CDN 数据并同步到 nuanXinProPic（让小程序 CDN 能读到最新数据）
+      # 6. 从 Supabase 生成最新 CDN 数据并同步到 nuanXinProPic（让小程序 CDN 能读到最新数据）
       - name: Generate CDN data from Supabase
+        if: always()
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -122,6 +112,7 @@ jobs:
         run: node scripts/generate-cdn-data.js
 
       - name: Sync data to nuanXinProPic and create tag
+        if: always()
         id: sync_data
         run: |
           cd nuanXinProPic
@@ -150,3 +141,15 @@ jobs:
             echo "ℹ️ No data changes to sync"
             echo "data_changed=false" >> $GITHUB_OUTPUT
           fi
+
+      # 7. 将构建产物推送到 Cloudflare Pages
+      - name: Publish to Cloudflare Pages
+        if: success()
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: wallpaper-gallery-prod
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: '3'
