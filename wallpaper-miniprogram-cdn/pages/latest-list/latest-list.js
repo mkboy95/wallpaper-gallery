@@ -61,34 +61,12 @@ Page({
     var that = this;
     that.setData({ loading: true });
 
-    api.getCategories().then(function(categories) {
-      if (!categories || categories.length === 0) {
+    api.getLatestWallpapers().then(function(wallpapers) {
+      if (!wallpapers || wallpapers.length === 0) {
         that.setData({ loading: false });
         return;
       }
-
-      var allWallpapers = [];
-      var loaded = 0;
-      var total = categories.length;
-
-      for (var i = 0; i < categories.length; i++) {
-        (function(cat) {
-          api.getWallpapers(cat.name).then(function(wps) {
-            for (var w = 0; w < wps.length; w++) {
-              allWallpapers.push(wps[w]);
-            }
-            loaded++;
-            if (loaded === total) {
-              that.processAndGroup(allWallpapers);
-            }
-          }).catch(function() {
-            loaded++;
-            if (loaded === total) {
-              that.processAndGroup(allWallpapers);
-            }
-          });
-        })(categories[i]);
-      }
+      that.processAndGroup(wallpapers);
     }).catch(function() {
       that.setData({ loading: false });
     });

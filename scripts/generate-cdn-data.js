@@ -15,7 +15,7 @@ const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const OUTPUT_DIR = process.env.CDN_DATA_DIR || path.resolve(__dirname, '../nuanXinProPic/data')
 
 const SERIES_LIST = ['mobile', 'desktop', 'avatar']
-const LATEST_LIMIT = 40
+const LATEST_LIMIT = 200
 
 async function fetchAllAssets(supabase) {
   const assets = []
