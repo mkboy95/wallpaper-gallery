@@ -1,6 +1,5 @@
 var wallpaperService = require("../../services/wallpaper");
 var api = require("../../utils/api");
-var config = require("../../utils/config");
 
 Page({
   data: {
