@@ -112,38 +112,39 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           wranglerVersion: '3'
 
-      # 7. 同步更新的数据回 nuanXinProPic 仓库（让小程序 CDN 能读到最新数据）
-      - name: Sync updated data back to nuanXinProPic
+      - name: Generate CDN data from Supabase
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          CDN_DATA_DIR: ${{ github.workspace }}/nuanXinProPic/data
+        run: node scripts/generate-cdn-data.js
+
+      - name: Sync data to nuanXinProPic and create tag
+        id: sync_data
         run: |
           cd nuanXinProPic
 
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          # 检查数据目录是否有变化
           if git diff --stat | grep -q "data/"; then
             echo "📤 Data changes detected, pushing to nuanXinProPic..."
             git add data/
-            git commit -m "sync: update wallpaper data from wallpaper-gallery"
+
+            CURRENT_TAG=$(curl -s "https://api.github.com/repos/mkmkgo/nuanXinProPic/tags" | jq -r '.[0].name // "v1.3.0"')
+            MAJOR=$(echo "$CURRENT_TAG" | cut -d. -f1 | tr -d 'v')
+            MINOR=$(echo "$CURRENT_TAG" | cut -d. -f2)
+            PATCH=$(echo "$CURRENT_TAG" | cut -d. -f3)
+            NEW_TAG="v${MAJOR}.${MINOR}.$((PATCH + 1))"
+
+            git commit -m "sync: update wallpaper data from Supabase"
             git push
-            echo "✅ Successfully synced data to nuanXinProPic"
+            git tag "$NEW_TAG"
+            git push origin "$NEW_TAG"
+            echo "data_changed=true" >> $GITHUB_OUTPUT
+            echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+            echo "✅ Successfully synced data to nuanXinProPic with tag $NEW_TAG"
           else
             echo "ℹ️ No data changes to sync"
+            echo "data_changed=false" >> $GITHUB_OUTPUT
           fi
-
-
-      # 8. 刷新 jsDelivr CDN 缓存（确保同步的数据立即生效，避免缓存延迟）
-      - name: Purge jsDelivr CDN cache
-        run: |
-          CDN_FILES=(
-            "gh/mkmkgo/nuanXinProPic@main/data/mobile/index.json"
-            "gh/mkmkgo/nuanXinProPic@main/data/mobile/latest.json"
-            "gh/mkmkgo/nuanXinProPic@main/data/stats/hot-mobile.json"
-            "gh/mkmkgo/nuanXinProPic@main/data/collections.json"
-          )
-          for file in "\${CDN_FILES[@]}"; do
-            echo "Purging CDN cache: https://purge.jsdelivr.net/\$file"
-            curl -s "https://purge.jsdelivr.net/\$file"
-            echo ""
-          done
-          echo "✅ CDN cache purged"
