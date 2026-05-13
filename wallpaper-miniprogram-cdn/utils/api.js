@@ -51,7 +51,8 @@ function encodePath(path) {
 
 function buildCdnUrl(path) {
   var domain = config.API_CONFIG.CDN_DOMAINS[0];
-  var url = "https://" + domain + config.API_CONFIG.CDN_REPO + "@latest/" + encodePath(path);
+  var cleanPath = encodePath(path).replace(/^\//, "");
+  var url = "https://" + domain + config.API_CONFIG.CDN_REPO + "@latest/" + cleanPath;
   return url;
 }
 
