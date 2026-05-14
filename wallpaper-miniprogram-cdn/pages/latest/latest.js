@@ -1,4 +1,5 @@
 var wallpaperService = require("../../services/wallpaper");
+var api = require("../../utils/api");
 
 Page({
   data: {
@@ -23,34 +24,96 @@ Page({
 
   loadLatestWallpapers: function() {
     var that = this;
-    that.setData({ loading: true });
+    that.setData({ loading: true, _phase1Wallpapers: [] });
+
     wallpaperService.fetchLatestWallpapers().then(function(wallpapers) {
-      var dateGroups = {};
-      for (var i = 0; i < wallpapers.length; i++) {
-        var wp = wallpapers[i];
-        var date = that.extractDateFromWallpaper(wp);
-        if (!dateGroups[date]) {
-          dateGroups[date] = [];
-        }
-        dateGroups[date].push(wp);
+      if (wallpapers && wallpapers.length > 0) {
+        that.setData({ _phase1Wallpapers: wallpapers.slice() });
+        that.groupByDate(wallpapers);
       }
-      var groups = [];
-      for (var key in dateGroups) {
-        groups.push({
-          date: key,
-          wallpapers: dateGroups[key],
-          count: dateGroups[key].length
-        });
-      }
-      groups.sort(function(a, b) {
-        return b.date.localeCompare(a.date);
-      });
-      that.setData({
-        dateGroups: groups,
-        loading: false
-      });
+      that.setData({ loading: false });
+      that.loadCategoriesInBackground();
     }).catch(function() {
       that.setData({ loading: false });
+      that.loadCategoriesInBackground();
+    });
+  },
+
+  loadCategoriesInBackground: function() {
+    var that = this;
+    api.getCategoryNames().then(function(names) {
+      if (!names || names.length === 0) return;
+
+      var phase2Wallpapers = [];
+      var loaded = 0;
+      var total = names.length;
+
+      for (var i = 0; i < names.length; i++) {
+        (function(catName) {
+          api.getWallpapers(catName).then(function(wps) {
+            for (var w = 0; w < wps.length; w++) {
+              phase2Wallpapers.push(wps[w]);
+            }
+            loaded++;
+            if (loaded === total) {
+              var phase1 = that.data._phase1Wallpapers || [];
+              var merged = phase1.concat(phase2Wallpapers);
+              that.groupByDate(merged);
+            }
+          }).catch(function() {
+            loaded++;
+            if (loaded === total) {
+              var phase1 = that.data._phase1Wallpapers || [];
+              var merged = phase1.concat(phase2Wallpapers);
+              if (merged.length > 0) {
+                that.groupByDate(merged);
+              }
+            }
+          });
+        })(names[i]);
+      }
+    });
+  },
+
+  groupByDate: function(allWallpapers) {
+    var that = this;
+    var processed = allWallpapers.map(wallpaperService.processWallpaper).filter(Boolean);
+
+    var seen = {};
+    var unique = [];
+    for (var i = 0; i < processed.length; i++) {
+      var key = processed[i].filename || processed[i].id || ("_" + i);
+      if (!seen[key]) {
+        seen[key] = true;
+        unique.push(processed[i]);
+      }
+    }
+
+    var dateGroups = {};
+    for (var j = 0; j < unique.length; j++) {
+      var wp = unique[j];
+      var date = that.extractDateFromWallpaper(wp);
+      if (!dateGroups[date]) {
+        dateGroups[date] = [];
+      }
+      dateGroups[date].push(wp);
+    }
+
+    var groups = [];
+    for (var k in dateGroups) {
+      groups.push({
+        date: k,
+        wallpapers: dateGroups[k],
+        count: dateGroups[k].length
+      });
+    }
+    groups.sort(function(a, b) {
+      return b.date.localeCompare(a.date);
+    });
+
+    that.setData({
+      dateGroups: groups,
+      loading: false
     });
   },
 
@@ -72,6 +135,15 @@ Page({
 
   onDateTap: function(e) {
     var date = e.currentTarget.dataset.date;
+    var groups = this.data.dateGroups;
+    var wallpapers = [];
+    for (var i = 0; i < groups.length; i++) {
+      if (groups[i].date === date) {
+        wallpapers = groups[i].wallpapers;
+        break;
+      }
+    }
+    getApp().globalData.dateWallpapers = wallpapers;
     wx.navigateTo({
       url: "/pages/date/date?date=" + encodeURIComponent(date)
     });

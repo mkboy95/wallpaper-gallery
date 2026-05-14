@@ -7,7 +7,8 @@ App({
   },
   globalData: {
     currentWallpaper: null,
-    selectedCategory: null
+    selectedCategory: null,
+    dateWallpapers: null
   },
   cleanExpiredCache: function() {
     try {

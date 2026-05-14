@@ -1,4 +1,5 @@
 var wallpaperService = require("../../services/wallpaper");
+var api = require("../../utils/api");
 
 Page({
   data: {
@@ -16,33 +17,97 @@ Page({
       this.setData({ date: date });
       wx.setNavigationBarTitle({ title: date });
     }
-    this.loadWallpapers();
+    var cached = getApp().globalData.dateWallpapers;
+    if (cached && cached.length > 0) {
+      getApp().globalData.dateWallpapers = null;
+      this.displayWallpapers(cached);
+    } else {
+      this.loadWallpapers();
+    }
+  },
+
+  displayWallpapers: function(wallpapers) {
+    var total = wallpapers.length;
+    var totalPages = Math.ceil(total / this.data.pageSize) || 1;
+    var start = (this.data.currentPage - 1) * this.data.pageSize;
+    var end = start + this.data.pageSize;
+    this.setData({
+      wallpapers: wallpapers.slice(start, end),
+      totalPages: totalPages,
+      loading: false
+    });
   },
 
   loadWallpapers: function() {
     var that = this;
     that.setData({ loading: true });
+
     wallpaperService.fetchLatestWallpapers().then(function(wallpapers) {
-      var filtered = [];
-      for (var i = 0; i < wallpapers.length; i++) {
-        var wp = wallpapers[i];
-        var wpDate = that.extractDateFromWallpaper(wp);
-        if (wpDate === that.data.date) {
-          filtered.push(wp);
-        }
+      var filtered = that.filterByDate(wallpapers);
+      if (filtered.length > 0) {
+        that.displayWallpapers(filtered);
+        return;
       }
-      var total = filtered.length;
-      var totalPages = Math.ceil(total / that.data.pageSize) || 1;
-      var start = (that.data.currentPage - 1) * that.data.pageSize;
-      var end = start + that.data.pageSize;
-      that.setData({
-        wallpapers: filtered.slice(start, end),
-        totalPages: totalPages,
-        loading: false
-      });
+      that.loadFromCategories();
+    }).catch(function() {
+      that.loadFromCategories();
+    });
+  },
+
+  loadFromCategories: function() {
+    var that = this;
+    api.getCategoryNames().then(function(names) {
+      if (!names || names.length === 0) {
+        that.setData({ loading: false });
+        return;
+      }
+
+      var allWallpapers = [];
+      var loaded = 0;
+      var total = names.length;
+
+      for (var i = 0; i < names.length; i++) {
+        (function(catName) {
+          api.getWallpapers(catName).then(function(wps) {
+            for (var w = 0; w < wps.length; w++) {
+              allWallpapers.push(wps[w]);
+            }
+            loaded++;
+            if (loaded === total) {
+              var processed = allWallpapers.map(wallpaperService.processWallpaper).filter(Boolean);
+              var filtered = that.filterByDate(processed);
+              that.displayWallpapers(filtered);
+            }
+          }).catch(function() {
+            loaded++;
+            if (loaded === total) {
+              var processed = allWallpapers.map(wallpaperService.processWallpaper).filter(Boolean);
+              var filtered = that.filterByDate(processed);
+              if (filtered.length > 0) {
+                that.displayWallpapers(filtered);
+              } else {
+                that.setData({ loading: false });
+              }
+            }
+          });
+        })(names[i]);
+      }
     }).catch(function() {
       that.setData({ loading: false });
     });
+  },
+
+  filterByDate: function(wallpapers) {
+    var that = this;
+    var filtered = [];
+    for (var i = 0; i < wallpapers.length; i++) {
+      var wp = wallpapers[i];
+      var wpDate = that.extractDateFromWallpaper(wp);
+      if (wpDate === that.data.date) {
+        filtered.push(wp);
+      }
+    }
+    return filtered;
   },
 
   extractDateFromWallpaper: function(wp) {
