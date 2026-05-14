@@ -59,10 +59,11 @@ Page({
 
   loadAllWallpapers: function() {
     var that = this;
-    that.setData({ loading: true });
+    that.setData({ loading: true, _phase1Wallpapers: [] });
 
     api.getLatestWallpapers().then(function(wallpapers) {
       if (wallpapers && wallpapers.length > 0) {
+        that.setData({ _phase1Wallpapers: wallpapers.slice() });
         that.processAndGroup(wallpapers);
       }
       that.setData({ loading: false });
@@ -78,7 +79,7 @@ Page({
     api.getCategoryNames().then(function(names) {
       if (!names || names.length === 0) return;
 
-      var allWallpapers = [];
+      var phase2Wallpapers = [];
       var loaded = 0;
       var total = names.length;
 
@@ -86,16 +87,22 @@ Page({
         (function(catName) {
           api.getWallpapers(catName).then(function(wps) {
             for (var w = 0; w < wps.length; w++) {
-              allWallpapers.push(wps[w]);
+              phase2Wallpapers.push(wps[w]);
             }
             loaded++;
             if (loaded === total) {
-              that.processAndGroup(allWallpapers);
+              var phase1 = that.data._phase1Wallpapers || [];
+              var merged = phase1.concat(phase2Wallpapers);
+              that.processAndGroup(merged);
             }
           }).catch(function() {
             loaded++;
-            if (loaded === total && allWallpapers.length > 0) {
-              that.processAndGroup(allWallpapers);
+            if (loaded === total) {
+              var phase1 = that.data._phase1Wallpapers || [];
+              var merged = phase1.concat(phase2Wallpapers);
+              if (merged.length > 0) {
+                that.processAndGroup(merged);
+              }
             }
           });
         })(names[i]);

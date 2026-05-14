@@ -28,6 +28,19 @@ Page({
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.getTabBar().setData({ selected: 1 });
     }
+    var selectedCategory = getApp().globalData.selectedCategory;
+    if (selectedCategory) {
+      getApp().globalData.selectedCategory = null;
+      this.setData({
+        selectedCategory: selectedCategory,
+        showCategories: false,
+        currentPage: 1,
+        wallpapers: [],
+        allWallpapers: [],
+        hasMore: true
+      });
+      this.loadWallpapers(selectedCategory);
+    }
   },
 
   loadCategories: function() {

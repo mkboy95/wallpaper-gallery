@@ -52,7 +52,9 @@ function encodePath(path) {
 function buildCdnUrl(path) {
   var domain = config.API_CONFIG.CDN_DOMAINS[0];
   var cleanPath = encodePath(path).replace(/^\//, "");
-  var url = "https://" + domain + config.API_CONFIG.CDN_REPO + "@latest/" + cleanPath;
+  var now = new Date();
+  var dateKey = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate();
+  var url = "https://" + domain + config.API_CONFIG.CDN_REPO + "@latest/" + cleanPath + "?v=" + dateKey;
   return url;
 }
 
@@ -126,9 +128,7 @@ function decodeResponse(data) {
 }
 
 function getHotStats() {
-  var domain = config.API_CONFIG.CDN_DOMAINS[0];
-  var url = "https://" + domain + "/gh/mkmkgo/nuanXinProPic@latest/data/stats/hot-mobile.json";
-  return request(url, 1).then(function(data) {
+  return request(buildCdnUrl("/data/stats/hot-mobile.json"), 1).then(function(data) {
     if (!data) return [];
     if (Array.isArray(data)) return data;
     return [];
@@ -238,9 +238,7 @@ function getDesktopWallpapersByCategory(category) {
 }
 
 function getCollections() {
-  var domain = config.API_CONFIG.CDN_DOMAINS[0];
-  var url = "https://" + domain + "/gh/mkmkgo/nuanXinProPic@latest/data/collections.json";
-  return request(url, 1).then(function(data) {
+  return request(buildCdnUrl("/data/collections.json"), 1).then(function(data) {
     if (!data) return [];
     if (data.collections && Array.isArray(data.collections)) return data.collections;
     if (Array.isArray(data)) return data;

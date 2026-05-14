@@ -28,6 +28,7 @@ export default antfu({
     '.husky/**',
     'auto-imports.d.ts',
     'components.d.ts',
+    'wallpaper-miniprogram-cdn',
   ],
   rules: {
     'no-console': 'off',

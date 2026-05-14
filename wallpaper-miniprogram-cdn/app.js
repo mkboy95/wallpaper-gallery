@@ -6,7 +6,8 @@ App({
     this.cleanExpiredCache();
   },
   globalData: {
-    currentWallpaper: null
+    currentWallpaper: null,
+    selectedCategory: null
   },
   cleanExpiredCache: function() {
     try {

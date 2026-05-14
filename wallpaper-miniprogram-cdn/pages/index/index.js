@@ -174,8 +174,9 @@ Page({
 
   navigateToCategory: function(e) {
     var name = e.currentTarget.dataset.name;
-    wx.navigateTo({
-      url: "/pages/category/category?name=" + encodeURIComponent(name)
+    getApp().globalData.selectedCategory = name;
+    wx.switchTab({
+      url: "/pages/category/category"
     });
   }
 });
