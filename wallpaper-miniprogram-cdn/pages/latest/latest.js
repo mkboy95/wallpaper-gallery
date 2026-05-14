@@ -4,15 +4,17 @@ var api = require("../../utils/api");
 Page({
   data: {
     dateGroups: [],
-    currentDate: "",
-    wallpapers: [],
-    currentPage: 1,
-    totalPages: 1,
-    pageSize: 28,
+    selectedDate: "",
+    selectedWallpapers: [],
     loading: true
   },
 
+  _wallpapersByDate: null,
+  _allProcessed: null,
+
   onLoad: function() {
+    this._wallpapersByDate = {};
+    this._allProcessed = {};
     this.loadLatestWallpapers();
   },
 
@@ -24,12 +26,16 @@ Page({
 
   loadLatestWallpapers: function() {
     var that = this;
-    that.setData({ loading: true, _phase1Wallpapers: [] });
+    that.setData({ loading: true });
 
     wallpaperService.fetchLatestWallpapers().then(function(wallpapers) {
       if (wallpapers && wallpapers.length > 0) {
-        that.setData({ _phase1Wallpapers: wallpapers.slice() });
-        that.groupByDate(wallpapers);
+        that.addToDateMap(wallpapers);
+        that.updateDateList();
+        var dates = that.data.dateGroups;
+        if (dates.length > 0) {
+          that.selectDate(dates[0].date);
+        }
       }
       that.setData({ loading: false });
       that.loadCategoriesInBackground();
@@ -44,30 +50,21 @@ Page({
     api.getCategoryNames().then(function(names) {
       if (!names || names.length === 0) return;
 
-      var phase2Wallpapers = [];
       var loaded = 0;
       var total = names.length;
 
       for (var i = 0; i < names.length; i++) {
         (function(catName) {
           api.getWallpapers(catName).then(function(wps) {
-            for (var w = 0; w < wps.length; w++) {
-              phase2Wallpapers.push(wps[w]);
-            }
+            var hadChange = that.addToDateMap(wps);
             loaded++;
-            if (loaded === total) {
-              var phase1 = that.data._phase1Wallpapers || [];
-              var merged = phase1.concat(phase2Wallpapers);
-              that.groupByDate(merged);
+            if (hadChange || loaded === total) {
+              that.updateDateList();
             }
           }).catch(function() {
             loaded++;
             if (loaded === total) {
-              var phase1 = that.data._phase1Wallpapers || [];
-              var merged = phase1.concat(phase2Wallpapers);
-              if (merged.length > 0) {
-                that.groupByDate(merged);
-              }
+              that.updateDateList();
             }
           });
         })(names[i]);
@@ -75,45 +72,58 @@ Page({
     });
   },
 
-  groupByDate: function(allWallpapers) {
+  addToDateMap: function(wallpapers) {
     var that = this;
-    var processed = allWallpapers.map(wallpaperService.processWallpaper).filter(Boolean);
+    var processed = wallpapers.map(wallpaperService.processWallpaper).filter(Boolean);
+    var hadNew = false;
 
-    var seen = {};
-    var unique = [];
     for (var i = 0; i < processed.length; i++) {
-      var key = processed[i].filename || processed[i].id || ("_" + i);
-      if (!seen[key]) {
-        seen[key] = true;
-        unique.push(processed[i]);
-      }
-    }
+      var wp = processed[i];
+      var key = wp.filename || wp.id;
+      if (!key || that._allProcessed[key]) continue;
+      that._allProcessed[key] = true;
+      hadNew = true;
 
-    var dateGroups = {};
-    for (var j = 0; j < unique.length; j++) {
-      var wp = unique[j];
       var date = that.extractDateFromWallpaper(wp);
-      if (!dateGroups[date]) {
-        dateGroups[date] = [];
+      if (!that._wallpapersByDate[date]) {
+        that._wallpapersByDate[date] = [];
       }
-      dateGroups[date].push(wp);
+      that._wallpapersByDate[date].push(wp);
     }
+    return hadNew;
+  },
 
+  updateDateList: function() {
+    var that = this;
     var groups = [];
-    for (var k in dateGroups) {
+    for (var date in that._wallpapersByDate) {
       groups.push({
-        date: k,
-        wallpapers: dateGroups[k],
-        count: dateGroups[k].length
+        date: date,
+        count: that._wallpapersByDate[date].length
       });
     }
     groups.sort(function(a, b) {
       return b.date.localeCompare(a.date);
     });
 
-    that.setData({
-      dateGroups: groups,
-      loading: false
+    var selectedDate = that.data.selectedDate;
+    if (!selectedDate && groups.length > 0) {
+      selectedDate = groups[0].date;
+    }
+
+    var updateData = { dateGroups: groups };
+    if (selectedDate !== that.data.selectedDate) {
+      updateData.selectedDate = selectedDate;
+      updateData.selectedWallpapers = that._wallpapersByDate[selectedDate] || [];
+    }
+    that.setData(updateData);
+  },
+
+  selectDate: function(date) {
+    var wallpapers = this._wallpapersByDate[date] || [];
+    this.setData({
+      selectedDate: date,
+      selectedWallpapers: wallpapers
     });
   },
 
@@ -135,37 +145,23 @@ Page({
 
   onDateTap: function(e) {
     var date = e.currentTarget.dataset.date;
-    var groups = this.data.dateGroups;
-    var wallpapers = [];
-    for (var i = 0; i < groups.length; i++) {
-      if (groups[i].date === date) {
-        wallpapers = groups[i].wallpapers;
-        break;
-      }
-    }
-    getApp().globalData.dateWallpapers = wallpapers;
-    wx.navigateTo({
-      url: "/pages/date/date?date=" + encodeURIComponent(date)
-    });
+    this.selectDate(date);
   },
 
   onImageError: function(e) {
     var wp = e.currentTarget.dataset.item;
     if (!wp) return;
-    var groups = this.data.dateGroups;
-    for (var g = 0; g < groups.length; g++) {
-      var wps = groups[g].wallpapers;
-      for (var w = 0; w < wps.length; w++) {
-        if (wps[w].id === wp.id) {
-          if (wps[w]._fallbackStep === undefined) {
-            wps[w]._fallbackStep = 1;
-            this.setData({ ["dateGroups[" + g + "].wallpapers[" + w + "].thumbnailUrl"]: wps[w].thumbnailCdnUrl || wps[w].thumbnailProxyUrl || "" });
-          } else if (wps[w]._fallbackStep === 1) {
-            wps[w]._fallbackStep = 2;
-            this.setData({ ["dateGroups[" + g + "].wallpapers[" + w + "].thumbnailUrl"]: wps[w].thumbnailProxyUrl || "" });
-          }
-          return;
+    var wallpapers = this.data.selectedWallpapers;
+    for (var w = 0; w < wallpapers.length; w++) {
+      if (wallpapers[w].id === wp.id) {
+        if (wallpapers[w]._fallbackStep === undefined) {
+          wallpapers[w]._fallbackStep = 1;
+          this.setData({ ["selectedWallpapers[" + w + "].thumbnailUrl"]: wallpapers[w].thumbnailCdnUrl || wallpapers[w].thumbnailProxyUrl || "" });
+        } else if (wallpapers[w]._fallbackStep === 1) {
+          wallpapers[w]._fallbackStep = 2;
+          this.setData({ ["selectedWallpapers[" + w + "].thumbnailUrl"]: wallpapers[w].thumbnailProxyUrl || "" });
         }
+        return;
       }
     }
   },

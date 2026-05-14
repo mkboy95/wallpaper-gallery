@@ -31,11 +31,16 @@
 }
 
 .date-box {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #333 0%, #444 100%);
   border-radius: 16rpx;
   padding: 16rpx 24rpx;
   text-align: center;
   min-width: 140rpx;
+  transition: all 0.2s ease;
+}
+
+.date-box-active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .date-text {
@@ -51,11 +56,7 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
-.date-group {
-  margin-bottom: 30rpx;
-}
-
-.date-group-header {
+.selected-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,13 +64,13 @@
   padding: 10rpx 0;
 }
 
-.date-group-title {
+.selected-date {
   font-size: 28rpx;
   font-weight: bold;
   color: #fff;
 }
 
-.date-group-count {
+.selected-count {
   font-size: 24rpx;
   color: #F2A65A;
 }
@@ -86,11 +87,22 @@
   box-sizing: border-box;
 }
 
-.wallpaper-image {
+.wallpaper-image-wrap {
+  position: relative;
   width: 100%;
-  height: 300rpx;
+  height: 0;
+  padding-bottom: 177%;
+  overflow: hidden;
   border-radius: 8rpx;
   background-color: #1a1c22;
+}
+
+.wallpaper-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .loading-box,
