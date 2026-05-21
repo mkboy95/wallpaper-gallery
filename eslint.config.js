@@ -29,6 +29,7 @@ export default antfu({
     'auto-imports.d.ts',
     'components.d.ts',
     'wallpaper-miniprogram-cdn',
+    'wallpaper-miniprogram',
   ],
   rules: {
     'no-console': 'off',

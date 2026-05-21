@@ -49,53 +49,71 @@ function encodePath(path) {
   return segments.join("/");
 }
 
-function buildCdnUrl(path) {
-  var domain = config.API_CONFIG.CDN_DOMAINS[0];
-  var cleanPath = encodePath(path).replace(/^\//, "");
+function buildDateKey() {
   var now = new Date();
-  var dateKey = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate();
-  var url = "https://" + domain + config.API_CONFIG.CDN_REPO + "@latest/" + cleanPath + "?v=" + dateKey;
-  return url;
+  var m = now.getMonth() + 1;
+  var d = now.getDate();
+  return "" + now.getFullYear() + (m < 10 ? "0" + m : "" + m) + (d < 10 ? "0" + d : "" + d);
 }
 
-function request(url, retries) {
+function buildCdnUrl(path, domainIndex) {
+  var idx = domainIndex || 0;
+  var domain = config.API_CONFIG.CDN_DOMAINS[idx] || config.API_CONFIG.CDN_DOMAINS[0];
+  var cleanPath = encodePath(path).replace(/^\//, "");
+  return "https://" + domain + config.API_CONFIG.CDN_REPO + "@latest/" + cleanPath + "?v=" + buildDateKey();
+}
+
+function buildAllUrls(path) {
+  var urls = [];
+  for (var i = 0; i < config.API_CONFIG.CDN_DOMAINS.length; i++) {
+    urls.push(buildCdnUrl(path, i));
+  }
+  return urls;
+}
+
+function request(path, retries) {
   var maxRetries = retries !== undefined ? retries : 2;
-  var cached = getCache(url);
+  var allUrls = buildAllUrls(path);
+  var cacheKey = allUrls[0];
+
+  var cached = getCache(cacheKey);
   if (cached !== null) {
     return Promise.resolve(cached);
   }
 
-  function attempt(remaining) {
+  function tryUrl(index, remaining) {
+    if (index >= allUrls.length) return Promise.resolve(null);
+    var currentUrl = allUrls[index];
     return new Promise(function(resolve) {
       wx.request({
-        url: url,
+        url: currentUrl,
         method: "GET",
         timeout: 15000,
         success: function(res) {
           if (res.statusCode === 200 && res.data) {
-            setCache(url, res.data);
+            setCache(cacheKey, res.data);
             resolve(res.data);
           } else if (remaining > 0) {
-            resolve(attempt(remaining - 1));
+            resolve(tryUrl(index, remaining - 1));
           } else {
-            resolve(null);
+            resolve(tryUrl(index + 1, maxRetries));
           }
         },
         fail: function(error) {
-          console.error("请求失败:", url, error);
+          console.error("请求失败:", currentUrl, error);
           if (remaining > 0) {
             setTimeout(function() {
-              resolve(attempt(remaining - 1));
-            }, 1000);
+              resolve(tryUrl(index, remaining - 1));
+            }, 500);
           } else {
-            resolve(null);
+            resolve(tryUrl(index + 1, maxRetries));
           }
         }
       });
     });
   }
 
-  return attempt(maxRetries);
+  return tryUrl(0, maxRetries);
 }
 
 function decodeResponse(data) {
@@ -128,7 +146,7 @@ function decodeResponse(data) {
 }
 
 function getHotStats() {
-  return request(buildCdnUrl("/data/stats/hot-mobile.json"), 1).then(function(data) {
+  return request("/data/stats/hot-mobile.json", 1).then(function(data) {
     if (!data) return [];
     if (Array.isArray(data)) return data;
     return [];
@@ -136,19 +154,19 @@ function getHotStats() {
 }
 
 function getLatestWallpapers() {
-  return request(buildCdnUrl("/data/mobile/latest.json")).then(decodeResponse);
+  return request("/data/mobile/latest.json").then(decodeResponse);
 }
 
 function getCategories() {
-  return request(buildCdnUrl("/data/mobile/index.json")).then(decodeResponse);
+  return request("/data/mobile/index.json").then(decodeResponse);
 }
 
 function getWallpapers(category) {
-  return request(buildCdnUrl("/data/mobile/" + encodeURIComponent(category) + ".json")).then(decodeResponse);
+  return request("/data/mobile/" + encodeURIComponent(category) + ".json").then(decodeResponse);
 }
 
 function getCategoryNames() {
-  return request(buildCdnUrl("/data/mobile/index.json"), 1).then(function(data) {
+  return request("/data/mobile/index.json", 1).then(function(data) {
     if (!data) return [];
     var categories = [];
     try {
@@ -195,7 +213,7 @@ function getWallpapersByIds(ids) {
       var batch = names.slice(index, index + batchSize);
       index += batchSize;
       var promises = batch.map(function(name) {
-        return request(buildCdnUrl("/data/mobile/" + encodeURIComponent(name) + ".json"), 1)
+        return request("/data/mobile/" + encodeURIComponent(name) + ".json", 1)
           .then(decodeResponse)
           .catch(function() { return []; });
       });
@@ -222,23 +240,23 @@ function getWallpapersByIds(ids) {
 }
 
 function getBingWallpapers() {
-  return request(buildCdnUrl("/data/bing/latest.json")).then(decodeResponse);
+  return request("/data/bing/latest.json").then(decodeResponse);
 }
 
 function getDesktopWallpapers() {
-  return request(buildCdnUrl("/data/desktop/latest.json")).then(decodeResponse);
+  return request("/data/desktop/latest.json").then(decodeResponse);
 }
 
 function getDesktopCategories() {
-  return request(buildCdnUrl("/data/desktop/index.json")).then(decodeResponse);
+  return request("/data/desktop/index.json").then(decodeResponse);
 }
 
 function getDesktopWallpapersByCategory(category) {
-  return request(buildCdnUrl("/data/desktop/" + encodeURIComponent(category) + ".json")).then(decodeResponse);
+  return request("/data/desktop/" + encodeURIComponent(category) + ".json").then(decodeResponse);
 }
 
 function getCollections() {
-  return request(buildCdnUrl("/data/collections.json"), 1).then(function(data) {
+  return request("/data/collections.json", 1).then(function(data) {
     if (!data) return [];
     if (data.collections && Array.isArray(data.collections)) return data.collections;
     if (Array.isArray(data)) return data;
@@ -256,7 +274,7 @@ function getCollectionWallpapers(items) {
   }
   var categories = Object.keys(categoryMap);
   var promises = categories.map(function(cat) {
-    return request(buildCdnUrl("/data/mobile/" + encodeURIComponent(cat) + ".json"), 1)
+    return request("/data/mobile/" + encodeURIComponent(cat) + ".json", 1)
       .then(decodeResponse)
       .catch(function() { return []; });
   });
